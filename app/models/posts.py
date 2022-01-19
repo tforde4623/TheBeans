@@ -14,4 +14,19 @@ class Post(db.Model):
     author = db.relationship('User', back_populates='posts')
 
     def to_dict(self):
-        return None
+        """ returns a dict of base post instance """
+        return {
+            'id': self.id,
+            'title': self.title,
+            'description': self.description,
+            'img_url': self.img_url,
+            'user_id': self.user_id,
+            'created_at': str(self.created_at),
+        }
+
+    def to_dict_with_owner(self):
+        """will return dictified post obj with owner also as a dict"""
+        return {
+            **self.to_dict(),
+            'author': self.author.to_dict()
+        }
