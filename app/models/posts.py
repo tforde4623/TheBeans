@@ -10,5 +10,5 @@ class Post(db.Model):
     img_url = db.Column(db.Text, nullable=False)
     user_id = db.Column(db.Integer, db.ForeignKey('users.id'), nullable=False)
     created_at = db.Column(db.DateTime, default=db.func.current_timestamp())
-    
+
     author = db.relationship('User', back_populates='posts')
