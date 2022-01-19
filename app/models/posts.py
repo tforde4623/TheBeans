@@ -12,3 +12,6 @@ class Post(db.Model):
     created_at = db.Column(db.DateTime, default=db.func.current_timestamp())
 
     author = db.relationship('User', back_populates='posts')
+
+    def to_dict(self):
+        return None
