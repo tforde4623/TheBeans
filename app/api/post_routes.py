@@ -1,14 +1,27 @@
 from flask import Blueprint, jsonify, request
-#from flask_login import login_required
+from flask_login import login_required
 from app.models import db, Post
+from app.forms import CreatePostForm
+from .upload_img  import upload_img
 
 post_routes = Blueprint('posts', __name__)
+
+
+def validation_errors_to_error_messages(validation_errors):
+    """
+    turns the WTForms validation errors into a simple list
+    """
+    errorMessages = []
+    for field in validation_errors:
+        for error in validation_errors[field]:
+            errorMessages.append(f'{field} : {error}')
+    return errorMessages
 
 
 # TODO uncomment the login_required for routes
 ## GET '/api/posts' ##
 @post_routes.route('/', methods=['get'])
-#@login_required
+@login_required
 def posts():
     """
     get all posts route (will include owner for display on posts)
@@ -39,15 +52,27 @@ def new_post():
     res -> {poststuff, owner: ownerstuff}
     should contain: { title..., description..., img_url..., user_id... }
     """
-    data = request.json
-    new_post = Post(title=data['title'],
-                    description=data['description'],
-                    img_url=data['img_url'],
-                    user_id=data['user_id'])
-    db.session.add(new_post)
-    db.session.commit()
-    
-    return jsonify(new_post.to_dict_with_owner())
+    form = CreatePostForm()
+    # take csrf token from cookie put into form for validation
+    form['csrf_token'].data = request.cookies['csrf_token']; # TODO: test this
+
+    if form.validate_on_submit():
+        data = request.json
+
+        # attempt to do a file upload (TODO: add validation on filetype)
+        upload_img(data['img_file'])
+
+        new_post = Post(title=data['title'],
+                        description=data['description'],
+                        # store aws url as imgUrl
+                        img_url=data['imgUrl'],
+                        user_id=data['userId'])
+        db.session.add(new_post)
+        db.session.commit()
+        return jsonify(new_post.to_dict_with_owner())
+
+    # if form submission fails
+    return {'errors', validation_errors_to_error_messages(form.errors)}, 401
 
 
 ## PUT '/api/posts/:postId' ##

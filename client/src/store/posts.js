@@ -11,22 +11,63 @@ export const getPosts = () => async dispatch => {
 
   if (posts.ok) {
     const data = await posts.json();
-    return dispatch(loadPosts(data));
+    dispatch(loadPosts(data));
   };
 };
+
+// add a post
+const ADD_POST = 'posts/add';
+
+const addPost = post => ({
+  type: ADD_POST,
+  post
+});
+
+export const createPost = post => async dispatch => {
+  const res = await fetch('/api/posts', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'multipart/form-data'
+    },
+    body: JSON.stringify({
+      title: post.title,
+      description: post.description,
+      imgUrl: post.imgUrl,
+      userId: post.userId, // you sure?
+      imgFile: post.imgFile
+    }),
+  });
+
+  if (res.ok) {
+    const data = await res.json();
+    dispatch(addPost(data));
+  }
+};
+
+// =============== actual reducer ================= //
 
 const initialState = { posts: {}, currPost: {} };
 
 const postReducer = (state = initialState, action) => {
-  let newState = { ...state }
+  const newState = {};
 
   switch (action.type) {
     case LOAD_ALL_POSTS:
+      newState.posts = {};
       action.posts.forEach(p => {
         newState.posts[p.id] = p;
       });
 
-      return { ...newState, ...state.currPost };
+      newState.currPost = state.currPost;
+      return newState;
+
+    case ADD_POST:
+      newState.posts = state.posts;
+      newState.posts[action.post.id] = action.post; 
+      newState.currPost = state.currPost;
+
+      return newState; // TODO: test this (re-rendering)
+
     default:
       return state;
   }

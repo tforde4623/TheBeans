@@ -1,0 +1,26 @@
+.card-container {
+  width: 70vw;
+  margin-bottom: 30px;
+  justify-content: center;
+  box-shadow: 0px 2px 3px 0px rgba(0, 0, 0, 0.09); 
+  border-radius: 20px;
+  padding: 20px;
+  background-color: #FFE8D6;
+}
+
+.card-headline-item {
+  display: inline-block;
+  padding: 5px;
+}
+
+.card-headline {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+}
+
+.main-feed-img {
+  /* these are the same (both vw) because we want 'responsive' square imgs */ 
+  width: 70vw;
+  height: 70vw;
+}
