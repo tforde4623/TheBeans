@@ -2,28 +2,18 @@
 import boto3
 import os
 
-s3 = boto3.client(
+s3 = boto3.resource(
     's3',
-    aws_access_key_id=os.environ.get('AWS_ACCESS_ID'),
-    aws_secret_access_key=os.environ.get('AWS_SECRET_KEY')
+    aws_access_key_id=os.environ.get('AWS_ID'),
+    aws_secret_access_key=os.environ.get('AWS_SECRET')
 )
 
-def upload_img(file, acl='public-read'):
-    # attempt upload
+bucket = s3.Bucket('bucketobeans');
+
+def upload_img(file, filename):
     try:
-        s3.upload_fileobj(
-            file,
-            os.environ.get('AWS_BUCKET_NAME'),
-            file.filename,
-            ExtraArgs = {
-                "ACL":acl,
-                # can change this to img once tested
-                "ContentType": file.content_type
-            }
-        )
-
-    except Exception as err:
-        print('debug aws upload err', err)
-        return err
-
-    return file.filename
+        url = bucket.Object(f'{filename}.jpg').put(Body=file)
+        print(url, 'hopefully url?')
+    except Exception as oopsies:
+        # TODO: return the err to be handled api/frontend gracefully 
+        print('err', oopsies)

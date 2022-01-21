@@ -23,24 +23,19 @@ const addPost = post => ({
   post
 });
 
-export const createPost = post => async dispatch => {
-  const res = await fetch('/api/posts', {
+export const createPost = imgData => async dispatch => {
+  const res = await fetch('/api/posts/', {
     method: 'POST',
-    headers: {
-      'Content-Type': 'multipart/form-data'
-    },
-    body: JSON.stringify({
-      title: post.title,
-      description: post.description,
-      imgUrl: post.imgUrl,
-      userId: post.userId, // you sure?
-      imgFile: post.imgFile
-    }),
+    body: imgData,
   });
 
+  const data = await res.json();
+
   if (res.ok) {
-    const data = await res.json();
     dispatch(addPost(data));
+    return data;
+  } else {
+    return data;
   }
 };
 

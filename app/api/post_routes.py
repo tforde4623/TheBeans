@@ -3,6 +3,7 @@ from flask_login import login_required
 from app.models import db, Post
 from app.forms import CreatePostForm
 from .upload_img  import upload_img
+import uuid
 
 post_routes = Blueprint('posts', __name__)
 
@@ -42,37 +43,43 @@ def post_by_id(id):
     post = Post.query.filter_by(id=id).one()
     return jsonify(post.to_dict_with_owner())
 
-
-## POST '/api/posts' ##
 @post_routes.route('/', methods=['post'])
-#@login_required
-def new_post():
+def create_post():
     """
-    add new post
-    res -> {poststuff, owner: ownerstuff}
-    should contain: { title..., description..., img_url..., user_id... }
+    this route will be used to handle uploading images
+    and storing them remotely
     """
     form = CreatePostForm()
-    # take csrf token from cookie put into form for validation
-    form['csrf_token'].data = request.cookies['csrf_token']; # TODO: test this
+    form['csrf_token'].data = request.cookies['csrf_token'];
+    form.data['title'] = request.form.get('title')
+    form.data['description'] = request.form.get('description')
 
-    if form.validate_on_submit():
-        data = request.json
 
-        # attempt to do a file upload (TODO: add validation on filetype)
-        upload_img(data['img_file'])
-
-        new_post = Post(title=data['title'],
-                        description=data['description'],
+    if form.validate_on_submit() and 'i' in request.files:
+        # generate uuid for filename
+        file_name = uuid.uuid4()
+        # save fields to db
+        new_post = Post(title=request.form.get('title'),
+                        description=request.form.get('description'),
                         # store aws url as imgUrl
-                        img_url=data['imgUrl'],
-                        user_id=data['userId'])
+                        img_url=f'https://bucketobeans.s3.us-east-2.amazonaws.com/{file_name}.jpg',
+                        user_id=request.form.get('user_id'))
         db.session.add(new_post)
         db.session.commit()
+
+        # upload photo to s3 bucket
+        data = request.files['i']
+        upload_img(data, file_name)
+
+        # on success return the new posts info as a dict
         return jsonify(new_post.to_dict_with_owner())
 
-    # if form submission fails
-    return {'errors', validation_errors_to_error_messages(form.errors)}, 401
+    err_msgs = validation_errors_to_error_messages(form.errors)
+
+    if 'i' not in request.files:
+        err_msgs.append('Image required.')
+
+    return jsonify({'errors': err_msgs}), 401
 
 
 ## PUT '/api/posts/:postId' ##
@@ -81,16 +88,27 @@ def new_post():
 def edit_post(id):
     """
     edit a post by id
-    expects { title..., description..., img_url...  ? }
+    expects { title..., description... }
+    image stays constant, can edit title or description
+    still validates input
     """
-    data = request.json
-    old_post = Post.query.filter_by(id=id).one()
-    old_post.title = data['title']
-    old_post.description = data['description']
-    old_post.img_url = data['img_url']
-    db.session.commit()
+    form = CreatePostForm()
 
-    return jsonify(old_post.to_dict_with_owner())
+    if form.validate_on_submit():
+        data = request.json
+        old_post = Post.query.filter_by(id=id).one()
+        old_post.title = data['title']
+        old_post.description = data['description']
+        db.session.commit()
+
+        return jsonify(old_post.to_dict_with_owner())
+
+    # we know errors are present if we get here
+    err_msgs = validation_errors_to_error_messages(form.errors)
+    return jsonify({'errors': err_msgs}), 401
+    
+
+
 
 
 ## DELETE '/api/posts/:postId' ##
