@@ -32,7 +32,12 @@ const EditForm = ({ post, setShow }) => {
         onChange={e => setDescription(e.target.value)}
       ></textarea>
       <button className='edit-form-btn'>Done</button>
-      <button className='edit-form-btn' onClick={() => setShow(false)}>Cancel</button>
+      <button 
+        className='edit-form-btn' 
+        onClick={() => setShow(false)}
+      >
+        Cancel
+      </button>
     </form>
   );
 };
