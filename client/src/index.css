@@ -3,9 +3,18 @@
   margin: 0;
   padding: 0;
   font-size: 1em;
+  font-family: 'Open Sans', sans-serif;
+  box-sizing: border-box;
+}
+
+html {
+  height: 100%;
+  background-color: #B7B7A4;
 }
 
 /* main body that is not the header or nav */
 .main-content {
-  margin-top: 100px;
+  margin-top: 61px;
+  padding-top: 10px;
+  height: 100%;
 }

@@ -14,7 +14,6 @@ def seed():
     seed_posts()
     # Add other seed functions here
 
-
 # Creates the `flask seed undo` command
 @seed_commands.command('undo')
 def undo():

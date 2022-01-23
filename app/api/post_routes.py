@@ -1,5 +1,6 @@
 from flask import Blueprint, jsonify, request
 from flask_login import login_required
+from sqlalchemy import desc
 from app.models import db, Post
 from app.forms import CreatePostForm
 from .upload_img  import upload_img
@@ -26,10 +27,11 @@ def validation_errors_to_error_messages(validation_errors):
 def posts():
     """
     get all posts route (will include owner for display on posts)
+    sort by 'newest'
     res -> [{poststuff, owner: ownerstuff}...]
     """
     posts = Post.query.all()
-    return jsonify([ post.to_dict_with_owner() for post in posts ])
+    return jsonify([post.to_dict_with_owner() for post in posts])
 
 
 ## GET '/api/posts/:postId' ##
@@ -93,6 +95,7 @@ def edit_post(id):
     still validates input
     """
     form = CreatePostForm()
+    form['csrf_token'].data = request.cookies['csrf_token'];
 
     if form.validate_on_submit():
         data = request.json

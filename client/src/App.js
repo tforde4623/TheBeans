@@ -10,6 +10,7 @@ import UsersList from './components/UsersList';
 import User from './components/User';
 import { authenticate } from './store/session';
 import HomeFeed from './components/HomeFeed';
+import UserPage from './components/UserPage';
 import './index.css';
 
 function App() {
@@ -50,6 +51,9 @@ function App() {
             </ProtectedRoute>
             <ProtectedRoute path='/posts/new'>
               <CreatePostForm />
+            </ProtectedRoute>
+            <ProtectedRoute path='/users/:userId/posts'>
+              <UserPage />
             </ProtectedRoute>
           </Switch>
         </div>

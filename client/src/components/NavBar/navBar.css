@@ -12,16 +12,19 @@
 }
 
 .nav-header {
-  font-family: Times New Roman;
-  font-size: 28px;
+  font-family: 'Mochiy Pop P One', sans-serif;
+  font-size: 24px;
+  margin-left: 10px;
 }
 
 .nav-section {
   display: flex;
+  color: black;
 }
 
 .nav-section i {
   margin: 15px;
+  color: black;
 }
 
 .nav-user-menu {

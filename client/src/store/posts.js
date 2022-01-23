@@ -39,29 +39,82 @@ export const createPost = imgData => async dispatch => {
   }
 };
 
+
+export const fetchUserPosts = userId => async dispatch => {
+  const res = await fetch(`/api/users/${userId}/posts`);
+  const data = await res.json();
+  if (res.ok) dispatch(loadPosts(data));
+  return data;
+};
+
+
+// edit a post
+const EDIT_POST = 'posts/edit';
+
+const editPost = post => ({
+  type: EDIT_POST,
+  post
+});
+
+export const putPost = post => async dispatch => {
+  const res = await fetch(`/api/posts/${post.id}`, {
+    method: 'PUT',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({
+      title: post.title,
+      description: post.description
+    })
+  });
+
+  const data = await res.json();
+  if (res.ok) dispatch(editPost(data));
+  return data;
+};
+
+// delete a post
+const DELETE_POST = 'posts/delete';
+
+const deletePost = postId => ({
+  type: DELETE_POST,
+  postId
+});
+
+export const removePost = postId => async dispatch => {
+  const res = await fetch(`/api/posts/${postId}`, {
+    method: 'delete'
+  });
+
+  if (res.status === 204) return dispatch(deletePost(postId));
+};
+
 // =============== actual reducer ================= //
 
-const initialState = { posts: {}, currPost: {} };
+const initialState = {};
 
 const postReducer = (state = initialState, action) => {
-  const newState = {};
+  const newState = { ...state };
 
   switch (action.type) {
     case LOAD_ALL_POSTS:
-      newState.posts = {};
       action.posts.forEach(p => {
-        newState.posts[p.id] = p;
+        newState[p.id] = p;
       });
-
-      newState.currPost = state.currPost;
       return newState;
 
     case ADD_POST:
-      newState.posts = state.posts;
-      newState.posts[action.post.id] = action.post; 
-      newState.currPost = state.currPost;
+      newState[action.post.id] = action.post; 
+      return newState;
 
-      return newState; // TODO: test this (re-rendering)
+    case EDIT_POST:
+      newState[action.post.id] = action.post
+      return newState;
+
+    case DELETE_POST:
+      delete newState[action.postId];
+
+      return newState;
 
     default:
       return state;
