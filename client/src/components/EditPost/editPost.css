@@ -7,8 +7,9 @@
 
 .edit-form-textarea {
   height: 80px;
-  overflow-y: hidden;
   margin-top: 10px;
+  overflow-y: scroll;
+  resize: none;
 }
 
 .edit-form-btn {

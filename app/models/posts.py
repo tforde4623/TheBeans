@@ -12,6 +12,7 @@ class Post(db.Model):
     created_at = db.Column(db.DateTime, default=db.func.current_timestamp())
 
     author = db.relationship('User', back_populates='posts')
+    comments = db.relationship('Post', cascade="all, delete-orphan", back_populates='post')
 
     def to_dict(self):
         """ returns a dict of base post instance """
