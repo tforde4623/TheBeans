@@ -47,10 +47,9 @@ function App() {
             <ProtectedRoute path='/users/:userId' exact={true} >
               <User />
             </ProtectedRoute>
-            {/* <ProtectedRoute path='/' exact={true} > */}
-            {/* home page will be filled with whatever is selected from splash */}
-            {/*   <HomeFeed /> */}
-            {/* </ProtectedRoute> */}
+            <ProtectedRoute path='/posts/:catId' exact={true} >
+              <HomeFeed />
+            </ProtectedRoute>
             <ProtectedRoute path='/' exact={true} >
               <SplashPage />
             </ProtectedRoute>

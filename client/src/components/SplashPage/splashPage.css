@@ -18,7 +18,26 @@
 
 .hero-container {
   background-color: #CB997E;
-  height: 30vw;
+  height: 35vw;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+}
+
+.hero-container img {
+  width: 60%;
+  height: 85%;
+  filter: brightness(70%);
+  border-radius: 10%;
+  margin-left: 5px;
+  margin-right: 5px;
+}
+
+.hero-btn {
+  background-color: #CB997E;
+  border: none;
+  font-size: 20px;
 }
 
 .preview-title {
@@ -45,6 +64,7 @@
   filter: brightness(60%);
 }
 
-.cat-preview img:hover, .post-prev-img:hover {
+.cat-preview img:hover, 
+.post-prev-img:hover {
   filter: brightness(90%);
 }

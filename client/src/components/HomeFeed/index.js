@@ -1,17 +1,19 @@
 import React, { useEffect } from 'react';
+import { useParams } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux'; 
 
-import { getPosts } from '../../store/posts'; 
+import { getPostsByCatId } from '../../store/posts'; 
 import HomeFeedCard from '../HomeFeedCard';
 import './homeFeed.css';
 
 const HomeFeed = () => {
+  const { catId } = useParams();
   const dispatch = useDispatch();
   const posts = useSelector(state => state.posts) || [];
 
   useEffect(() => {
-    dispatch(getPosts());
-  }, [dispatch]);
+    dispatch(getPostsByCatId(catId));
+  }, [dispatch, catId]);
 
   return (
     <div className='container'>
