@@ -15,6 +15,5 @@ html {
 /* main body that is not the header or nav */
 .main-content {
   margin-top: 61px;
-  padding-top: 10px;
   height: 100%;
 }

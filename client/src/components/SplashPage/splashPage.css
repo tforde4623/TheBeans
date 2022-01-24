@@ -1,0 +1,50 @@
+.splash-main-container {
+  color: white;
+}
+
+.cats-grid-container {
+  width: 100%;
+}
+
+.posts-grid-container {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  margin-top: 20px;
+  gap: 20px;
+}
+
+.hero-container {
+  background-color: #CB997E;
+  height: 30vw;
+}
+
+.preview-title {
+  bottom: 40px;
+  left: 160px;
+}
+
+.post-title {
+  position: relative;
+  bottom: 40px;
+  left: 120px;
+}
+
+.prev-img {
+  width: 100%;
+  height: 300px;
+  padding: 10px;
+  border-radius: 40px;
+}
+
+.post-prev-img {
+  width: 250px;
+  height: 250px;
+  filter: brightness(60%);
+}
+
+.cat-preview img:hover, .post-prev-img:hover {
+  filter: brightness(90%);
+}

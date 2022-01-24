@@ -1,5 +1,5 @@
 .main-navbar {
-  background-color: #6B705C;
+  background-color: #CB997E;
   height: 61px;
   position: fixed;
   top: 0;
@@ -9,6 +9,7 @@
   justify-content: space-between;
   align-items: center;
   list-style: none;
+  z-index: 1;
 }
 
 .nav-header {

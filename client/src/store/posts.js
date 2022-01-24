@@ -89,6 +89,15 @@ export const removePost = postId => async dispatch => {
   if (res.status === 204) return dispatch(deletePost(postId));
 };
 
+// get posts by category id
+export const getPostsByCatId = catId => async dispatch => {
+  const res = await fetch(`/api/categories/${catId}/posts`);
+  const data = await res.json();
+
+  if (res.ok) dispatch(loadPosts(data));
+  return data;
+};
+
 // =============== actual reducer ================= //
 
 const initialState = {};

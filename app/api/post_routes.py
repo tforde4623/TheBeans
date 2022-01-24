@@ -1,6 +1,5 @@
 from flask import Blueprint, jsonify, request
 from flask_login import login_required
-from sqlalchemy import desc
 from app.models import db, Post
 from app.forms import CreatePostForm
 from .upload_img  import upload_img
@@ -36,7 +35,7 @@ def posts():
 
 ## GET '/api/posts/:postId' ##
 @post_routes.route('/<id>')
-#@login_required
+@login_required
 def post_by_id(id):
     """
     get a single post by id
@@ -46,6 +45,7 @@ def post_by_id(id):
     return jsonify(post.to_dict_with_owner())
 
 @post_routes.route('/', methods=['post'])
+@login_required
 def create_post():
     """
     this route will be used to handle uploading images
@@ -86,7 +86,7 @@ def create_post():
 
 ## PUT '/api/posts/:postId' ##
 @post_routes.route('/<id>', methods=['put'])
-#@login_required
+@login_required
 def edit_post(id):
     """
     edit a post by id

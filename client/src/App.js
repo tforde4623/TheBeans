@@ -10,6 +10,7 @@ import UsersList from './components/UsersList';
 import User from './components/User';
 import { authenticate } from './store/session';
 import HomeFeed from './components/HomeFeed';
+import SplashPage from './components/SplashPage';
 import UserPage from './components/UserPage';
 import './index.css';
 
@@ -46,8 +47,12 @@ function App() {
             <ProtectedRoute path='/users/:userId' exact={true} >
               <User />
             </ProtectedRoute>
+            {/* <ProtectedRoute path='/' exact={true} > */}
+            {/* home page will be filled with whatever is selected from splash */}
+            {/*   <HomeFeed /> */}
+            {/* </ProtectedRoute> */}
             <ProtectedRoute path='/' exact={true} >
-              <HomeFeed />
+              <SplashPage />
             </ProtectedRoute>
             <ProtectedRoute path='/posts/new'>
               <CreatePostForm />

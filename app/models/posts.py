@@ -22,6 +22,7 @@ class Post(db.Model):
             'id': self.id,
             'title': self.title,
             'description': self.description,
+            'category_id': self.category_id,
             'img_url': self.img_url,
             'user_id': self.user_id,
             'created_at': str(self.created_at),

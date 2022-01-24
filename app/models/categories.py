@@ -6,6 +6,7 @@ class Category(db.Model):
 
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(100), nullable=False)
+    img_url = db.Column(db.Text, nullable=False)
 
     posts = db.relationship('Post', back_populates='category')
 
@@ -13,4 +14,5 @@ class Category(db.Model):
         return {
             'id': self.id,
             'name': self.name,
+            'img_url': self.img_url
         }

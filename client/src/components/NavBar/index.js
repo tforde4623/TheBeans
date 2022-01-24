@@ -8,6 +8,16 @@ const NavBar = () => {
   const [showUserMenu, setShowUserMenu] = useState(false);
   const user = useSelector(state => state.session.user) || null;
 
+  window.addEventListener('scroll', () => {
+    const navbar = document.querySelector('.main-navbar');
+
+    if (window.scrollY <= 24) {
+      navbar.style.backgroundColor = '#CB997E';
+    } else {
+      navbar.style.backgroundColor = '#6B705C';
+    }
+  });
+
   return (
     <nav>
       <ul className='main-navbar'>
