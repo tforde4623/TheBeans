@@ -4,15 +4,17 @@ import { removePost } from '../../store/posts';
 import { getPostComments } from '../../store/comments';
 import EditPost from '../EditPost';
 import AddCommentForm from './AddCommentForm';
+import EditComment from './EditComment';
 import './showPost.css';
 
 // model for showing info / comments of an individual posts
 const ShowPost = ({ post, setIsOpen }) => {
   const dispatch = useDispatch();
-  const currUser = useSelector(state => state.session.user.id);
+  const currUserId = useSelector(state => state.session.user.id);
   const comments = useSelector(state => state.comments);
   const [showEditForm, setShowEditForm] = useState();
-  const owned =  currUser === post.user_id;
+  const [commentEdit, setCommentEdit] = useState(null);
+  const owned =  currUserId === post.user_id;
 
   useEffect(() => {
     dispatch(getPostComments(post.id));
@@ -50,8 +52,16 @@ const ShowPost = ({ post, setIsOpen }) => {
           <AddCommentForm post={post}/>
           {comments && Object.values(comments).reverse().map(c => (
             <div className='comment-div'>
-              <div className='comment-user'>{c.author.username}</div>
-              {c.content}
+            {commentEdit && commentEdit === c.id
+              ?
+                <EditComment comment={c} post={post} />
+              : [
+                <div className='comment-user'>{c.author.username}</div>,
+                <div>{c.content}</div>,
+                currUserId === c.author.id && 
+                  <button onClick={() => setCommentEdit(c.id)}>Edit</button>
+              ]
+            }
             </div>
           ))}
         </div>
