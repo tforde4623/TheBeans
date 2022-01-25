@@ -30,7 +30,7 @@ def posts():
     res -> [{poststuff, owner: ownerstuff}...]
     """
     posts = Post.query.all()
-    return jsonify([post.to_dict_with_owner() for post in posts])
+    return jsonify([post.to_dict_with_owner_comments() for post in posts])
 
 
 ## GET '/api/posts/:postId' ##
@@ -42,7 +42,7 @@ def post_by_id(id):
     res -> {poststuff, owner: ownerstuff}
     """
     post = Post.query.filter_by(id=id).one()
-    return jsonify(post.to_dict_with_owner())
+    return jsonify(post.to_dict_with_owner_comments())
 
 @post_routes.route('/', methods=['post'])
 @login_required
@@ -74,7 +74,7 @@ def create_post():
         upload_img(data, file_name)
 
         # on success return the new posts info as a dict
-        return jsonify(new_post.to_dict_with_owner())
+        return jsonify(new_post.to_dict_with_owner_comments())
 
     err_msgs = validation_errors_to_error_messages(form.errors)
 
@@ -104,7 +104,7 @@ def edit_post(id):
         old_post.description = data['description']
         db.session.commit()
 
-        return jsonify(old_post.to_dict_with_owner())
+        return jsonify(old_post.to_dict_with_owner_comments())
 
     # we know errors are present if we get here
     err_msgs = validation_errors_to_error_messages(form.errors)

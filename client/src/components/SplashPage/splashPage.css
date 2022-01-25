@@ -26,12 +26,16 @@
 }
 
 .hero-container img {
-  width: 60%;
-  height: 85%;
+  width: 50%;
+  height: 80%;
   filter: brightness(70%);
   border-radius: 10%;
   margin-left: 5px;
   margin-right: 5px;
+}
+
+.hero-container img:hover {
+  filter: brightness(80%);
 }
 
 .hero-btn {
@@ -42,7 +46,9 @@
 
 .preview-title {
   bottom: 40px;
-  left: 160px;
+  top: 100px;
+  color: white;
+  font-size: 24px;
 }
 
 .post-title {
@@ -62,9 +68,21 @@
   width: 250px;
   height: 250px;
   filter: brightness(60%);
+  border-radius: 8px;
 }
 
-.cat-preview img:hover, 
 .post-prev-img:hover {
-  filter: brightness(90%);
+  filter: brightness(80%);
 }
+
+.post-container-img {
+  width: 30vw;
+  height: 30vw;
+}
+
+.cat-name {
+  position: absolute;
+  left: 65%;
+  top: 40%;
+}
+

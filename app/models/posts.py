@@ -34,3 +34,9 @@ class Post(db.Model):
             **self.to_dict(),
             'author': self.author.to_dict()
         }
+
+    def to_dict_with_owner_comments(self):
+        return {
+            **self.to_dict_with_owner(),
+            'comments': [com.to_dict_with_author() for com in self.comments]
+        }

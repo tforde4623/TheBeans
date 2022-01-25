@@ -17,7 +17,7 @@ def users():
 @login_required
 def user_posts(id):
     posts = Post.query.filter_by(user_id=id).all()
-    return jsonify([post.to_dict() for post in posts])
+    return jsonify([post.to_dict_with_owner_comments() for post in posts])
 
 
 @user_routes.route('/<int:id>')

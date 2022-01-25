@@ -3,6 +3,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 import axios from 'axios';
 import { getPosts } from '../../store/posts';
+import ShowPost from '../ShowPost';
 import './splashPage.css';
 
 const SplashPage = () => {
@@ -12,19 +13,18 @@ const SplashPage = () => {
   const posts = useSelector(state => state.posts);
   const [axiosErrs, setAxiosErrs] = useState('');
   const [currHeroImg, setCurrentHeroImg] = useState(cats[0]);
+  const [isOpen, setIsOpen] = useState(false);
+  const [openPost, setOpenPost] = useState(null);
 
-  // recent
   const getRecents = postList => {
     const tmp = [];
     for (let i = 0; i <= 6; i++) {
       if (!postList[i]) {
         break;
       }
-
-      postList[i].title = postList[i].title.slice(0, 12) + '...';
+      postList[i].title = `${postList[i].title.slice(0, 12)} ${'.'.repeat(3)}`;
       tmp.push(postList[i]);
     };
-
     return tmp;
   };
 
@@ -40,12 +40,17 @@ const SplashPage = () => {
     }
   };
 
+  const handlePostClick = post => {
+    setIsOpen(true);
+    setOpenPost(post);
+  };
+
   useEffect(() => {
     (async () => {
       axios.get('/api/categories/')
         .then(res => {
           setCats(res.data);
-          setCurrentHeroImg(res.data[0])
+          setCurrentHeroImg(res.data[0]);
         })
         .catch(() => setAxiosErrs('Could not load preview!')); // TODO: handle
     })();
@@ -55,24 +60,27 @@ const SplashPage = () => {
   return (
     <div className='splash-main-container'>
       <div className='hero-container'>
+      { axiosErrs && <div>{ axiosErrs }</div> }
         <button className='hero-btn' onClick={cycleImg}>
-          <i class="fas fa-chevron-left fa-lg"></i>
+          <i className="fas fa-chevron-left fa-lg"></i>
         </button>
         <img 
           onClick={() => history.push(`/posts/${currHeroImg.id}`)} 
           src={currHeroImg?.img_url} alt='hero previews'/>
+        <div className='cat-name'>{currHeroImg.name}</div>
         <button className='hero-btn' onClick={cycleImg}>
-          <i class="fas fa-chevron-right fa-lg"></i>
+          <i className="fas fa-chevron-right fa-lg"></i>
         </button>
       </div>
       <div className='posts-grid-container'>
         {posts && getRecents(Object.values(posts).reverse()).map(p => (
-          <div className='post-preview'>
+          <div onClick={() => handlePostClick(p)} className='post-preview'>
             <img className='post-prev-img' src={p.img_url} alt='preview of category'/>
             <div className='post-title'>{p.title}</div>
           </div>
         ))}
       </div>
+      { isOpen && <ShowPost post={openPost} setIsOpen={setIsOpen}/> }
     </div>
   );
 };

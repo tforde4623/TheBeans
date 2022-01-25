@@ -10,7 +10,7 @@
   height: 60vh;
   display: flex;
   flex-direction: row;
-  justify-content: space-between;
+  justify-content: flex-start;
   background-color: white;
   border-radius: 15px;
   padding: 25px;
@@ -30,17 +30,34 @@
   height: 100%;
   overflow-x: auto;
   overflow-y: auto;
-}
-
-.post-container-img {
-  width: 100%;
+  padding-right: 30px;
 }
 
 .post-container-content {
   width: 100%;
   padding: 10px;
+  color: black;
 }
 
 .close-btn:hover {
   color: #CB997E;
+}
+
+.comments-container {
+  margin-left: 20px;
+  border: black 1px solid;
+  height: 100%;
+  width: 50vw;
+}
+
+.comments-header {
+  background-color: lightgray;
+  padding: 10px;
+}
+
+.comment-div {
+  padding: 10px;
+  border-bottom: 1px solid gray;
+  margin-left: 10px;
+  margin-right: 10px;
 }

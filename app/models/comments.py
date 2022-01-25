@@ -17,7 +17,7 @@ class Comment(db.Model):
         """ returns a dict of base post instance """
         return {
             'id': self.id,
-            'description': self.description,
+            'content': self.content,
             'post_id': self.post_id,
             'user_id': self.user_id,
             'created_at': str(self.created_at),

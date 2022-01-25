@@ -1,15 +1,22 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { removePost } from '../../store/posts';
+import { getPostComments } from '../../store/comments';
 import EditPost from '../EditPost';
+import AddCommentForm from './AddCommentForm';
 import './showPost.css';
 
 // model for showing info / comments of an individual posts
 const ShowPost = ({ post, setIsOpen }) => {
   const dispatch = useDispatch();
   const currUser = useSelector(state => state.session.user.id);
+  const comments = useSelector(state => state.comments);
   const [showEditForm, setShowEditForm] = useState();
   const owned =  currUser === post.user_id;
+
+  useEffect(() => {
+    dispatch(getPostComments(post.id));
+  }, [dispatch, post.id])
 
   const handleDelete = () => {
     dispatch(removePost(post.id));
@@ -37,9 +44,17 @@ const ShowPost = ({ post, setIsOpen }) => {
         ]
          }
       </div>
-      <div clasName='post-container-right'>
-        hi
-        {/* TODO: comments */}
+      <div className='post-container-right'>
+        <div className='comments-container'>
+          <h3 className='comments-header'>Comments</h3>
+          <AddCommentForm post={post}/>
+          {comments && Object.values(comments).reverse().map(c => (
+            <div className='comment-div'>
+              <div className='comment-user'>{c.author.username}</div>
+              {c.content}
+            </div>
+          ))}
+        </div>
       </div>
     </div>
   );
