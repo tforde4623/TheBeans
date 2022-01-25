@@ -61,9 +61,36 @@
   margin-left: 10px;
   margin-right: 10px;
   height: 80px;
+  display: flex;
+  justify-content: space-between;
 }
 
 .comments-scroll {
   height: 80%;
   overflow-y: auto;
+  color: black;
+}
+
+.comment-btn {
+  color: #CB997E;
+  background-color: white;
+  border:none;
+  margin-bottom: 1px;
+  margin-left: 5px;
+}
+
+.comment-btn:hover {
+  border-bottom: 2px solid #CB997E;
+  margin-bottom: 0px;
+}
+
+.edit-comment-div {
+  height: 100px;
+}
+
+.edit-comment-form textarea {
+  overflow: auto;
+  height: 50px;
+  width: 300px;
+  resize: none;
 }

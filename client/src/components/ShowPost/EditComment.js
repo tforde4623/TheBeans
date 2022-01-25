@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { putComment } from '../../store/comments';
 
-const EditComment = ({ comment }) => {
+const EditComment = ({ comment, closeForm }) => {
   const dispatch = useDispatch();
   const [content, setContent] = useState(comment.content);
 
@@ -13,10 +13,11 @@ const EditComment = ({ comment }) => {
 
   return (
     <form className='edit-comment-form'>
-      <input 
+      <textarea 
         value={content} 
         onChange={e => setContent(e.target.value)}/>
       <button onClick={e => handleSubmit(e)}>Confirm</button>
+      <button onClick={() => closeForm(false)}>Cancel</button>
     </form>
   );
 };

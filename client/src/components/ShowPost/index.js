@@ -13,6 +13,7 @@ const ShowPost = ({ post, setIsOpen }) => {
   const currUserId = useSelector(state => state.session.user.id);
   const comments = useSelector(state => state.comments);
   const [showEditForm, setShowEditForm] = useState();
+  const [showCommentEdit, setShowCommentEdit] = useState();
   const [commentEdit, setCommentEdit] = useState(null);
   const owned =  currUserId === post.user_id;
 
@@ -56,16 +57,28 @@ const ShowPost = ({ post, setIsOpen }) => {
           <AddCommentForm post={post}/>
           <div className='comments-scroll'>
           {comments && Object.values(comments).reverse().map(c => (
-            <div className='comment-div'>
+            <div 
+              onClick={showCommentEdit ? () => setShowCommentEdit(false) : null} 
+              className={commentEdit === c.id ? 'comment-div edit-comment-div' : 'comment-div'}>
             {commentEdit && commentEdit === c.id
               ?
-                <EditComment comment={c} post={post} />
+                <EditComment comment={c} post={post} closeForm={setCommentEdit} />
               : [
-                <div className='comment-user'>{c.author.username}</div>,
-                <div>{c.content}</div>,
-                currUserId === c.author.id && 
-                  <button onClick={() => setCommentEdit(c.id)}>Edit</button>,
-                  <button onClick={() => commentDelete(c.id)}>Delete</button>
+                <div>
+                  <div className='comment-user'>{c.author.username}</div>
+                  <div>{c.content}</div>
+                </div>,
+                currUserId === c.author.id && !(showCommentEdit === c.id) && 
+                  <i 
+                    onClick={() => setShowCommentEdit(showCommentEdit === c.id ? false : c.id)}
+                    className="fas fa-ellipsis-h">
+                  </i>,
+                  c.id === showCommentEdit &&
+                  <div 
+                    className='comment-edit-menu'>
+                    <button className='comment-btn' onClick={() => setCommentEdit(c.id)}>Edit</button>
+                    <button className='comment-btn' onClick={() => commentDelete(c.id)}>Delete</button>
+                  </div>
               ]
             }
             </div>
