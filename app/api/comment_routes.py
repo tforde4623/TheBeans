@@ -51,9 +51,9 @@ def add_comment():
     return jsonify({ 'errs': validation_errors_to_error_messages(form.errors) }), 401
 
 
-@comment_routes.route('/<post_id>')
+@comment_routes.route('/<comment_id>', methods=['put'])
 @login_required
-def edit_comment(post_id):
+def edit_comment(comment_id):
     """
     edit a comments content by post_id
     """
@@ -62,7 +62,7 @@ def edit_comment(post_id):
     form['csrf_token'].data = request.cookies['csrf_token']
 
     if form.validate_on_submit():
-        comment = Comment.query.filter_by(id=post_id).one()
+        comment = Comment.query.filter_by(id=comment_id).one()
 
         if comment.author.id == current_user.id:
             comment['content'] = data['content']
@@ -71,3 +71,20 @@ def edit_comment(post_id):
         return jsonify(comment.to_dict_with_author())
 
     return jsonify({ 'errs': validation_errors_to_error_messages(form.errors) }), 401
+
+
+@comment_routes.route('/<comment_id>', methods=['delete'])
+@login_required
+def delete_comment(comment_id):
+    """
+    delete a comment by id
+    """
+    comment = Comment.query.filter_by(id=comment_id).one()
+    
+    if comment.author.id == current_user.id:
+        db.session.delete(comment)
+        db.session.commit()
+
+        return jsonify({}), 204
+    
+    return jsonify({ 'err': 'could not delete record' }), 401

@@ -60,4 +60,10 @@
   border-bottom: 1px solid gray;
   margin-left: 10px;
   margin-right: 10px;
+  height: 80px;
+}
+
+.comments-scroll {
+  height: 80%;
+  overflow-y: auto;
 }

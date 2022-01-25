@@ -2,13 +2,13 @@ import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { putComment } from '../../store/comments';
 
-const EditComment = ({ comment, postId }) => {
+const EditComment = ({ comment }) => {
   const dispatch = useDispatch();
   const [content, setContent] = useState(comment.content);
 
   const handleSubmit = e => {
     e.preventDefault();
-    dispatch(putComment(content, postId));
+    dispatch(putComment(comment));
   };
 
   return (

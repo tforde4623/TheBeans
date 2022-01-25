@@ -47,18 +47,35 @@ const editComment = comment => ({
   comment
 });
 
-export const putComment = post => async dispatch => {
-  const res = await fetch(`/api/comments/${post.id}`, {
+export const putComment = comment => async dispatch => {
+  const res = await fetch(`/api/comments/${comment.id}`, {
     method: 'put',
     headers: {
       'Content-Type': 'application/json',
     },
-    body: JSON.stringify(post.content)
+    body: JSON.stringify(comment.content)
   });
 
   const data = await res.json();
   if (res.ok) dispatch(editComment(data));
   return data;
+};
+
+
+const DELETE_COMMENT = 'comment/delete';
+
+const deleteComment = commentId => ({
+  type: DELETE_COMMENT,
+  commentId
+});
+
+export const removeComment = commentId => async dispatch => {
+  const res = await fetch(`/api/comments/${commentId}`, {
+    method: 'delete',
+  });
+
+  if (res.ok) dispatch(deleteComment(commentId));
+  return;
 };
 
 
@@ -82,6 +99,11 @@ const commentReducer = (state = initialState, action) => {
     case EDIT_COMMENT:
       newState = { ...state };
       newState[action.comment.id] = action.comment;
+      return newState;
+
+    case DELETE_COMMENT:
+      newState = { ...state };
+      delete newState[action.commentId];
       return newState;
 
     default:

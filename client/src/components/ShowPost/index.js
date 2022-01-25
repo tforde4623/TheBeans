@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { removePost } from '../../store/posts';
-import { getPostComments } from '../../store/comments';
+import { getPostComments, removeComment } from '../../store/comments';
 import EditPost from '../EditPost';
 import AddCommentForm from './AddCommentForm';
 import EditComment from './EditComment';
@@ -23,6 +23,10 @@ const ShowPost = ({ post, setIsOpen }) => {
   const handleDelete = () => {
     dispatch(removePost(post.id));
     setIsOpen(false);
+  };
+
+  const commentDelete = commentId => {
+    dispatch(removeComment(commentId));
   };
 
   return (
@@ -50,6 +54,7 @@ const ShowPost = ({ post, setIsOpen }) => {
         <div className='comments-container'>
           <h3 className='comments-header'>Comments</h3>
           <AddCommentForm post={post}/>
+          <div className='comments-scroll'>
           {comments && Object.values(comments).reverse().map(c => (
             <div className='comment-div'>
             {commentEdit && commentEdit === c.id
@@ -59,11 +64,13 @@ const ShowPost = ({ post, setIsOpen }) => {
                 <div className='comment-user'>{c.author.username}</div>,
                 <div>{c.content}</div>,
                 currUserId === c.author.id && 
-                  <button onClick={() => setCommentEdit(c.id)}>Edit</button>
+                  <button onClick={() => setCommentEdit(c.id)}>Edit</button>,
+                  <button onClick={() => commentDelete(c.id)}>Delete</button>
               ]
             }
             </div>
           ))}
+          </div>
         </div>
       </div>
     </div>
