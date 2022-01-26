@@ -13,6 +13,7 @@ const ShowPost = ({ post, setIsOpen }) => {
   const currUserId = useSelector(state => state.session.user.id);
   const comments = useSelector(state => state.comments);
   const [showEditForm, setShowEditForm] = useState();
+  const [showPostMenu, setShowPostMenu] = useState(false);
   const [showCommentEdit, setShowCommentEdit] = useState();
   const [commentEdit, setCommentEdit] = useState(null);
   const owned =  currUserId === post.user_id;
@@ -35,7 +36,7 @@ const ShowPost = ({ post, setIsOpen }) => {
       {owned && 
         <button className='close-btn' 
           onClick={() => setIsOpen(false)}>
-          <i class="fas fa-times"></i>
+          <i className="fas fa-times"></i>
         </button>
       }
       <div className='post-container-left'>
@@ -43,11 +44,23 @@ const ShowPost = ({ post, setIsOpen }) => {
         { showEditForm ? [
           <EditPost post={post} setShow={setShowEditForm}/>
         ] : [
-          <p className='post-container-content'>{ post.title }</p>,
+          <div className='post-title-container'>
+            <p className='post-container-content'>{ post.title }</p>
+            <i className="fas fa-ellipsis-v" onClick={() => setShowPostMenu(!showPostMenu)}></i>
+          </div>,
           <hr/>,
           <p className='post-container-content'>{ post.description }</p>,
-          <button onClick={() => setShowEditForm(!showEditForm)}>Edit</button>,
-          <button onClick={handleDelete}>Delete</button>
+          showPostMenu && 
+          <div className='showPost-menu'>
+            <button 
+              className='showPost-btn' 
+              onClick={() => setShowEditForm(!showEditForm)}
+            >Edit</button>
+            <button 
+              className='showPost-btn'
+              onClick={handleDelete}
+            >Delete</button>
+          </div>
         ]
          }
       </div>
@@ -58,6 +71,7 @@ const ShowPost = ({ post, setIsOpen }) => {
           <div className='comments-scroll'>
           {comments && Object.values(comments).reverse().map(c => (
             <div 
+              key={c.id}
               onClick={showCommentEdit ? () => setShowCommentEdit(false) : null} 
               className={commentEdit === c.id ? 'comment-div edit-comment-div' : 'comment-div'}>
             {commentEdit && commentEdit === c.id
@@ -79,8 +93,8 @@ const ShowPost = ({ post, setIsOpen }) => {
                     <button className='comment-btn' onClick={() => setCommentEdit(c.id)}>Edit</button>
                     <button className='comment-btn' onClick={() => commentDelete(c.id)}>Delete</button>
                   </div>
-              ]
-            }
+                ]
+              }
             </div>
           ))}
           </div>

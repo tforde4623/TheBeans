@@ -18,9 +18,9 @@ const HomeFeed = () => {
   return (
     <div className='container'>
       {posts && Object.values(posts).reverse().map(post => (
-        <p>
+        <div key={post.id}>
           <HomeFeedCard key={post.id} post={post}/>
-        </p>
+        </div>
       ))}
     </div>
   );  

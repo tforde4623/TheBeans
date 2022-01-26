@@ -30,8 +30,8 @@
   height: 80%;
   filter: brightness(70%);
   border-radius: 10%;
-  margin-left: 5px;
-  margin-right: 5px;
+  margin-left: 15px;
+  margin-right: 15px;
 }
 
 .hero-container img:hover {
@@ -82,6 +82,34 @@
 
 .cat-name {
   position: absolute;
-  left: 65%;
-  top: 40%;
+  left: 62vw;
+  top: 33vw;
+}
+
+.animate-spin {
+  animation: carousel-spin 0.25s linear 1;
+}
+
+.animate-spin-backwards {
+  animation: carousel-spin-backwards 0.25s linear 1;
+}
+
+@keyframes carousel-spin {
+  to {
+    transform: translateX(0px);
+  }
+
+  from {
+    transform: translateX(20px);
+  }
+}
+
+@keyframes carousel-spin-backwards {
+  to {
+    transform: translateX(0px);
+  }
+
+  from {
+    transform: translateX(-20px);
+  }
 }

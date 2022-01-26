@@ -18,4 +18,4 @@ def get_categories():
 @login_required
 def get_posts_by_category(catId):
     cat = Category.query.filter_by(id=catId).one()
-    return jsonify([p.to_dict for p in cat.posts])
+    return jsonify([c.to_dict() for c in cat.posts])

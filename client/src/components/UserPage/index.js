@@ -13,8 +13,8 @@ const UserPage = () => {
   const [openPost, setOpenPost] = useState(null);
 
   const handlePostClick = (post) => {
-    setIsOpen(true);
     setOpenPost(post);
+    setIsOpen(true);
   };
 
   useEffect(() => {
@@ -25,7 +25,7 @@ const UserPage = () => {
     <div>
       <ul className='grid-img-container'>
         {posts && Object.values(posts).reverse().map(post => (
-          <li className='grid-img-div' onClick={() => handlePostClick(post)}>
+          <li key={post.id} className='grid-img-div' onClick={() => handlePostClick(post)}>
             <img 
               className='grid-img'
               src={post.img_url} 

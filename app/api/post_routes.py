@@ -7,7 +7,6 @@ import uuid
 
 post_routes = Blueprint('posts', __name__)
 
-
 def validation_errors_to_error_messages(validation_errors):
     """
     turns the WTForms validation errors into a simple list
@@ -44,6 +43,7 @@ def post_by_id(id):
     post = Post.query.filter_by(id=id).one()
     return jsonify(post.to_dict_with_owner_comments())
 
+
 @post_routes.route('/', methods=['post'])
 @login_required
 def create_post():
@@ -55,7 +55,7 @@ def create_post():
     form['csrf_token'].data = request.cookies['csrf_token'];
     form.data['title'] = request.form.get('title')
     form.data['description'] = request.form.get('description')
-
+    form.data['category_id'] = request.form.get('category_id')
 
     if form.validate_on_submit() and 'i' in request.files:
         # generate uuid for filename
@@ -109,9 +109,6 @@ def edit_post(id):
     # we know errors are present if we get here
     err_msgs = validation_errors_to_error_messages(form.errors)
     return jsonify({'errors': err_msgs}), 401
-    
-
-
 
 
 ## DELETE '/api/posts/:postId' ##
