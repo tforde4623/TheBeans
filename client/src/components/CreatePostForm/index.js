@@ -1,6 +1,5 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import { useHistory } from 'react-router-dom';
-import { FileDrop } from 'react-file-drop';
 import { useDropzone } from 'react-dropzone';
 import { useDispatch, useSelector } from 'react-redux';
 import { createPost } from '../../store/posts';
@@ -42,8 +41,7 @@ const CreatePostForm = () => {
     dispatch(createPost(imgData))
       .then(res => {
         if (!res.errors) {
-          // push to page where the category is
-          //history.push('');
+          history.push(`/posts/${categoryId}`);
         }
         setFetchErrors(res.errors);
         setLoading(false);

@@ -9,11 +9,12 @@ import './homeFeed.css';
 const HomeFeed = () => {
   const { catId } = useParams();
   const dispatch = useDispatch();
-  const posts = useSelector(state => state.posts) || [];
 
   useEffect(() => {
     dispatch(getPostsByCatId(catId));
   }, [dispatch, catId]);
+
+  const posts = useSelector(state => state.posts) || [];
 
   return (
     <div className='container'>
