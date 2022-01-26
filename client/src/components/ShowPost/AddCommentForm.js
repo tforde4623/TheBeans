@@ -7,18 +7,27 @@ const AddCommentForm = ({ post }) => {
   const [content, setContent] = useState('');
 
   const handleSubmit = e => {
-    console.log('wtf')
     e.preventDefault();
     dispatch(postComment({ content }, post.id));
+    setContent('');
   };
 
   return (
-    <form>
-      <input 
-        value={content} 
-        onChange={e => setContent(e.target.value)}/>
-      <button onClick={e => handleSubmit(e)}>Comment</button>
-    </form>
+    <div className='comment-create-container'>
+      <form className='create-comment-form'>
+        <textarea 
+          value={content} 
+          placeholder='Add a comment...'
+          className='create-comment-content'
+          onChange={e => setContent(e.target.value)}/>
+        <button 
+          className='create-comment-submit'
+          onClick={e => handleSubmit(e)}
+        >
+          <i className="fas fa-share"></i>
+        </button>
+      </form>
+    </div>
   );
 };
 

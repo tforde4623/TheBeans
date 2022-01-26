@@ -47,14 +47,14 @@ function App() {
             <ProtectedRoute path='/users/:userId' exact={true} >
               <User />
             </ProtectedRoute>
+            <ProtectedRoute path='/posts/new'>
+              <CreatePostForm />
+            </ProtectedRoute>
             <ProtectedRoute path='/posts/:catId' exact={true} >
               <HomeFeed />
             </ProtectedRoute>
             <ProtectedRoute path='/' exact={true} >
               <SplashPage />
-            </ProtectedRoute>
-            <ProtectedRoute path='/posts/new'>
-              <CreatePostForm />
             </ProtectedRoute>
             <ProtectedRoute path='/users/:userId/posts'>
               <UserPage />

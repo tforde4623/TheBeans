@@ -66,8 +66,8 @@
 }
 
 .comments-scroll {
-  height: 80%;
-  overflow-y: auto;
+  height: 76%;
+  overflow-y: scroll;
   color: black;
 }
 
@@ -93,4 +93,33 @@
   height: 50px;
   width: 300px;
   resize: none;
+}
+
+.comment-create-container {
+  width: 100%;
+}
+
+.create-comment-content {
+  width: 100%;
+  height: 60px;
+  overflow: auto;
+  resize: none;
+  padding: 5px;
+}
+
+.create-comment-form {
+  width: 100%;
+  height: 60px;
+}
+
+.create-comment-submit {
+  right: 50px;
+  height: 20px;
+  border: none;
+  border-radius: 5px;
+  padding: 5px;
+  position: relative;
+  top: -35px;
+  left: calc(100% - 30px);
+  background-color: white;
 }

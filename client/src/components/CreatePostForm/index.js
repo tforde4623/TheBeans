@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { FileDrop } from 'react-file-drop';
 import { useDispatch, useSelector } from 'react-redux';
 import { createPost } from '../../store/posts';
 import './createPostForm.css';
@@ -13,10 +14,9 @@ const CreatePostForm = () => {
   const [loading, setLoading] = useState(false);
   const [fetchErrors, setFetchErrors] = useState(null);
 
-  const handleFileChange = e => {
-    e.preventDefault();
-    setImgFile(e.target.files[0]);
-    setImgPreview(URL.createObjectURL(e.target.files[0]));
+  const handleDrop = files => {
+    setImgFile(files[0]);
+    setImgPreview(URL.createObjectURL(files[0]));
   };
 
   const handleSubmit = async e => {
@@ -47,6 +47,16 @@ const CreatePostForm = () => {
         ))}
       </ul>
       <form onSubmit={handleSubmit} className='create-form-main'>
+        <FileDrop  onDrop={files => handleDrop(files)}>
+          {imgPreview  
+            ?  <img className='image-preview' src={imgPreview} alt='preview of upload'/>
+            : <div className='file-drop-zone'>
+              <i className="far fa-image fa-lg"></i>
+              &nbsp;
+              upload photo
+              </div> 
+          }
+        </FileDrop>
         <input 
           type='text' 
           className='create-form-input'
@@ -61,23 +71,14 @@ const CreatePostForm = () => {
           name='description'
           value={description} 
           onChange={e => setDescription(e.target.value)} />
-        <button>Create Post</button>
         {/* img upload form */}
         {/* if image is there preview it */}
-        {imgPreview && <img className='image-preview' src={imgPreview} alt='preview of upload'/>}
         {loading &&
           <div>
             Uploading Image...
           </div>
         }
-        {!imgPreview &&
-          <label>
-            <input type='file' onChange={handleFileChange}/>
-          </label>
-        }
-        {imgPreview &&
-          <button>Upload Img</button>
-        }
+        <button className='create-submit-btn'>Create Post</button>
       </form>
     </div>
   )
