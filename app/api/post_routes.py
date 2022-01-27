@@ -52,7 +52,7 @@ def create_post():
     and storing them remotely
     """
     form = CreatePostForm()
-    form['csrf_token'].data = request.cookies['csrf_token'];
+    form['csrf_token'].data = request.cookies['csrf_token']
     form.data['title'] = request.form.get('title')
     form.data['description'] = request.form.get('description')
     form.data['category_id'] = request.form.get('category_id')
@@ -63,6 +63,7 @@ def create_post():
         # save fields to db
         new_post = Post(title=request.form.get('title'),
                         description=request.form.get('description'),
+                        category_id=request.form.get('category_id'),
                         # store aws url as imgUrl
                         img_url=f'https://bucketobeans.s3.us-east-2.amazonaws.com/{file_name}.jpg',
                         user_id=request.form.get('user_id'))

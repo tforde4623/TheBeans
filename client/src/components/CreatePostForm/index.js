@@ -89,7 +89,7 @@ const CreatePostForm = () => {
         >
           <option>Category</option>
           { categories && categories.map(c => (
-            <option key={c.id} value={c.id}>{c.name}</option>
+            <option key={c.id} value={c.id}>{c.name}{c.id}</option>
           ))}
         </select>
         <textarea 
