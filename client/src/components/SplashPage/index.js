@@ -23,9 +23,9 @@ const SplashPage = () => {
 
   window.addEventListener('scroll', () => {
 
-    if (window.scrollY <= 24 && window.location.pathname === '/') {
+    if (navbar && window.scrollY <= 24 && window.location.pathname === '/') {
       navbar.style.backgroundColor = '#CB997E';
-    } else {
+    } else if (navbar) {
       navbar.style.backgroundColor = '#6B705C';
     }
   });
