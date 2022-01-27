@@ -50,6 +50,11 @@
   cursor: pointer;
 }
 
+.nav-title {
+  color: black;
+  text-decoration: none;
+}
+
 /* animation for opening dropdown */
 @keyframes dropdown {
   from {

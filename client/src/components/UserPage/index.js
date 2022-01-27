@@ -19,7 +19,7 @@ const UserPage = () => {
 
   useEffect(() => {
     dispatch(fetchUserPosts(userId));
-  }, [dispatch, userId])
+  }, [dispatch, userId]);
 
   return (
     <div>

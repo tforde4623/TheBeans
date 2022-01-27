@@ -43,6 +43,10 @@
   border-radius: 5px;
 }
 
+.menu-hover:hover {
+  cursor: pointer;
+}
+
 @media screen and (min-width: 900px) {
   .showPost-menu {
     width: 120px;

@@ -57,7 +57,7 @@ const ShowPost = ({ post, setIsOpen }) => {
                 onClick={handleDelete}
               >Delete</button>
             </div>}
-            <i className="fas fa-ellipsis-v" onClick={() => setShowPostMenu(!showPostMenu)}></i>
+            <i className="menu-hover fas fa-ellipsis-v" onClick={() => setShowPostMenu(!showPostMenu)}></i>
           </div>,
           <hr/>,
           <p className='post-container-content'>{ post.description }</p>,
@@ -88,7 +88,7 @@ const ShowPost = ({ post, setIsOpen }) => {
                 currUserId === c.author.id && !(showCommentEdit === c.id) && 
                   <i 
                     onClick={() => setShowCommentEdit(showCommentEdit === c.id ? false : c.id)}
-                    className="fas fa-ellipsis-h">
+                    className="menu-hover fas fa-ellipsis-h">
                   </i>,
                   c.id === showCommentEdit &&
                   <div 

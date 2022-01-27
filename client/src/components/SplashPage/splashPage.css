@@ -28,14 +28,15 @@
 .hero-container img {
   width: 50%;
   height: 80%;
-  filter: brightness(70%);
+  filter: brightness(90%);
   border-radius: 10%;
   margin-left: 15px;
   margin-right: 15px;
 }
 
 .hero-container img:hover {
-  filter: brightness(80%);
+  filter: brightness(70%);
+  cursor: pointer;
 }
 
 .hero-btn {
@@ -53,16 +54,17 @@
 
 .post-title, .short-post-title {
   position: relative;
+  font-size: 20px;
 }
 
 .post-title {
   bottom: 40px;
-  left: 130px;
+  left: 10px;
 }
 
 .short-post-title {
   bottom: 40px;
-  left: 180px;
+  left: 10px;
 }
 
 .prev-img {
@@ -75,12 +77,13 @@
 .post-prev-img {
   width: 250px;
   height: 250px;
-  filter: brightness(60%);
   border-radius: 8px;
+  filter: brightness(90%);
 }
 
 .post-prev-img:hover {
-  filter: brightness(80%);
+  filter: brightness(70%);
+  cursor: pointer;
 }
 
 .post-container-img {
@@ -90,13 +93,18 @@
 
 .cat-name {
   position: absolute;
-  left: 62vw;
-  top: 33vw;
+  left: 31vw;
+  top: calc(20% + 90px);
+  font-size: 28px;
 }
 
 @media only screen and (min-width: 900px) {
   .hero-container {
     height: 20vw;
+  }
+  .cat-name {
+    top: calc(15% + 155px);
+    left: 33vw;
   }
 
   .hero-container img {

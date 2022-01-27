@@ -13,6 +13,9 @@ const HomeFeed = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [openPost, setOpenPost] = useState(false);
 
+  const navbar = document.querySelector('.main-navbar');
+  navbar.style.backgroundColor = '#6B705C';
+
   useEffect(() => {
     dispatch(getPostsByCatId(catId));
   }, [dispatch, catId]);

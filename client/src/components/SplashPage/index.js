@@ -16,9 +16,24 @@ const SplashPage = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [openPost, setOpenPost] = useState(null);
 
+  const navbar = document.querySelector('.main-navbar');
+  if (navbar) {
+    navbar.style.backgroundColor = '#CB997E';
+  }
+
+  window.addEventListener('scroll', () => {
+
+    if (window.scrollY <= 24 && window.location.pathname === '/') {
+      navbar.style.backgroundColor = '#CB997E';
+    } else {
+      navbar.style.backgroundColor = '#6B705C';
+    }
+  });
+
+
   const getRecents = postList => {
     const tmp = [];
-    for (let i = 0; i <= 5; i++) {
+    for (let i = 0; i <= 9; i++) {
       if (!postList[i]) {
         break;
       }
