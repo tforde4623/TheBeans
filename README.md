@@ -61,3 +61,10 @@ npm install
 npm start
 ```
 NOTE: for more into look at the run directions in the client readme.
+
+### Some Resource Attributions
+- [Google Images](www.google.com/imghp?hl=en) used for demo data.
+- [Font Awesome](www.fontawesome.com) used for a lot of menu icons.
+- [Google Fonts](fonts.google.com) used for website wide fonts.
+- [Flat Icon](www.flaticon.com/free-icons) used for favicon.
+- [Coolers](coolers.co) used for assistance in sites color pallete.
