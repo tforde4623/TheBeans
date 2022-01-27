@@ -18,11 +18,15 @@ const SplashPage = () => {
 
   const getRecents = postList => {
     const tmp = [];
-    for (let i = 0; i <= 6; i++) {
+    for (let i = 0; i <= 5; i++) {
       if (!postList[i]) {
         break;
       }
-      postList[i].title = `${postList[i].title.slice(0, 12)} ${'.'.repeat(3)}`;
+
+      if (postList[i].title.length > 10) {
+        postList[i].title = `${postList[i].title.slice(0, 12)} ...`;
+      }
+
       tmp.push(postList[i]);
     };
     return tmp;
@@ -109,7 +113,7 @@ const SplashPage = () => {
             className='post-preview'
           >
             <img className='post-prev-img' src={p.img_url} alt='preview of category'/>
-            <div className='post-title'>{p.title}</div>
+            <div className={p.title.length < 10 ? 'short-post-title' : 'post-title'}>{p.title}</div>
           </div>
         ))}
       </div>

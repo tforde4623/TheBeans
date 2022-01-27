@@ -2,7 +2,7 @@ from flask import Blueprint, jsonify, request
 from flask_login import login_required
 from app.models import db, Post
 from app.forms import CreatePostForm
-from .upload_img  import upload_img
+from .upload_img import upload_img
 import uuid
 
 post_routes = Blueprint('posts', __name__)

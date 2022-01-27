@@ -46,21 +46,21 @@ const ShowPost = ({ post, setIsOpen }) => {
         ] : [
           <div className='post-title-container'>
             <p className='post-container-content'>{ post.title }</p>
+            {showPostMenu && 
+            <div className='showPost-menu'>
+              <button 
+                className='showPost-btn' 
+                onClick={() => setShowEditForm(!showEditForm)}
+              >Edit</button>
+              <button 
+                className='showPost-btn'
+                onClick={handleDelete}
+              >Delete</button>
+            </div>}
             <i className="fas fa-ellipsis-v" onClick={() => setShowPostMenu(!showPostMenu)}></i>
           </div>,
           <hr/>,
           <p className='post-container-content'>{ post.description }</p>,
-          showPostMenu && 
-          <div className='showPost-menu'>
-            <button 
-              className='showPost-btn' 
-              onClick={() => setShowEditForm(!showEditForm)}
-            >Edit</button>
-            <button 
-              className='showPost-btn'
-              onClick={handleDelete}
-            >Delete</button>
-          </div>
         ]
          }
       </div>
@@ -76,7 +76,10 @@ const ShowPost = ({ post, setIsOpen }) => {
               className={commentEdit === c.id ? 'comment-div edit-comment-div' : 'comment-div'}>
             {commentEdit && commentEdit === c.id
               ?
-                <EditComment comment={c} post={post} closeForm={setCommentEdit} />
+                <EditComment 
+                  comment={c} 
+                  post={post} 
+                  closeForm={setCommentEdit} />
               : [
                 <div>
                   <div className='comment-user'>{c.author.username}</div>

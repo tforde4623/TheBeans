@@ -29,17 +29,24 @@
   display: flex;
   justify-content: center;
   align-items: center;
+  position: relative;
 }
 
 .showPost-menu {
   position: absolute;
-  top: calc(100% - 29vw);
-  right: calc(100% - 33vw);
+  top: 35px;
+  right: -30px;
   display: flex;
   flex-direction: column;
   background-color: #282828;
   padding: 5px;
   border-radius: 5px;
+}
+
+@media screen and (min-width: 900px) {
+  .showPost-menu {
+    width: 120px;
+  }  
 }
 
 .showPost-btn {

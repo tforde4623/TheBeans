@@ -45,16 +45,24 @@
 }
 
 .preview-title {
-  bottom: 40px;
+  bottom: 30px;
   top: 100px;
   color: white;
   font-size: 24px;
 }
 
-.post-title {
+.post-title, .short-post-title {
   position: relative;
+}
+
+.post-title {
   bottom: 40px;
-  left: 120px;
+  left: 130px;
+}
+
+.short-post-title {
+  bottom: 40px;
+  left: 180px;
 }
 
 .prev-img {
@@ -84,6 +92,21 @@
   position: absolute;
   left: 62vw;
   top: 33vw;
+}
+
+@media only screen and (min-width: 900px) {
+  .hero-container {
+    height: 20vw;
+  }
+
+  .hero-container img {
+    width: 40%;
+  }
+
+  .post-prev-img {
+    width: 350px;
+    height: 350px;
+  }
 }
 
 .animate-spin {
