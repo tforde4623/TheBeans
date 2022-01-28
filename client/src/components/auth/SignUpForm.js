@@ -11,14 +11,31 @@ const SignUpForm = () => {
   const [repeatPassword, setRepeatPassword] = useState('');
   const user = useSelector(state => state.session.user);
   const dispatch = useDispatch();
+  const [usernameErrs, setUsernameErrs] = useState();
+  const [emailErrs, setEmailErrs] = useState();
+  const [passwordErrs, setPasswordErrs] = useState();
+  const [passMatchErr, setPassMatchErr] = useState();
 
-  const onSignUp = async (e) => {
+  const onSignUp = e => {
     e.preventDefault();
+    if (!repeatPassword) setPassMatchErr('This field is required.');
     if (password === repeatPassword) {
-      const data = await dispatch(signUp(username, email, password));
-      if (data) {
-        setErrors(data)
-      }
+      dispatch(signUp(username, email, password))
+        .then(data => {
+          if (data?.errors) {
+            data.errors.forEach(err => {
+              if (err.username) {
+                setUsernameErrs(err.username);
+              } else if (err.email) {
+                setEmailErrs(err.email);
+              } else if (err.password) {
+                setPasswordErrs(err.password);
+              }
+            });
+          }
+        }) 
+    } else {
+      setPassMatchErr('Passwords do not match.');
     }
   };
 
@@ -43,50 +60,57 @@ const SignUpForm = () => {
   }
 
   return (
-    <form onSubmit={onSignUp}>
+    <form className='auth-form-container' onSubmit={onSignUp}>
       <div>
         {errors.map((error, ind) => (
           <div key={ind}>{error}</div>
         ))}
       </div>
       <div>
-        <label>User Name</label>
         <input
           type='text'
-          name='username'
+          placeholder='Username'
+          className={`auth-form-field ${usernameErrs && 'auth-input-err'}`}
+          name='Username'
           onChange={updateUsername}
           value={username}
         ></input>
+        {usernameErrs && <div className='auth-div-error'>{usernameErrs}</div>}
       </div>
       <div>
-        <label>Email</label>
         <input
           type='text'
           name='email'
+          className={`auth-form-field ${emailErrs && 'auth-input-err'}`}
+          placeholder='Email'
           onChange={updateEmail}
           value={email}
         ></input>
+        {emailErrs && <div className='auth-div-error'>{emailErrs}</div>}
       </div>
       <div>
-        <label>Password</label>
         <input
           type='password'
           name='password'
+          placeholder='Password'
+          className={`auth-form-field ${passwordErrs && 'auth-input-err'}`}
           onChange={updatePassword}
           value={password}
         ></input>
+        {passwordErrs && <div className='auth-div-error'>{passwordErrs}</div>}
       </div>
       <div>
-        <label>Repeat Password</label>
         <input
           type='password'
           name='repeat_password'
+          placeholder='Confirm Password'
+          className={`auth-form-field ${passMatchErr && 'auth-input-err'}`}
           onChange={updateRepeatPassword}
           value={repeatPassword}
-          required={true}
         ></input>
+        {passMatchErr && <div className='auth-div-error'>{passMatchErr}</div>}
       </div>
-      <button type='submit'>Sign Up</button>
+      <button className='auth-form-submit' type='submit'>Sign Up</button>
     </form>
   );
 };
