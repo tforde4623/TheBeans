@@ -1,35 +1,35 @@
 .post-container {
   position: fixed;
+  display: flex;
   top: 0;
   right: 0;
   left: 0;
   margin-top: 20vh;
   margin-left: auto;
   margin-right: auto;
-  width: 90vw;
-  height: 60vh;
-  display: flex;
   flex-direction: row;
   justify-content: flex-start;
   background-color: white;
-  border-radius: 15px;
   padding: 25px;
+  width: 90vw;
+  height: 60vh;
+  border-radius: 15px;
 }
 
 .close-btn {
   position: absolute;
   top: 5px;
   left: 8px;
+  outline: none;
   background-color: white; /* needs to be the same as main modal background */
   border: none;
-  outline: none;
 }
 
 .post-title-container {
   display: flex;
+  position: relative;
   justify-content: center;
   align-items: center;
-  position: relative;
 }
 
 .showPost-menu {
@@ -40,8 +40,8 @@
   flex-direction: column;
   background-color: #282828;
   padding: 5px;
-  border-radius: 5px;
   font-size: 18px;
+  border-radius: 5px;
 }
 
 .menu-hover:hover {
@@ -107,7 +107,7 @@
 }
 
 .comments-scroll {
-  height: calc(100% - 100px);
+  height: calc(100% - 110px);
   overflow-y: scroll;
   color: black;
 }
@@ -126,14 +126,14 @@
 }
 
 .edit-comment-div {
-  height: 100px;
+  height: fit-content;
 }
 
-.edit-comment-form textarea {
+.edit-c-form-ta {
   overflow: auto;
-  height: 50px;
-  width: 300px;
+  height: 60px;
   resize: none;
+  width: 45vw;
 }
 
 .comment-create-container {
@@ -163,4 +163,17 @@
   top: -35px;
   left: calc(100% - 30px);
   background-color: white;
+}
+
+.sp-edit-btn {
+  margin-right: 5px;
+  border: none;
+  border-radius: 5px;
+  background-color: #A5A58D;
+  padding: 3px;
+  border: 2px solid white;
+}
+
+.sp-edit-btn:hover {
+  border: 2px solid #A5A58D;
 }

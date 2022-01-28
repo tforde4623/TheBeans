@@ -92,10 +92,6 @@ const SplashPage = () => {
     setOpenPost(post);
   };
 
-  const handleOffClick = () => {
-    if (isOpen) setIsOpen(null);
-  };
-
   useEffect(() => {
     (async () => {
       axios.get('/api/categories/')
@@ -109,7 +105,7 @@ const SplashPage = () => {
   }, [dispatch])
   
   return (
-    <div onClick={handleOffClick} className='splash-main-container'>
+    <div className='splash-main-container'>
       <div className='hero-container'>
       { axiosErrs && <div>{ axiosErrs }</div> }
         <button className='hero-btn' onClick={() => cycleImg(1)}>

@@ -48,9 +48,9 @@ const EditForm = ({ post, setShow, setIsOpen }) => {
         onChange={e => setDescription(e.target.value)}
       ></textarea>
       {descErrs && <div className='form-err-msg'>{descErrs}</div>}
-      <button className='edit-form-btn'>Done</button>
+      <button className='sp-edit-btn'>Done</button>
       <button 
-        className='edit-form-btn' 
+        className='sp-edit-btn' 
         onClick={() => setShow(false)}
       >
         Cancel

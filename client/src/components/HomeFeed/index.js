@@ -29,12 +29,8 @@ const HomeFeed = () => {
     setIsOpen(true);
   };
 
-  const handleOffClick = () => {
-    if (isOpen) setIsOpen(null);
-  };
-
   return (
-    <div onClick={handleOffClick} className='container'>
+    <div className='container'>
       {posts && Object.values(posts).reverse().map(post => (
         <div key={post.id} onClick={() => openModal(post)}>
           <HomeFeedCard key={post.id} post={post} />

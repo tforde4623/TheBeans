@@ -5,11 +5,26 @@ import { postComment } from '../../store/comments';
 const AddCommentForm = ({ post }) => {
   const dispatch = useDispatch();
   const [content, setContent] = useState('');
+  const [contentErr, setContentErr] = useState();
 
   const handleSubmit = e => {
     e.preventDefault();
-    dispatch(postComment({ content }, post.id));
+    dispatch(postComment({ content }, post.id))
+      .then(res => {
+        console.log(res.errors);
+        if (res.errors) {
+          if ('content' in res.errors[0]) {
+            setContentErr(res.errors[0].content);
+          }
+        }
+      })
+
     setContent('');
+  };
+
+  const handleChange = val => {
+    setContent(val);
+    setContentErr(null);
   };
 
   return (
@@ -17,11 +32,12 @@ const AddCommentForm = ({ post }) => {
       <form className='create-comment-form'>
         <textarea 
           value={content} 
-          placeholder='Add a comment...'
-          className='create-comment-content'
-          onChange={e => setContent(e.target.value)}/>
+          placeholder={contentErr ? 'Content required...' : 'Add a comment...'}
+          className={`${contentErr && 'input-err'} create-comment-content`}
+          onChange={e => handleChange(e.target.value)}/>
         <button 
-          className='create-comment-submit'
+          className={`${contentErr && 'input-err'} create-comment-submit`}
+          style={ contentErr && {'backgroundColor': '#fff0f4'} }
           onClick={e => handleSubmit(e)}
         >
           <i className="fas fa-share"></i>

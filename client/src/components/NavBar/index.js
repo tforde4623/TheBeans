@@ -50,7 +50,7 @@ const NavBar = () => {
           {showUserMenu &&
             <ul onClick={() => setShowUserMenu(false)} className='nav-user-menu'>
               <li className='user-nav-item'>
-                <NavLink to={`/users/${user.id}/posts`}>
+                <NavLink className='nav-menu-link' to={`/users/${user.id}/posts`}>
                   My Profile
                 </NavLink>
               </li>

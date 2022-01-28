@@ -13,7 +13,7 @@ def make_val_msgs(validation_errors):
     errorMessages = []
     for field in validation_errors:
         for error in validation_errors[field]:
-            errorMessages.append(f'{field} : {error}')
+            errorMessages.append({field: error})
     return errorMessages
 
 
@@ -48,7 +48,7 @@ def add_comment():
 
         return jsonify(new_post.to_dict_with_author())
 
-    return jsonify({ 'errs': make_val_msgs(form.errors) }), 401
+    return jsonify({ 'errors': make_val_msgs(form.errors) }), 401
 
 
 @comment_routes.route('/<id>', methods=['put'])
@@ -73,7 +73,7 @@ def edit_comment(id):
         return jsonify(comment.to_dict_with_author())
 
     if form.errors:
-        return jsonify({ 'errs': make_val_msgs(form.errors) })
+        return jsonify({ 'errors': make_val_msgs(form.errors) }), 401
 
 
 @comment_routes.route('/<comment_id>', methods=['delete'])

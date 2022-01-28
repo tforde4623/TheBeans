@@ -55,6 +55,11 @@
   text-decoration: none;
 }
 
+.nav-menu-link {
+  color: white;
+  text-decoration: none;
+}
+
 /* animation for opening dropdown */
 @keyframes dropdown {
   from {
