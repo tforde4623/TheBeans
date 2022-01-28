@@ -31,8 +31,17 @@ const ShowPost = ({ post, setIsOpen }) => {
     dispatch(removeComment(commentId));
   };
 
+  const handleModalClick = () => {
+    if (showPostMenu) {
+      setShowPostMenu(false);
+    }
+    if (showCommentEdit) {
+      setShowCommentEdit(null);
+    }
+  };
+
   return (
-    <div className='post-container'>
+    <div onClick={() => handleModalClick()} className='post-container'>
       <button className='close-btn' 
         onClick={() => setIsOpen(false)}>
         <i  className="fas fa-times"></i>

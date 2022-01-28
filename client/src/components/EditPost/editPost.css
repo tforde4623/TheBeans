@@ -3,10 +3,12 @@
   padding: 5px;
   border-radius: 10px;
   padding: 5px;
+  outline: none;
+  border: 1px solid gray;
 }
 
 .edit-form-textarea {
-  height: 80px;
+  height: 60px;
   margin-top: 10px;
   overflow-y: scroll;
   resize: none;
@@ -21,4 +23,14 @@
 
 .edit-form-btn:hover {
   background-color: gray;
+}
+
+.input-err {
+  background: #fff0f4;
+  border: red 1.5px solid;
+  outline: none;
+}
+
+.form-err-msg {
+  color: red;
 }
