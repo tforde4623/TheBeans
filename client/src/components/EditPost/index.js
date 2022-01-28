@@ -1,9 +1,9 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import { putPost } from '../../store/posts';
 import './editPost.css';
 
-const EditForm = ({ post, setShow }) => {
+const EditForm = ({ post, setShow, setIsOpen }) => {
   const dispatch = useDispatch();
   const [title, setTitle] = useState(post.title);
   const [description, setDescription] = useState(post.description);
@@ -15,8 +15,13 @@ const EditForm = ({ post, setShow }) => {
       id: post.id,
       title,
       description
-    }))
+    }));
+
+    setShow(false);
+    setIsOpen(false);
   };
+
+  useEffect(() => {}, [post]);
 
   return (
     <form onSubmit={handleSubmit}>

@@ -6,7 +6,7 @@ from app.forms import CommentForm
 comment_routes = Blueprint('comments', __name__)
 
 
-def validation_errors_to_error_messages(validation_errors):
+def make_val_msgs(validation_errors):
     """
     turns the WTForms validation errors into a simple list
     """
@@ -48,29 +48,32 @@ def add_comment():
 
         return jsonify(new_post.to_dict_with_author())
 
-    return jsonify({ 'errs': validation_errors_to_error_messages(form.errors) }), 401
+    return jsonify({ 'errs': make_val_msgs(form.errors) }), 401
 
 
-@comment_routes.route('/<comment_id>', methods=['put'])
+@comment_routes.route('/<id>', methods=['put'])
 @login_required
-def edit_comment(comment_id):
+def edit_comment(id):
     """
     edit a comments content by post_id
     """
-    data = request.json
     form = CommentForm()
+
     form['csrf_token'].data = request.cookies['csrf_token']
+    data = request.json
+    form.data['content'] = data['content']
 
     if form.validate_on_submit():
-        comment = Comment.query.filter_by(id=comment_id).one()
 
-        if comment.author.id == current_user.id:
-            comment['content'] = data['content']
-            db.session.commit()
+        comment = Comment.query.filter_by(id=id).one()
+
+        comment.content = data['content']
+        db.session.commit()
 
         return jsonify(comment.to_dict_with_author())
 
-    return jsonify({ 'errs': validation_errors_to_error_messages(form.errors) }), 401
+    if form.errors:
+        return jsonify({ 'errs': make_val_msgs(form.errors) })
 
 
 @comment_routes.route('/<comment_id>', methods=['delete'])
@@ -80,11 +83,11 @@ def delete_comment(comment_id):
     delete a comment by id
     """
     comment = Comment.query.filter_by(id=comment_id).one()
-    
+
     if comment.author.id == current_user.id:
         db.session.delete(comment)
         db.session.commit()
 
         return jsonify({}), 204
-    
+
     return jsonify({ 'err': 'could not delete record' }), 401

@@ -97,7 +97,7 @@ def edit_post(id):
     still validates input
     """
     form = EditPostForm()
-    form['csrf_token'].data = request.cookies['csrf_token'];
+    form['csrf_token'].data = request.cookies['csrf_token']
     if form.validate_on_submit():
         data = request.json
         old_post = Post.query.filter_by(id=id).one()

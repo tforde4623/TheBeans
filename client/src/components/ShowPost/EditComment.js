@@ -8,7 +8,8 @@ const EditComment = ({ comment, closeForm }) => {
 
   const handleSubmit = e => {
     e.preventDefault();
-    dispatch(putComment(comment));
+    dispatch(putComment(content, comment.id));
+    closeForm(true);
   };
 
   return (

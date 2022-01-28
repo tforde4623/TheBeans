@@ -15,4 +15,4 @@ class CreatePostForm(FlaskForm):
     description = TextAreaField(
             'description', validators=[DataRequired()])
     category_id = SelectField(
-            'cateogory_id', choices=[1, 2, 3], validators=[DataRequired(), choice_exists])
+            'cateogory_id', choices=[(1, 1), (2, 2), (3, 3)], validators=[DataRequired(), choice_exists])

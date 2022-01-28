@@ -95,7 +95,18 @@
   position: absolute;
   left: 31vw;
   top: calc(20% + 90px);
-  font-size: 28px;
+  font-size: 32px;
+  font-family: sans-serif;
+  color: white;
+}
+
+.posts-header {
+  margin: 0 auto;
+  width: fit-content;
+  font-size: 32px;
+  margin-top: 16px;
+  color: black;
+  font-family: 'Mochiy Pop P One', sans-serif;
 }
 
 @media only screen and (min-width: 900px) {

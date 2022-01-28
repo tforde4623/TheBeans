@@ -103,7 +103,7 @@ export const getPostsByCatId = catId => async dispatch => {
 const initialState = {};
 
 const postReducer = (state = initialState, action) => {
-  const newState = { ...state };
+  const newState = Object.assign({}, state);
 
   switch (action.type) {
     case LOAD_ALL_POSTS:
@@ -119,7 +119,7 @@ const postReducer = (state = initialState, action) => {
 
     case EDIT_POST:
       newState[action.post.id] = action.post
-      return newState;
+      return { ...newState };
 
     case DELETE_POST:
       delete newState[action.postId];

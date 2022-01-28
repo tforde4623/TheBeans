@@ -120,6 +120,7 @@ const SplashPage = () => {
           <i className="fas fa-chevron-right fa-lg"></i>
         </button>
       </div>
+      <h2 className='posts-header'>Recent Posts</h2>
       <div className='posts-grid-container'>
         {posts && getRecents(Object.values(posts).reverse()).map(p => (
           <div 

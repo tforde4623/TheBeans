@@ -33,16 +33,14 @@ const ShowPost = ({ post, setIsOpen }) => {
 
   return (
     <div className='post-container'>
-      {owned && 
-        <button className='close-btn' 
-          onClick={() => setIsOpen(false)}>
-          <i  className="fas fa-times"></i>
-        </button>
-      }
+      <button className='close-btn' 
+        onClick={() => setIsOpen(false)}>
+        <i  className="fas fa-times"></i>
+      </button>
       <div className='post-container-left'>
         <img className='post-container-img' src={post.img_url} alt='main coffee stuff'/>
         { showEditForm ? [
-          <EditPost post={post} setShow={setShowEditForm}/>
+          <EditPost setIsOpen={setIsOpen} post={post} setShow={setShowEditForm}/>
         ] : [
           <div className='post-title-container'>
             <p className='post-container-content'>{ post.title }</p>
@@ -57,7 +55,10 @@ const ShowPost = ({ post, setIsOpen }) => {
                 onClick={handleDelete}
               >Delete</button>
             </div>}
-            <i style={{'color': 'black'}} className="menu-hover fas fa-ellipsis-v" onClick={() => setShowPostMenu(!showPostMenu)}></i>
+            {owned && <i 
+              style={{'color': 'black'}} 
+              className="menu-hover fas fa-ellipsis-v" 
+              onClick={() => setShowPostMenu(!showPostMenu)}></i>}
           </div>,
           <hr/>,
           <p className='post-container-content'>{ post.description }</p>,

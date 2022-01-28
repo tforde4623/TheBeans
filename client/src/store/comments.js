@@ -47,13 +47,15 @@ const editComment = comment => ({
   comment
 });
 
-export const putComment = comment => async dispatch => {
-  const res = await fetch(`/api/comments/${comment.id}`, {
+export const putComment = (content, id) => async dispatch => {
+  const res = await fetch(`/api/comments/${id}`, {
     method: 'put',
     headers: {
       'Content-Type': 'application/json',
     },
-    body: JSON.stringify(comment.content)
+    body: JSON.stringify({
+      content
+    })
   });
 
   const data = await res.json();
