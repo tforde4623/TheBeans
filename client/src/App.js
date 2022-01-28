@@ -40,7 +40,6 @@ function App() {
             <Route path='/sign-up' exact={true}>
               <SignUpForm />
             </Route>
-            {/* TODO: remove this */}
             <ProtectedRoute path='/users' exact={true} >
               <UsersList/>
             </ProtectedRoute>

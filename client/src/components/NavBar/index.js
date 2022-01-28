@@ -48,9 +48,11 @@ const NavBar = () => {
 
           {/* user drop down menu */}
           {showUserMenu &&
-            <ul className='nav-user-menu'>
+            <ul onClick={() => setShowUserMenu(false)} className='nav-user-menu'>
               <li className='user-nav-item'>
-                TODO: My Profile
+                <NavLink to={`/users/${user.id}/posts`}>
+                  My Profile
+                </NavLink>
               </li>
               <li>
                 <LogoutButton setShowUserMenu={setShowUserMenu} />

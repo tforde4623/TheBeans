@@ -2,6 +2,7 @@ from flask import Blueprint, jsonify, request
 from flask_login import login_required
 from app.models import db, Post
 from app.forms import CreatePostForm
+from app.forms import EditPostForm
 from .upload_img import upload_img
 import uuid
 
@@ -95,9 +96,8 @@ def edit_post(id):
     image stays constant, can edit title or description
     still validates input
     """
-    form = CreatePostForm()
+    form = EditPostForm()
     form['csrf_token'].data = request.cookies['csrf_token'];
-
     if form.validate_on_submit():
         data = request.json
         old_post = Post.query.filter_by(id=id).one()
@@ -109,6 +109,7 @@ def edit_post(id):
 
     # we know errors are present if we get here
     err_msgs = validation_errors_to_error_messages(form.errors)
+
     return jsonify({'errors': err_msgs}), 401
 
 

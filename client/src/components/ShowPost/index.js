@@ -36,7 +36,7 @@ const ShowPost = ({ post, setIsOpen }) => {
       {owned && 
         <button className='close-btn' 
           onClick={() => setIsOpen(false)}>
-          <i className="fas fa-times"></i>
+          <i  className="fas fa-times"></i>
         </button>
       }
       <div className='post-container-left'>
@@ -57,7 +57,7 @@ const ShowPost = ({ post, setIsOpen }) => {
                 onClick={handleDelete}
               >Delete</button>
             </div>}
-            <i className="menu-hover fas fa-ellipsis-v" onClick={() => setShowPostMenu(!showPostMenu)}></i>
+            <i style={{'color': 'black'}} className="menu-hover fas fa-ellipsis-v" onClick={() => setShowPostMenu(!showPostMenu)}></i>
           </div>,
           <hr/>,
           <p className='post-container-content'>{ post.description }</p>,

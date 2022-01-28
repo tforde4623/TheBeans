@@ -13,7 +13,7 @@ const SplashPage = () => {
   const posts = useSelector(state => state.posts);
   const [axiosErrs, setAxiosErrs] = useState('');
   const [currHeroImg, setCurrentHeroImg] = useState(cats[0]);
-  const [isOpen, setIsOpen] = useState(false);
+  const [isOpen, setIsOpen] = useState(null);
   const [openPost, setOpenPost] = useState(null);
 
   const navbar = document.querySelector('.main-navbar');
@@ -88,7 +88,7 @@ const SplashPage = () => {
   };
 
   const handlePostClick = post => {
-    setIsOpen(true);
+    setIsOpen(post);
     setOpenPost(post);
   };
 
