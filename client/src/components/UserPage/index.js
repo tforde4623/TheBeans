@@ -17,12 +17,16 @@ const UserPage = () => {
     setIsOpen(true);
   };
 
+  const handleOffClick = () => {
+    if (isOpen) setIsOpen(null);
+  };
+
   useEffect(() => {
     dispatch(fetchUserPosts(userId));
   }, [dispatch, userId]);
 
   return (
-    <div>
+    <div onClick={handleOffClick}>
       <ul className='grid-img-container'>
         {posts && Object.values(posts).reverse().map(post => (
           <li key={post.id} className='grid-img-div' onClick={() => handlePostClick(post)}>
