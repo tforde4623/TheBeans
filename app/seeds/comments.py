@@ -1,32 +1,33 @@
+from random import randint
 from app.models import db, Comment
 
 def seed_comments():
-    comment0 = Comment(
-        content='Great Post! Thanks!',
-        user_id=1,
-        post_id=1,
-    )
+    commentContent = [
+        'Nice Post!',
+        'Looks Good!',
+        'Wow!',
+        'I could use some of that.',
+        'Where did you go?',
+        'That looks delicious!',
+        'Thanks for the content',
+        'Ill have to try it',
+        'Thanks man!',
+        'Cool!',
+        'I think I saw that',
+        'Good stuff'
+    ]
 
-    comment1 = Comment(
-        content='Great Post! Thanks!',
-        user_id=1,
-        post_id=1,
-    )
+    # add a comment with a user_id and post_id for all strings
+    for i in range(len(commentContent)): # every comment
+        for j in range(1, 10): # 9 posts
+            db.session.add(
+                Comment(
+                    content= commentContent[i],
+                    post_id=j,
+                    user_id= randint(1, 3)
+                )
+            )
 
-    comment2 = Comment(
-        content='Great Post! Thanks!',
-        user_id=1,
-        post_id=1,
-    )
-
-    comment3 = Comment(
-        content='Great Post! Thanks!',
-        user_id=1,
-        post_id=1,
-    )
-
-    comments = [comment0, comment1, comment2, comment3]
-    [db.session.add(c) for c in comments]
     db.session.commit()
 
 

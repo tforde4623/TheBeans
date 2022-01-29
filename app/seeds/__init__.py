@@ -9,6 +9,11 @@ from .comments import seed_comments, undo_comments
 seed_commands = AppGroup('seed')
 
 
+# creates 'flask seed categories' command
+@seed_commands.command('categories')
+def seed_cats():
+    seed_categories()
+
 # Creates the `flask seed all` command
 @seed_commands.command('all')
 def seed():

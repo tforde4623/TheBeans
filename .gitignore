@@ -6,3 +6,4 @@ __pycache__/
 .vscode/
 .vim/
 typings/
+demo_users.txt
