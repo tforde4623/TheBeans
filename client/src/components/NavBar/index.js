@@ -16,7 +16,7 @@ const NavBar = () => {
             <h1 className='nav-header'>TheBeans</h1>
           </NavLink>
         </li>
-        <li className='nav-section'>
+        <div className='nav-section'>
         {!user && 
           <li>
             <NavLink className='nav-link' to='/login' exact={true} activeClassName='active'>
@@ -67,7 +67,7 @@ const NavBar = () => {
               </NavLink>
             </p>
           }
-        </li>
+        </div>
       </ul>
     </nav>
   );

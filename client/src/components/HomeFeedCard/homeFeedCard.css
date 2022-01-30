@@ -8,6 +8,7 @@
   background-color: #DDBEA9;
   padding-top: 10px;
   margin-top: 10px;
+  padding-bottom: 10px;
 }
 
 .card-container:hover {
@@ -46,5 +47,6 @@
   display: flex;
   justify-content: flex-start;
   align-items: flex-start;
-  overflow-y: hidden;
+  overflow: hidden;
+  font-size: 15px;
 }

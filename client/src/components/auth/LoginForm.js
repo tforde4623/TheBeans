@@ -62,11 +62,12 @@ const LoginForm = () => {
           name='password'
           className={`auth-form-field ${passwordErrs && 'auth-input-err'}`}
           type='password'
+          autoComplete='current-password'
           placeholder='Password'
           value={password}
           onChange={e => setPassword(e.target.value)}
         />
-        {emailErrs && <div className='auth-div-error'>{passwordErrs}</div>}
+        {passwordErrs && <div className='auth-div-error'>{passwordErrs}</div>}
         {errors && <div className='auth-div-error'>{errors}</div>}
         <button className='auth-form-btn' type='submit'>Login</button>
         { /* NOTE: button to allow demo user to login */ }

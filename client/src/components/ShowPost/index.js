@@ -44,28 +44,31 @@ const ShowPost = ({ post, setIsOpen }) => {
       <div className='post-container-left'>
         <img className='post-container-img' src={post.img_url} alt='main coffee stuff'/>
         { showEditForm ? [
-          <EditPost setIsOpen={setIsOpen} post={post} setShow={setShowEditForm}/>
+          <EditPost key={8} setIsOpen={setIsOpen} post={post} setShow={setShowEditForm}/>
         ] : [
-          <div className='post-title-container'>
-            <p className='post-container-content'>{ post.title }</p>
+          <div key={7} className='post-title-container'>
+            <p key={6} className='post-container-content'>{ post.title }</p>
             {showPostMenu && 
-            <div className='showPost-menu'>
+            <div key={5} className='showPost-menu'>
               <button 
+                key={4}
                 className='showPost-btn' 
                 onClick={() => setShowEditForm(!showEditForm)}
               >Edit</button>
               <button 
+                key={3}
                 className='showPost-btn'
                 onClick={handleDelete}
               >Delete</button>
             </div>}
             {owned && <i 
               style={{'color': 'black'}} 
+              key={2}
               className="menu-hover fas fa-ellipsis-v" 
               onClick={() => setShowPostMenu(!showPostMenu)}></i>}
           </div>,
-          <hr/>,
-          <p className='post-container-content'>{ post.description }</p>,
+          <hr key={1}/>,
+          <p key={0} className='post-container-content'>{ post.description }</p>,
         ]
          }
       </div>
@@ -74,7 +77,7 @@ const ShowPost = ({ post, setIsOpen }) => {
           <h3 className='comments-header'>Comments</h3>
           <AddCommentForm post={post}/>
           <div className='comments-scroll'>
-          {comments && Object.values(comments).reverse().map(c => (
+          {Object.values(comments) && Object.values(comments).reverse().map(c => (
             <div 
               key={c.id}
               onClick={showCommentEdit ? () => setShowCommentEdit(false) : null} 
@@ -84,19 +87,22 @@ const ShowPost = ({ post, setIsOpen }) => {
                 <EditComment 
                   comment={c} 
                   post={post} 
+                  key={c.id}
                   closeForm={setCommentEdit} />
               : [
-                <div>
+                <div key={c.id}>
                   <div className='comment-user'>{c.author.username}</div>
                   <div>{c.content}</div>
                 </div>,
                 currUserId === c.author.id && !(showCommentEdit === c.id) && 
                   <i 
+                    key={c.id * 2}
                     onClick={() => setShowCommentEdit(showCommentEdit === c.id ? false : c.id)}
                     className="menu-hover fas fa-ellipsis-h">
                   </i>,
                   c.id === showCommentEdit &&
                   <div 
+                    key={c.id * 3}
                     className='comment-edit-menu'>
                     <button className='comment-btn' onClick={() => setCommentEdit(c.id)}>Edit</button>
                     <button className='comment-btn' onClick={() => dispatch(removeComment(c.id))}>Delete</button>

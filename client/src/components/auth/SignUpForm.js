@@ -4,7 +4,6 @@ import { Redirect } from 'react-router-dom';
 import { signUp } from '../../store/session';
 
 const SignUpForm = () => {
-  const [errors, setErrors] = useState([]);
   const [username, setUsername] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -61,11 +60,6 @@ const SignUpForm = () => {
 
   return (
     <form className='auth-form-container' onSubmit={onSignUp}>
-      <div>
-        {errors.map((error, ind) => (
-          <div key={ind}>{error}</div>
-        ))}
-      </div>
       <div>
         <input
           type='text'

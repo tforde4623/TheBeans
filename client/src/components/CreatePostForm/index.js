@@ -17,7 +17,6 @@ const CreatePostForm = () => {
   const [imgFile, setImgFile] = useState(null);
   const [imgPreview, setImgPreview] = useState(null);
   const [loading, setLoading] = useState(false);
-  const [fetchErrors, setFetchErrors] = useState(null);
   const [titleErr, setTitleErr] = useState('');
   const [descErr, setDescErr] = useState('');
   const [catErr, setCatErr] = useState('');

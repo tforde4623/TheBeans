@@ -33,13 +33,18 @@ const SplashPage = () => {
 
   const getRecents = postList => {
     const tmp = [];
-    for (let i = 0; i <= 9; i++) {
+    const numItems = window.innerWidth > 900 ? 9 : 8;
+
+    for (let i = 0; i < numItems; i++) {
       if (!postList[i]) {
         break;
       }
 
+      // title previews for recent post boxes
       if (postList[i].title.length > 10) {
-        postList[i].title = `${postList[i].title.slice(0, 12)} ...`;
+        postList[i].shortenedTitle = `${postList[i].title.slice(0, 12)} ...`;
+      } else {
+        postList[i].shortenedTitle = postList[i].title;
       }
 
       tmp.push(postList[i]);
@@ -130,7 +135,7 @@ const SplashPage = () => {
             className='post-preview'
           >
             <img className='post-prev-img' src={p.img_url} alt='preview of category'/>
-            <div className={p.title.length < 10 ? 'short-post-title' : 'post-title'}>{p.title}</div>
+            <div className={p.shortenedTitle?.length < 10 ? 'short-post-title' : 'post-title'}>{p.shortenedTitle}</div>
           </div>
         ))}
       </div>
