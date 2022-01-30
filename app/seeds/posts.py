@@ -75,6 +75,55 @@ def seed_posts():
             category_id=3,
             user_id=3
 
+        ),
+        Post(
+            title='Pour Over',
+            description='This is a pour over recipe, yummy! This is also test data! Fun!',
+            img_url='https://bucketobeans.s3.us-east-2.amazonaws.com/270b6151-df00-405e-bd7d-cf4d34249f16.jpg',
+            category_id=2,
+            user_id=1
+        ),
+        Post(
+            title='Coffee Cafe',
+            description='Really yummy cafe for coffee that tastes good.',
+            img_url='https://bucketobeans.s3.us-east-2.amazonaws.com/0d92e350-0b5c-4a91-8957-66bfdba4b01b.jpg',
+            category_id=3,
+            user_id=1
+        ),
+        Post(
+            title='Quixotic Cafe',
+            description='Quixotic is a really good cafe near minneapolis.',
+            img_url='https://bucketobeans.s3.us-east-2.amazonaws.com/76405435-e3a2-496d-b6ce-b305120ca8f1.jpg',
+            category_id=3,
+            user_id=1
+        ),
+        Post(
+            title='Black Coffee',
+            description='The only way to drink coffee if you like flavor.',
+            img_url='https://bucketobeans.s3.us-east-2.amazonaws.com/fb467b3d-bdeb-40c4-b0ee-e5398891c3aa.jpg',
+            category_id=2,
+            user_id=1
+        ),
+        Post(
+            title='Lots of Coffee',
+            description='This is lots of coffee.',
+            img_url='https://bucketobeans.s3.us-east-2.amazonaws.com/0ec375b2-7353-4b79-bbdc-fc2336ad553d.jpg',
+            category_id=2,
+            user_id=1
+        ),
+        Post(
+            title='Columbian',
+            description='This is some coffee made from some yummy columbian single origin.',
+            img_url='https://bucketobeans.s3.us-east-2.amazonaws.com/eb5bd46b-6ebd-4aa3-9eca-645a7aa3d619.jpg',
+            category_id=1,
+            user_id=1
+        ),
+        Post(
+            title='Coffee Art',
+            description='This is a way to do some sick coffee art. 1. Make coffee 2. Do some art on it.',
+            img_url='https://bucketobeans.s3.us-east-2.amazonaws.com/778e4e25-1fc5-4301-b0ca-2ecdb84adab3.jpg',
+            category_id=2,
+            user_id=1
         )
     ]
 
