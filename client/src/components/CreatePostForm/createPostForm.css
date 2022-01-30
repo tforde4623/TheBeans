@@ -36,7 +36,7 @@
 .create-form-main {
   display: flex;
   flex-direction: column;
-  width: 60%;
+  width: 475px;
   margin-top: 10px;
 }
 
@@ -44,15 +44,15 @@
   background-color: lightgray; /* TODO: change this */
   box-shadow: inset 0 0 10px rgba(0, 0, 1, 0.3);
   border-radius: 10px;
-  height: 60vw;
-  width: 60vw;
+  height: 475px;
+  width: 475px;
 }
 
 .image-preview, .file-drop-zone {
-  height: 60vw;
-  width: 60vw;
+  height: 475px;
+  width: 475px;
   border-radius: 10px;
-  margin-bottom: 20px;
+  margin-bottom: 10px;
 }
 
 .image-preview {
@@ -73,4 +73,11 @@
   padding: 3px;
   margin: 5px;
   width: 100%;
+  margin-bottom: 100px;
+}
+
+.input-err {
+  background: #fff0f4;
+  border: red 2px solid !important;
+  outline: none;
 }

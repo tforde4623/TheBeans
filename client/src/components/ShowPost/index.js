@@ -7,7 +7,6 @@ import AddCommentForm from './AddCommentForm';
 import EditComment from './EditComment';
 import './showPost.css';
 
-// model for showing info / comments of an individual posts
 const ShowPost = ({ post, setIsOpen }) => {
   const dispatch = useDispatch();
   const currUserId = useSelector(state => state.session.user.id);
@@ -16,7 +15,7 @@ const ShowPost = ({ post, setIsOpen }) => {
   const [showPostMenu, setShowPostMenu] = useState(false);
   const [showCommentEdit, setShowCommentEdit] = useState();
   const [commentEdit, setCommentEdit] = useState(null);
-  const owned =  currUserId === post.user_id;
+  const owned = currUserId === post.user_id;
 
   useEffect(() => {
     dispatch(getPostComments(post.id));
@@ -25,10 +24,6 @@ const ShowPost = ({ post, setIsOpen }) => {
   const handleDelete = () => {
     dispatch(removePost(post.id));
     setIsOpen(false);
-  };
-
-  const commentDelete = commentId => {
-    dispatch(removeComment(commentId));
   };
 
   const handleModalClick = () => {
@@ -104,7 +99,7 @@ const ShowPost = ({ post, setIsOpen }) => {
                   <div 
                     className='comment-edit-menu'>
                     <button className='comment-btn' onClick={() => setCommentEdit(c.id)}>Edit</button>
-                    <button className='comment-btn' onClick={() => commentDelete(c.id)}>Delete</button>
+                    <button className='comment-btn' onClick={() => dispatch(removeComment(c.id))}>Delete</button>
                   </div>
                 ]
               }

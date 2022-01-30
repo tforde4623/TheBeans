@@ -30,16 +30,14 @@ const LoginForm = () => {
         }
       })
       .catch(() => {
-        setErrors('Could not process request as sent');
+        setErrors('Could not process request as sent.');
       })
   };
 
-  const updateEmail = (e) => {
-    setEmail(e.target.value);
-  };
-
-  const updatePassword = (e) => {
-    setPassword(e.target.value);
+  const handleDemoLogin = e => {
+    e.preventDefault();
+    setEmail('demo1@test.com');
+    setPassword('password');
   };
 
   if (user) {
@@ -55,22 +53,24 @@ const LoginForm = () => {
           className={`auth-form-field ${emailErrs && 'auth-input-err'}`}
           placeholder='Email'
           value={email}
-          onChange={updateEmail}
+          onChange={e => setEmail(e.target.value)}
         />
       </div>
       {emailErrs && <div className='auth-div-error'>{emailErrs}</div>}
       <div>
         <input
           name='password'
-          className={`auth-form-field ${emailErrs && 'auth-input-err'}`}
+          className={`auth-form-field ${passwordErrs && 'auth-input-err'}`}
           type='password'
           placeholder='Password'
           value={password}
-          onChange={updatePassword}
+          onChange={e => setPassword(e.target.value)}
         />
         {emailErrs && <div className='auth-div-error'>{passwordErrs}</div>}
         {errors && <div className='auth-div-error'>{errors}</div>}
-        <button className='auth-form-submit' type='submit'>Login</button>
+        <button className='auth-form-btn' type='submit'>Login</button>
+        { /* NOTE: button to allow demo user to login */ }
+        <button className='auth-form-btn' onClick={e => handleDemoLogin(e)}>Demo</button>
       </div>
     </form>
   );

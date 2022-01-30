@@ -106,6 +106,7 @@ const SplashPage = () => {
   
   return (
     <div className='splash-main-container'>
+      <div className='hero-header'>What are you looking for?</div>
       <div className='hero-container'>
       { axiosErrs && <div>{ axiosErrs }</div> }
         <button className='hero-btn' onClick={() => cycleImg(1)}>

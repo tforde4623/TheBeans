@@ -21,6 +21,7 @@
 .nav-section {
   display: flex;
   color: black;
+  align-items: center;
 }
 
 .nav-section i {
@@ -44,6 +45,10 @@
   margin: 6px;
 }
 
+.nav-user-dropdown:hover {
+  cursor: pointer;
+}
+
 .user-nav-item:hover, .logout-btn:hover {
   background-color: gray;
   border-radius: 5px;
@@ -58,6 +63,18 @@
 .nav-menu-link {
   color: white;
   text-decoration: none;
+}
+
+.nav-link {
+  color: black;
+  text-decoration: none;
+  font-weight: bolder;
+  margin: 5px;
+  padding-bottom: 3px;
+}
+
+.nav-link:hover {
+  border-bottom: 2px black solid;
 }
 
 /* animation for opening dropdown */

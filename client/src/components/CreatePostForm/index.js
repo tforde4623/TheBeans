@@ -18,6 +18,10 @@ const CreatePostForm = () => {
   const [imgPreview, setImgPreview] = useState(null);
   const [loading, setLoading] = useState(false);
   const [fetchErrors, setFetchErrors] = useState(null);
+  const [titleErr, setTitleErr] = useState('');
+  const [descErr, setDescErr] = useState('');
+  const [catErr, setCatErr] = useState('');
+  const [imgErr, setImgErr] = useState('');
 
   const handleDrop = files => {
     setImgFile(files[0]);
@@ -42,8 +46,21 @@ const CreatePostForm = () => {
       .then(res => {
         if (!res.errors) {
           history.push(`/posts/${categoryId}`);
+        } else {
+          console.log(res.errors);
+          res.errors.forEach(err => {
+            if (err.title) {
+              setTitleErr(err.title);
+            } else if (err.description) {
+              setDescErr(err.description);
+            } else if (err.category_id) {
+              setCatErr(err.category_id);
+            } else if (err.img) {
+              // TODO: check this one
+              setImgErr(err.img);
+            }
+          });
         }
-        setFetchErrors(res.errors);
         setLoading(false);
       });
   };
@@ -57,11 +74,6 @@ const CreatePostForm = () => {
 
   return (
     <div className='create-post-container'>
-      <ul>
-        {fetchErrors && fetchErrors.map(err => (
-          <li key={err}>{err}</li>
-        ))}
-      </ul>
       <form onSubmit={handleSubmit} className='create-form-main'>
         <div { ...getRootProps()}>
           {imgPreview  
@@ -74,31 +86,35 @@ const CreatePostForm = () => {
               </div>
           }
         </div>
+        {imgErr && <div className='auth-div-error'>{imgErr}</div>}
         <input 
           type='text' 
-          className='create-form-input'
+          className={`create-form-input ${titleErr && 'input-err'}`}
           placeholder='Title'
           name='title'
           value={title} 
           onChange={e => setTitle(e.target.value)} />
+        {titleErr && <div className='auth-div-error'>{titleErr}</div>}
         <select
-          className='create-form-select'
+          className={`create-form-select ${catErr && 'input-err'}`}
           name='categoryId'
           value={categoryId}
           onChange={e => setCategoryId(e.target.value)}
         >
-          <option>Category</option>
+          { catErr ? <option>Category Required...</option> : <option>Category</option>}
           { categories && categories.map(c => (
             <option key={c.id} value={c.id}>{c.name}</option>
           ))}
         </select>
+        {catErr && <div className='auth-div-error'>{catErr}</div>}
         <textarea 
           type='text' 
-          className='create-form-input form-textarea'
+          className={`create-form-input form-textarea ${descErr && 'input-err'}`}
           placeholder='Description/Recipe'
           name='description'
           value={description} 
           onChange={e => setDescription(e.target.value)} />
+        {descErr && <div className='auth-div-error'>{descErr}</div>}
         {/* img upload form */}
         {/* if image is there preview it */}
         {loading &&

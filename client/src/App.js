@@ -12,6 +12,7 @@ import { authenticate } from './store/session';
 import HomeFeed from './components/HomeFeed';
 import SplashPage from './components/SplashPage';
 import UserPage from './components/UserPage';
+import Footer from './components/Footer';
 import './index.css';
 
 function App() {
@@ -60,6 +61,7 @@ function App() {
             </ProtectedRoute>
           </Switch>
         </div>
+      <Footer />
     </BrowserRouter>
   );
 }

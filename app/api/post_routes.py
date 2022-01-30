@@ -81,7 +81,7 @@ def create_post():
     err_msgs = validation_errors_to_error_messages(form.errors)
 
     if 'i' not in request.files:
-        err_msgs.append('Image required.')
+        err_msgs.append({ 'img': 'Image required.' })
 
     return jsonify({'errors': err_msgs}), 401
 

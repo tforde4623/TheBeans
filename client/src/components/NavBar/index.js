@@ -16,22 +16,21 @@ const NavBar = () => {
             <h1 className='nav-header'>TheBeans</h1>
           </NavLink>
         </li>
+        <li className='nav-section'>
         {!user && 
           <li>
-            <NavLink to='/login' exact={true} activeClassName='active'>
+            <NavLink className='nav-link' to='/login' exact={true} activeClassName='active'>
               Login
             </NavLink>
           </li>
         }
         {!user && 
           <li>
-            <NavLink to='/sign-up' exact={true} activeClassName='active'>
+            <NavLink className='nav-link' to='/sign-up' exact={true} activeClassName='active'>
               Sign Up
             </NavLink>
           </li>
         }
-
-        <li className='nav-section'>
           <p>
             <NavLink to='/' exact={true} activeClassName='active'>
               <i className="fas fa-home fa-lg"></i>

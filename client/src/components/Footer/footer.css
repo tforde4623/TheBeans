@@ -1,0 +1,27 @@
+.footer-container {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  display: flex;
+  border-top: 1px solid gray;
+  width: 100%;
+  justify-content: space-between;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  background-color: rgb(107, 112, 92);
+}
+
+.footer-title {
+  margin-left: 10px;
+  font-weight: bolder;
+  font-size: 18px;
+}
+
+.footer-link {
+  margin: 0 10px;
+  color: black;
+}
+
+.footer-link:hover {
+  color: purple;
+}

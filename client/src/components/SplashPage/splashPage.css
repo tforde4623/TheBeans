@@ -39,17 +39,18 @@
   cursor: pointer;
 }
 
+.hero-header {
+  background-color: #CB997E;
+  text-align: center;
+  color: black;
+  font-family: 'Mochiy Pop P One', sans-serif;
+  font-size: 28px;
+}
+
 .hero-btn {
   background-color: #CB997E;
   border: none;
   font-size: 20px;
-}
-
-.preview-title {
-  bottom: 30px;
-  top: 100px;
-  color: white;
-  font-size: 24px;
 }
 
 .post-title, .short-post-title {
@@ -94,7 +95,7 @@
 .cat-name {
   position: absolute;
   left: 31vw;
-  top: calc(20% + 90px);
+  top: calc(20% + 110px);
   font-size: 32px;
   font-family: sans-serif;
   color: white;
@@ -103,7 +104,7 @@
 .posts-header {
   margin: 0 auto;
   width: fit-content;
-  font-size: 32px;
+  font-size: 28px;
   margin-top: 16px;
   color: black;
   font-family: 'Mochiy Pop P One', sans-serif;
