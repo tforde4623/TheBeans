@@ -104,7 +104,7 @@ const SignUpForm = () => {
         ></input>
         {passMatchErr && <div className='auth-div-error'>{passMatchErr}</div>}
       </div>
-      <button className='auth-form-submit' type='submit'>Sign Up</button>
+      <button className='auth-form-btn' type='submit'>Sign Up</button>
     </form>
   );
 };
