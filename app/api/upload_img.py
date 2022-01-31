@@ -12,8 +12,8 @@ bucket = s3.Bucket('bucketobeans');
 
 def upload_img(file, filename):
     try:
-        url = bucket.Object(f'{filename}.jpg').put(Body=file)
-        print(url, 'hopefully url?')
-    except Exception as oopsies:
-        # TODO: return the err to be handled api/frontend gracefully 
-        print('err', oopsies)
+        res = bucket.Object(f'{filename}.jpg').put(Body=file)
+        print(res)
+        return 'ok'
+    except Exception:
+        return 'Failed to upload image, this is our fault!'

@@ -19,7 +19,6 @@ def validation_errors_to_error_messages(validation_errors):
     return errorMessages
 
 
-# TODO uncomment the login_required for routes
 ## GET '/api/posts' ##
 @post_routes.route('/', methods=['get'])
 @login_required
@@ -68,15 +67,22 @@ def create_post():
                         # store aws url as imgUrl
                         img_url=f'https://bucketobeans.s3.us-east-2.amazonaws.com/{file_name}.jpg',
                         user_id=request.form.get('user_id'))
-        db.session.add(new_post)
-        db.session.commit()
 
         # upload photo to s3 bucket
         data = request.files['i']
-        upload_img(data, file_name)
+        stat = upload_img(data, file_name)
 
-        # on success return the new posts info as a dict
-        return jsonify(new_post.to_dict_with_owner_comments())
+        if stat == 'ok':
+            db.session.add(new_post)
+            db.session.commit()
+
+            # on success return the new posts info as a dict
+            return jsonify(new_post.to_dict_with_owner_comments())
+
+        else:
+            # error uploading the image
+            return jsonify({ 'errors': { 'img': stat }})
+
 
     err_msgs = validation_errors_to_error_messages(form.errors)
 
@@ -115,7 +121,7 @@ def edit_post(id):
 
 ## DELETE '/api/posts/:postId' ##
 @post_routes.route('/<id>', methods=['delete'])
-#@login_required
+@login_required
 def delete_post(id):
     """
     delete a post by id

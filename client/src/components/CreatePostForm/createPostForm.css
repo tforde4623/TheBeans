@@ -41,7 +41,7 @@
 }
 
 .upload-form {
-  background-color: lightgray; /* TODO: change this */
+  background-color: lightgray;
   box-shadow: inset 0 0 10px rgba(0, 0, 1, 0.3);
   border-radius: 10px;
   height: 475px;

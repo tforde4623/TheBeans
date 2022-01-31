@@ -104,7 +104,7 @@ const SplashPage = () => {
           setCats(res.data);
           setCurrentHeroImg(res.data[0]);
         })
-        .catch(() => setAxiosErrs('Could not load preview!')); // TODO: handle
+        .catch(() => setAxiosErrs('Could not load preview!'));
     })();
     dispatch(getPosts());
   }, [dispatch])

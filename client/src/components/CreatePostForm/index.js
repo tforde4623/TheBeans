@@ -55,7 +55,6 @@ const CreatePostForm = () => {
             } else if (err.category_id) {
               setCatErr(err.category_id);
             } else if (err.img) {
-              // TODO: check this one
               setImgErr(err.img);
             }
           });

@@ -31,11 +31,13 @@ const NavBar = () => {
             </NavLink>
           </li>
         }
+        { user &&
           <p>
             <NavLink to='/' exact={true} activeClassName='active'>
               <i className="fas fa-home fa-lg"></i>
             </NavLink>
           </p>
+          }
           {/* user drop down btn */}
           {user &&
             <p 
@@ -59,7 +61,6 @@ const NavBar = () => {
             </ul>
           }
 
-          {/* TODO: plug button for adding post (if logged in) */}
           {user &&
             <p>
               <NavLink to='/posts/new'>
