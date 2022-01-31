@@ -176,3 +176,10 @@
 .sp-edit-btn:hover {
   border: 2px solid #A5A58D;
 }
+
+@media screen and (min-width: 900px) {
+  .post-container {
+    margin-top: 15vh;
+    height: 70vh;
+  }
+}

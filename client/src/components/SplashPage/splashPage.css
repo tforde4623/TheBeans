@@ -27,7 +27,7 @@
 
 .hero-container img {
   width: 50%;
-  height: 80%;
+  height: 85%;
   filter: brightness(90%);
   border-radius: 10%;
   margin-left: 15px;
@@ -95,7 +95,7 @@
 .cat-name {
   position: absolute;
   left: 31vw;
-  top: calc(20% + 110px);
+  top: calc(25% + 100px);
   font-size: 32px;
   font-family: sans-serif;
   color: white;
@@ -115,7 +115,7 @@
     height: 20vw;
   }
   .cat-name {
-    top: calc(15% + 155px);
+    top: calc(20% + 150px);
     left: 33vw;
   }
 
