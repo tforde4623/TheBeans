@@ -70,10 +70,16 @@
 .create-submit-btn {
   border: none;
   border-radius: 10px;
-  padding: 3px;
+  padding: 5px;
   margin: 5px;
   width: 100%;
   margin-bottom: 100px;
+  background-color: rgb(107, 112, 92);
+  border: 2px solid #B7B7A4; 
+}
+
+.create-submit-btn:hover {
+  border: 2px solid rgb(107, 112, 92); 
 }
 
 .input-err {
