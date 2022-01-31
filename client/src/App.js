@@ -13,6 +13,7 @@ import HomeFeed from './components/HomeFeed';
 import SplashPage from './components/SplashPage';
 import UserPage from './components/UserPage';
 import Footer from './components/Footer';
+import PageNotFound from './components/ErrorPages/PageNotFound';
 import './index.css';
 
 function App() {
@@ -59,6 +60,10 @@ function App() {
             <ProtectedRoute path='/users/:userId/posts'>
               <UserPage />
             </ProtectedRoute>
+            { /* 404 page */ }
+            <Route>
+              <PageNotFound />
+            </Route>
           </Switch>
         </div>
       <Footer />
