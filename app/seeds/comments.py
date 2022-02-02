@@ -19,7 +19,7 @@ def seed_comments():
 
     # add a comment with a user_id and post_id for all strings
     for i in range(len(commentContent)): # every comment
-        for j in range(1, 10): # 9 posts
+        for j in range(1, 17): # 9 posts
             db.session.add(
                 Comment(
                     content= commentContent[i],
