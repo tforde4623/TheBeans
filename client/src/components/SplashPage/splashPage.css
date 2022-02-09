@@ -64,6 +64,11 @@
   left: 10px;
 }
 
+.post-preview {
+  height: 300px;
+  margin-bottom: 5px;
+}
+
 .short-post-title {
   bottom: 40px;
   left: 10px;
@@ -136,10 +141,11 @@
     width: 40%;
   }
 
-  .post-prev-img {
+  .post-prev-img, .post-preview {
     width: 350px;
     height: 350px;
   }
+
 }
 
 .animate-spin {
