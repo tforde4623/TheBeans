@@ -67,7 +67,7 @@ const CreatePostForm = () => {
     (async () => {
       axios.get('/api/categories/')
         .then(({ data }) => setCategories(data))
-    })()
+    })();
   }, []);
 
   return (

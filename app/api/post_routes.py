@@ -8,7 +8,7 @@ import uuid
 
 post_routes = Blueprint('posts', __name__)
 
-def validation_errors_to_error_messages(validation_errors):
+def val_err_msgs(validation_errors):
     """
     turns the WTForms validation errors into a simple list
     """
@@ -84,7 +84,7 @@ def create_post():
             return jsonify({ 'errors': { 'img': stat }})
 
 
-    err_msgs = validation_errors_to_error_messages(form.errors)
+    err_msgs = val_err_msgs(form.errors)
 
     if 'i' not in request.files:
         err_msgs.append({ 'img': 'Image required.' })
@@ -114,7 +114,7 @@ def edit_post(id):
         return jsonify(old_post.to_dict_with_owner_comments())
 
     # we know errors are present if we get here
-    err_msgs = validation_errors_to_error_messages(form.errors)
+    err_msgs = val_err_msgs(form.errors)
 
     return jsonify({'errors': err_msgs}), 401
 

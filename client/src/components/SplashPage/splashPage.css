@@ -56,6 +56,7 @@
 .post-title, .short-post-title {
   position: relative;
   font-size: 20px;
+  z-index: 3;
 }
 
 .post-title {
@@ -108,6 +109,18 @@
   margin-top: 16px;
   color: black;
   font-family: 'Mochiy Pop P One', sans-serif;
+}
+
+.darkened-overlay {
+  position: relative;
+  top: -102px;
+  z-index: 1;
+  height: 70px;
+  width: 100%;
+  border-bottom-left-radius: 8px;
+  border-bottom-right-radius: 8px;
+  background-color: black;
+  opacity: 0.5;
 }
 
 @media only screen and (min-width: 900px) {

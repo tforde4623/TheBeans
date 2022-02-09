@@ -136,6 +136,7 @@ const SplashPage = () => {
           >
             <img className='post-prev-img' src={p.img_url} alt='preview of category'/>
             <div className={p.shortenedTitle?.length < 10 ? 'short-post-title' : 'post-title'}>{p.shortenedTitle}</div>
+            <div className='darkened-overlay'></div>
           </div>
         ))}
       </div>
