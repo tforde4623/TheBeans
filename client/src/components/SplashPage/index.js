@@ -58,10 +58,12 @@ const SplashPage = () => {
     if (direction === 0) {
       document.querySelector('.hero-img').classList.add('animate-spin');
       document.querySelector('.cat-name').classList.add('animate-spin');
+      document.querySelector('.darkened-overlay-hero').classList.add('animate-spin');
 
       setTimeout(() => {
         document.querySelector('.hero-img').classList.remove('animate-spin');
         document.querySelector('.cat-name').classList.remove('animate-spin');
+        document.querySelector('.darkened-overlay-hero').classList.remove('animate-spin');
       }, 250);
 
       if (cats) {
@@ -75,10 +77,14 @@ const SplashPage = () => {
     } else {
       document.querySelector('.hero-img').classList.add('animate-spin-backwards');
       document.querySelector('.cat-name').classList.add('animate-spin-backwards');
+      document.querySelector('.darkened-overlay-hero')
+        .classList.add('animate-spin-backwards');
 
       setTimeout(() => {
         document.querySelector('.hero-img').classList.remove('animate-spin-backwards');
         document.querySelector('.cat-name').classList.remove('animate-spin-backwards');
+        document.querySelector('.darkened-overlay-hero')
+          .classList.remove('animate-spin-backwards');
       }, 250);
 
       if (cats) {
@@ -117,10 +123,13 @@ const SplashPage = () => {
         <button className='hero-btn' onClick={() => cycleImg(1)}>
           <i className="fas fa-chevron-left fa-lg"></i>
         </button>
-        <img 
-          className='hero-img'
-          onClick={() => history.push(`/posts/${currHeroImg.id}`)} 
-          src={currHeroImg?.img_url} alt='hero previews'/>
+        <div className='hero-img-container'>
+          <img 
+            className='hero-img'
+            onClick={() => history.push(`/posts/${currHeroImg.id}`)} 
+            src={currHeroImg?.img_url} alt='hero previews'/>
+          <div className='darkened-overlay-hero'></div>
+        </div>
         <div className='cat-name'>{currHeroImg?.name}</div>
         <button className='hero-btn' onClick={() => cycleImg(0)}>
           <i className="fas fa-chevron-right fa-lg"></i>
