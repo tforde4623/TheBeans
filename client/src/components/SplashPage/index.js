@@ -129,8 +129,8 @@ const SplashPage = () => {
             onClick={() => history.push(`/posts/${currHeroImg.id}`)} 
             src={currHeroImg?.img_url} alt='hero previews'/>
           <div className='darkened-overlay-hero'></div>
+          <div className='cat-name'>{currHeroImg?.name}</div>
         </div>
-        <div className='cat-name'>{currHeroImg?.name}</div>
         <button className='hero-btn' onClick={() => cycleImg(0)}>
           <i className="fas fa-chevron-right fa-lg"></i>
         </button>
