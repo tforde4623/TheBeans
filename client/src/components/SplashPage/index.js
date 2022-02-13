@@ -1,18 +1,13 @@
 import React, { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { useHistory } from 'react-router-dom';
-import axios from 'axios';
+import HeroCarousel from './HeroCarousel';
 import { getPosts } from '../../store/posts';
 import ShowPost from '../ShowPost';
 import './splashPage.css';
 
 const SplashPage = () => {
   const dispatch = useDispatch();
-  const history = useHistory();
-  const [cats, setCats] = useState([]);
   const posts = useSelector(state => state.posts);
-  const [axiosErrs, setAxiosErrs] = useState('');
-  const [currHeroImg, setCurrentHeroImg] = useState(cats[0]);
   const [isOpen, setIsOpen] = useState(null);
   const [openPost, setOpenPost] = useState(null);
 
@@ -52,51 +47,6 @@ const SplashPage = () => {
     return tmp;
   };
 
-  const cycleImg = direction => {
-    const currIdx = cats.indexOf(currHeroImg);
-
-    if (direction === 0) {
-      document.querySelector('.hero-img').classList.add('animate-spin');
-      document.querySelector('.cat-name').classList.add('animate-spin');
-      document.querySelector('.darkened-overlay-hero').classList.add('animate-spin');
-
-      setTimeout(() => {
-        document.querySelector('.hero-img').classList.remove('animate-spin');
-        document.querySelector('.cat-name').classList.remove('animate-spin');
-        document.querySelector('.darkened-overlay-hero').classList.remove('animate-spin');
-      }, 250);
-
-      if (cats) {
-        if (currIdx + 1 < cats.length) {
-          setCurrentHeroImg(cats[currIdx + 1]);
-        } else {
-          // doesn't exist
-          setCurrentHeroImg(cats[0]);
-        }
-      }
-    } else {
-      document.querySelector('.hero-img').classList.add('animate-spin-backwards');
-      document.querySelector('.cat-name').classList.add('animate-spin-backwards');
-      document.querySelector('.darkened-overlay-hero')
-        .classList.add('animate-spin-backwards');
-
-      setTimeout(() => {
-        document.querySelector('.hero-img').classList.remove('animate-spin-backwards');
-        document.querySelector('.cat-name').classList.remove('animate-spin-backwards');
-        document.querySelector('.darkened-overlay-hero')
-          .classList.remove('animate-spin-backwards');
-      }, 250);
-
-      if (cats) {
-        if (currIdx - 1 >= 0) {
-          setCurrentHeroImg(cats[currIdx - 1]);
-        } else {
-          // doesn't exist
-          setCurrentHeroImg(cats[cats.length-1]);
-        }
-      }
-    }
-  };
 
   const handlePostClick = post => {
     setIsOpen(post);
@@ -104,37 +54,15 @@ const SplashPage = () => {
   };
 
   useEffect(() => {
-    (async () => {
-      axios.get('/api/categories/')
-        .then(res => {
-          setCats(res.data);
-          setCurrentHeroImg(res.data[0]);
-        })
-        .catch(() => setAxiosErrs('Could not load preview!'));
-    })();
     dispatch(getPosts());
   }, [dispatch])
   
   return (
     <div className='splash-main-container'>
       <div className='hero-header'>What are you looking for?</div>
-      <div className='hero-container'>
-      { axiosErrs && <div>{ axiosErrs }</div> }
-        <button className='hero-btn' onClick={() => cycleImg(1)}>
-          <i className="fas fa-chevron-left fa-lg"></i>
-        </button>
-        <div className='hero-img-container'>
-          <img 
-            className='hero-img'
-            onClick={() => history.push(`/posts/${currHeroImg.id}`)} 
-            src={currHeroImg?.img_url} alt='hero previews'/>
-          <div className='darkened-overlay-hero'></div>
-          <div className='cat-name'>{currHeroImg?.name}</div>
-        </div>
-        <button className='hero-btn' onClick={() => cycleImg(0)}>
-          <i className="fas fa-chevron-right fa-lg"></i>
-        </button>
-      </div>
+
+      <HeroCarousel />
+
       <h2 className='posts-header'>Recent Posts</h2>
       <div className='posts-grid-container'>
         {posts && getRecents(Object.values(posts).reverse()).map(p => (
