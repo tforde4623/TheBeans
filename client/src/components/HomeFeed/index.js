@@ -1,14 +1,12 @@
 import React, { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux'; 
 
-import { getPostsByCatId } from '../../store/posts'; 
+import { getPosts } from '../../store/posts'; 
 import ShowPost from '../ShowPost';
 import HomeFeedCard from '../HomeFeedCard';
 import './homeFeed.css';
 
 const HomeFeed = () => {
-  const { catId } = useParams();
   const dispatch = useDispatch();
   const [isOpen, setIsOpen] = useState(false);
   const [openPost, setOpenPost] = useState(false);
@@ -19,8 +17,8 @@ const HomeFeed = () => {
   }
 
   useEffect(() => {
-    dispatch(getPostsByCatId(catId));
-  }, [dispatch, catId]);
+    dispatch(getPosts());
+  }, [dispatch]);
 
   const posts = useSelector(state => state.posts) || [];
 

@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import { useHistory } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import styled from 'styled-components'
 import { getPosts } from '../../store/posts';
@@ -9,6 +10,7 @@ import './splashPage.css';
 
 const SplashPage = () => {
   const dispatch = useDispatch();
+  const history = useHistory();
   const posts = useSelector(state => state.posts);
   const [isOpen, setIsOpen] = useState(null);
   const [openPost, setOpenPost] = useState(null);
@@ -17,23 +19,6 @@ const SplashPage = () => {
     width: 100%;
     height: 50vw;
     z-index: -3;
-  `;
-
-  const Hero = styled.div`
-    width 100%;
-    height: 50vw;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-  `;
-
-  const PostsButton = styled.button`
-    background-color: #CB997E;
-    position: absolute;
-    padding: 15px;
-    border: none;
-    border-radius: 25px;
-    z-index: -2;
   `;
 
   const getRecents = postList => {
@@ -71,10 +56,10 @@ const SplashPage = () => {
   return (
     <div className='splash-main-container'>
 
-      <Hero>
-        <HeroBackground src='/hero.png' alt='hero background'/>
-        <PostsButton>See More Posts</PostsButton>
-      </Hero>
+        <div className='hero-center'>
+          <HeroBackground src='/hero.png' alt='hero background'/>
+          <button className='hero-btn' onClick={() => history.push('/posts')}>See More Posts!</button>
+        </div>
 
       <div className='posts-grid-container'>
         {posts && getRecents(Object.values(posts).reverse()).map(p => (
