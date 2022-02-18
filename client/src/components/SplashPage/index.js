@@ -1,8 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import HeroCarousel from './HeroCarousel';
+import styled from 'styled-components'
 import { getPosts } from '../../store/posts';
+import { getCategories } from '../../store/categories';
 import ShowPost from '../ShowPost';
+import PostPreview from './PostPreview';
 import './splashPage.css';
 
 const SplashPage = () => {
@@ -11,24 +13,32 @@ const SplashPage = () => {
   const [isOpen, setIsOpen] = useState(null);
   const [openPost, setOpenPost] = useState(null);
 
-  const navbar = document.querySelector('.main-navbar');
-  if (navbar) {
-    navbar.style.backgroundColor = '#CB997E';
-  }
+  const HeroBackground = styled.img`
+    width: 100%;
+    height: 50vw;
+    z-index: -3;
+  `;
 
-  window.addEventListener('scroll', () => {
+  const Hero = styled.div`
+    width 100%;
+    height: 50vw;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  `;
 
-    if (navbar && window.scrollY <= 24 && window.location.pathname === '/') {
-      navbar.style.backgroundColor = '#CB997E';
-    } else if (navbar) {
-      navbar.style.backgroundColor = '#6B705C';
-    }
-  });
-
+  const PostsButton = styled.button`
+    background-color: #CB997E;
+    position: absolute;
+    padding: 15px;
+    border: none;
+    border-radius: 25px;
+    z-index: -2;
+  `;
 
   const getRecents = postList => {
     const tmp = [];
-    const numItems = window.innerWidth > 900 ? 9 : 8;
+    const numItems = 12;
 
     for (let i = 0; i < numItems; i++) {
       if (!postList[i]) {
@@ -37,7 +47,7 @@ const SplashPage = () => {
 
       // title previews for recent post boxes
       if (postList[i].title.length > 10) {
-        postList[i].shortenedTitle = `${postList[i].title.slice(0, 12)} ...`;
+        postList[i].shortenedTitle = `${postList[i].title.slice(0, 9)} ...`;
       } else {
         postList[i].shortenedTitle = postList[i].title;
       }
@@ -55,28 +65,25 @@ const SplashPage = () => {
 
   useEffect(() => {
     dispatch(getPosts());
+    dispatch(getCategories());
   }, [dispatch])
   
   return (
     <div className='splash-main-container'>
-      <div className='hero-header'>What are you looking for?</div>
 
-      <HeroCarousel />
+      <Hero>
+        <HeroBackground src='/hero.png' alt='hero background'/>
+        <PostsButton>See More Posts</PostsButton>
+      </Hero>
 
-      <h2 className='posts-header'>Recent Posts</h2>
       <div className='posts-grid-container'>
         {posts && getRecents(Object.values(posts).reverse()).map(p => (
-          <div 
-            key={p.id}
-            onClick={() => handlePostClick(p)} 
-            className='post-preview'
-          >
-            <img className='post-prev-img' src={p.img_url} alt='preview of category'/>
-            <div className={p.shortenedTitle?.length < 10 ? 'short-post-title' : 'post-title'}>{p.shortenedTitle}</div>
-            <div className='darkened-overlay'></div>
-          </div>
+
+          <PostPreview post={p} handlePostClick={handlePostClick}/>
+
         ))}
       </div>
+
       { isOpen && <ShowPost post={openPost} isOpen={isOpen} setIsOpen={setIsOpen}/> }
     </div>
   );

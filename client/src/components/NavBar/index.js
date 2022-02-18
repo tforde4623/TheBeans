@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { NavLink } from 'react-router-dom';
 import LogoutButton from '../auth/LogoutButton';
+import styled from 'styled-components';
 import { useSelector } from 'react-redux';
 import './navBar.css';
 
@@ -8,9 +9,19 @@ const NavBar = () => {
   const [showUserMenu, setShowUserMenu] = useState(false);
   const user = useSelector(state => state.session.user) || null;
 
+  const Navbar = styled.ul`
+    background-color: rgb(107, 112, 92);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: fixed;
+    width: 100%;
+    z-index: 100;
+  `;
+
   return (
     <nav>
-      <ul className='main-navbar'>
+      <Navbar>
         <li>
           <NavLink className='nav-title' to='/' exact={true}>
             <h1 className='nav-header'>TheBeans</h1>
@@ -69,7 +80,7 @@ const NavBar = () => {
             </p>
           }
         </div>
-      </ul>
+      </Navbar>
     </nav>
   );
 }

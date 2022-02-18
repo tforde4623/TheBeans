@@ -1,5 +1,5 @@
 .footer-container {
-  position: fixed;
+  position: static;
   bottom: 0;
   left: 0;
   display: flex;
@@ -7,9 +7,9 @@
   border-top: 1px solid gray;
   width: 100%;
   justify-content: space-between;
-  padding-top: 8px;
-  padding-bottom: 8px;
-  background-color: rgb(107, 112, 92);
+  padding-top: 18px;
+  padding-bottom: 18px;
+  background-color: #B7B7A4;
 }
 
 .footer-title {

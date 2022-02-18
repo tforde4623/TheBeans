@@ -1,13 +1,19 @@
+nav {
+  color: black;
+  z-index: 100;
+}
+
+a {
+  text-decoration: none;
+  color: black;
+}
+
 .main-navbar {
-  background-color: #CB997E;
   height: 61px;
   position: fixed;
   top: 0;
   left: 0;
   width: 100%;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
   list-style: none;
   z-index: 100;
 }
@@ -20,13 +26,11 @@
 
 .nav-section {
   display: flex;
-  color: black;
   align-items: center;
 }
 
 .nav-section i {
   margin: 15px;
-  color: black;
 }
 
 .nav-user-menu {
@@ -40,7 +44,6 @@
 }
 
 .user-nav-item, .logout-btn {
-  color: #fefefe;
   padding: 5px 5px;
   margin: 6px;
 }
@@ -56,21 +59,14 @@
 }
 
 .nav-title {
-  color: black;
   text-decoration: none;
 }
 
 .nav-menu-link {
-  color: white;
   text-decoration: none;
 }
 
 .nav-link {
-  color: black;
-  text-decoration: none;
-  font-weight: bolder;
-  margin: 5px;
-  padding-bottom: 3px;
 }
 
 .nav-link:hover {

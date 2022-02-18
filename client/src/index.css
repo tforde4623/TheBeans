@@ -1,4 +1,4 @@
-/* general site wide styles */
+/* general site wide styles (reset) */
 * {
   margin: 0;
   padding: 0;
@@ -8,12 +8,13 @@
 }
 
 html {
-  height: 100%;
+  height: 100vh;
+  width: 100vw;
   background-color: #B7B7A4;
 }
 
 /* main body that is not the header or nav */
-.main-content {
-  margin-top: 61px;
-  height: 100%;
-}
+/* .main-content { */
+/*   margin-top: 61px; */
+/*   height: 100%; */
+/* } */
