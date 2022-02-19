@@ -1,5 +1,6 @@
 from .db import db
 
+
 class Post(db.Model):
     __tablename__ = 'posts'
 
@@ -12,8 +13,12 @@ class Post(db.Model):
     created_at = db.Column(db.DateTime, default=db.func.current_timestamp())
 
     author = db.relationship('User', back_populates='posts')
-    comments = db.relationship('Comment', cascade='all, delete', back_populates='post')
+    comments = db.relationship(
+        'Comment',
+        cascade='all, delete',
+        back_populates='post')
     category = db.relationship('Category', back_populates='posts')
+    likes = db.relationship('Like', back_populates='post')
 
     def to_dict(self):
         """ returns a dict of base post instance """
