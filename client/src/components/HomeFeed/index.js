@@ -22,19 +22,18 @@ const HomeFeed = () => {
 
   const posts = useSelector(state => state.posts) || [];
 
-  const openModal = post => {
-    setOpenPost(post);
-    setIsOpen(true);
-  };
+  // do we need this?
+  // const openModal = post => {
+  //   setOpenPost(post);
+  //   setIsOpen(true);
+  // };
 
   return (
     <div className='container'>
       {posts && Object.values(posts).reverse().map(post => (
-        <div key={post.id} onClick={() => openModal(post)}>
-          <HomeFeedCard key={post.id} post={post} />
-        </div>
+        <HomeFeedCard key={post.id} post={post} />
       ))}
-      { isOpen && <ShowPost post={openPost} setIsOpen={setIsOpen} /> }
+      {/* { isOpen && <ShowPost post={openPost} setIsOpen={setIsOpen} /> } */}
     </div>
   );  
 };
