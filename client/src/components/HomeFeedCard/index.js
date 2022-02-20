@@ -39,12 +39,14 @@ const HomeFeedCard = ({ post, likes }) => {
         src={ post.img_url }
         alt='some coffee yumminess'/>
       {/* likes group */}
-      <div onClick={changeLike}>
-        {isLiked ? 
-          <FontAwesomeIcon icon={faHeart} /> :
-          <FontAwesomeIcon icon={farHeart} />
-        }
-        <div className='likes-counter'>{ likes.length } Likes</div>
+      <div>
+        <div className='likes-counter'>
+          {isLiked ? 
+            <FontAwesomeIcon className='inline' onClick={changeLike} icon={faHeart} /> :
+            <FontAwesomeIcon className='inline' onClick={changeLike} icon={farHeart} />
+          }
+          &nbsp; { likes.length } Likes
+        </div>
       </div>
       <div 
         className={showExt ? 'card-description border-bottom' : 'card-description'}
