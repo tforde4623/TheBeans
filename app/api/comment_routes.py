@@ -39,16 +39,16 @@ def add_comment():
     form.data['content'] = data['content']
 
     if form.validate_on_submit():
-        new_post = Comment(content= data['content'],
-                           post_id= data['post_id'],
-                           user_id= current_user.id
-        )
+        new_post = Comment(content=data['content'],
+                           post_id=data['post_id'],
+                           user_id=current_user.id
+                           )
         db.session.add(new_post)
         db.session.commit()
 
         return jsonify(new_post.to_dict_with_author())
 
-    return jsonify({ 'errors': make_val_msgs(form.errors) }), 401
+    return jsonify({'errors': make_val_msgs(form.errors)}), 401
 
 
 @comment_routes.route('/<id>', methods=['put'])
@@ -73,7 +73,7 @@ def edit_comment(id):
         return jsonify(comment.to_dict_with_author())
 
     if form.errors:
-        return jsonify({ 'errors': make_val_msgs(form.errors) }), 401
+        return jsonify({'errors': make_val_msgs(form.errors)}), 401
 
 
 @comment_routes.route('/<comment_id>', methods=['delete'])
@@ -90,4 +90,4 @@ def delete_comment(comment_id):
 
         return jsonify({}), 204
 
-    return jsonify({ 'err': 'could not delete record' }), 401
+    return jsonify({'err': 'could not delete record'}), 401

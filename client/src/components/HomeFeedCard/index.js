@@ -1,10 +1,27 @@
 import React, { useState } from 'react';
 import { NavLink } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faHeart } from '@fortawesome/free-solid-svg-icons';
+import { faHeart as farHeart } from '@fortawesome/free-regular-svg-icons';
 
+import { postLike, deleteLike } from '../../store/likes';
 import './homeFeedCard.css';
 
-const HomeFeedCard = ({ post }) => {
+const HomeFeedCard = ({ post, likes }) => {
+  const dispatch = useDispatch();
   const [showExt, setShowExt] = useState(false);
+  const currUserId = useSelector(state => state.session.user.id);
+  const currLikes = likes.filter(like => like.user_id === currUserId);
+  const isLiked = currLikes.length > 0;
+
+  const changeLike = () => {
+    if (!isLiked) {
+      dispatch(postLike({user_id: currUserId, post_id: post.id})); 
+    } else {
+      dispatch(deleteLike(currLikes[0].id));
+    }
+  };
 
   return (
     <div className='card-container'>
@@ -21,6 +38,14 @@ const HomeFeedCard = ({ post }) => {
         className='main-feed-img'
         src={ post.img_url }
         alt='some coffee yumminess'/>
+      {/* likes group */}
+      <div onClick={changeLike}>
+        {isLiked ? 
+          <FontAwesomeIcon icon={faHeart} /> :
+          <FontAwesomeIcon icon={farHeart} />
+        }
+        <div className='likes-counter'>{ likes.length } Likes</div>
+      </div>
       <div 
         className={showExt ? 'card-description border-bottom' : 'card-description'}
       >{ post.description }</div>
