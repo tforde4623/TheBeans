@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { postComment } from '../../store/comments';
 
-const AddCommentForm = ({ post }) => {
+const AddCommentForm = ({ post, scroll }) => {
   const dispatch = useDispatch();
   const [content, setContent] = useState('');
   const [contentErr, setContentErr] = useState();
@@ -11,12 +11,14 @@ const AddCommentForm = ({ post }) => {
     e.preventDefault();
     dispatch(postComment({ content }, post.id))
       .then(res => {
-        console.log(res.errors);
         if (res.errors) {
           if ('content' in res.errors[0]) {
             setContentErr(res.errors[0].content);
           }
         }
+
+
+        scroll();
       })
 
     setContent('');
