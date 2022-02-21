@@ -66,7 +66,6 @@ function App() {
               <ProtectedRoute path='/users/:userId/posts'>
                 <UserPage />
               </ProtectedRoute>
-              { /* 404 page */ }
               <Route>
                 <PageNotFound />
               </Route>
