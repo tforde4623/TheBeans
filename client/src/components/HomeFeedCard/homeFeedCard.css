@@ -83,3 +83,7 @@
   padding: 15px;
   border-top: 1px solid gray;
 }
+
+.likes-counter {
+  padding-left: 10px; 
+}
