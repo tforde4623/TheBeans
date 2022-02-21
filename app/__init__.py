@@ -17,6 +17,8 @@ from .seeds import seed_commands
 
 from .config import Config
 
+from .sockets import socket
+
 app = Flask(__name__)
 # Setup login manager
 login = LoginManager(app)
@@ -41,6 +43,9 @@ app.register_blueprint(like_routes, url_prefix='/api/likes')
 
 db.init_app(app)
 Migrate(app, db)
+
+# socket initiation
+socket.init_app(app)
 
 # Application Security
 CORS(app)
@@ -80,3 +85,7 @@ def react_root(path):
     if path == 'favicon.ico':
         return app.send_static_file('favicon.ico')
     return app.send_static_file('index.html')
+
+
+if __name__ == '__main__':
+    socket.run(app)

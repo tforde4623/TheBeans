@@ -14,6 +14,7 @@ import HomeFeed from './components/HomeFeed';
 import SplashPage from './components/SplashPage';
 import UserPage from './components/UserPage';
 import Footer from './components/Footer';
+import ChatRoom from './components/ChatRoom';
 import PageNotFound from './components/ErrorPages/PageNotFound';
 import './index.css';
 
@@ -65,6 +66,10 @@ function App() {
               </ProtectedRoute>
               <ProtectedRoute path='/users/:userId/posts'>
                 <UserPage />
+              </ProtectedRoute>
+              {/*TODO: this is temp*/}
+              <ProtectedRoute path='/chat-test'>
+                <ChatRoom />
               </ProtectedRoute>
               <Route>
                 <PageNotFound />

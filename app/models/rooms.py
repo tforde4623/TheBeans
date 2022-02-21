@@ -5,8 +5,14 @@ class Room(db.Model):
     __tablename__ = 'rooms'
 
     id = db.Column(db.Integer, primary_key=True)
-    sender_id = db.Column(db.Integer, nullable=False)
-    recipient_id = db.Column(db.Integer, nullable=False)
+    sender_id = db.Column(
+        db.Integer,
+        db.ForeignKey('users.id'),
+        nullable=False)
+    recipient_id = db.Column(
+        db.Integer,
+        db.ForeignKey('users.id'),
+        nullable=False)
 
     # do we need relationships?
 
