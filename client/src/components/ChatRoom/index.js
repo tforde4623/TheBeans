@@ -11,12 +11,15 @@ const ChatRoom = () => {
   const [showResults, setShowRes] = useState(false);
   const [messages, setMessages] = useState([]);
   const [msgContent, setMsgContent] = useState('');
+  // state thread for child compoent
   const [room, setRoom] = useState();
+  const [query, setQuery] = useState('');
 
   // handle show/hide of search results (in child component)
   const setShowResults = (e, val) => {
     e.stopPropagation();
     setShowRes(val);
+    setQuery('');
   };
 
   const handleMsgSubmit = e => {
@@ -68,7 +71,11 @@ const ChatRoom = () => {
     >
 
       <div className='chat-container-left'>
-        <UserSearch showResults={showResults} setShowResults={setShowResults}/> 
+        <UserSearch 
+          query={query}
+          setQuery={setQuery}
+          showResults={showResults} 
+          setShowResults={setShowResults}/> 
         <ConvoList setRoom={setRoom}/>
       </div>
 

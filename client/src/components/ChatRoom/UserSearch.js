@@ -19,15 +19,24 @@ const debouncedFetchUsers = debounce((query, cb) => {
 
 
 // actual component
-const UserSearch = ({ showResults, setShowResults }) => {
+const UserSearch = ({ 
+  query, 
+  setQuery, 
+  showResults, 
+  setShowResults 
+}) => {
   const dispatch = useDispatch();
-  const [query, setQuery] = useState('');
   const [results, setResults] = useState([]);
 
   const addConvo = val => {
     const userId = val;
 
-    dispatch(postRoom(userId));    
+    dispatch(postRoom(userId))
+      .then(res => {
+        if (!res.errors) {
+          setShowResults(false);
+        }
+      })
   };
 
   useEffect(() => {
