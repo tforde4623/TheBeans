@@ -40,11 +40,7 @@ const ChatRoom = () => {
 
     // recieve msgs
     socket.on('message', data => {
-      if (messages && messages?.length) {
-        setMessages(msgs => [...msgs, data]);
-      } else {
-        setMessages([data]);
-      }
+      setMessages(msgs => [...msgs, data]);
     });
 
     // cleanup: disconnect on component dismount
