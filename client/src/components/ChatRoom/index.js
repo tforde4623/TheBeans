@@ -1,6 +1,8 @@
 import React, { useEffect } from 'react';
 import { io } from 'socket.io-client';
 
+import UserSearch from './UserSearch';
+
 let socket;
 
 const ChatRoom = () => {
@@ -15,7 +17,7 @@ const ChatRoom = () => {
 
   return (
     <div>
-            
+      <UserSearch /> 
     </div>
   )
 }

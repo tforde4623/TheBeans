@@ -25,6 +25,6 @@ class Room(db.Model):
 
     def get_room_msgs(self):
         return {
-            'room_id': self.room_id,
+            'id': self.id,
             'messages': [msg.to_dict() for msg in self.messages]
         }
