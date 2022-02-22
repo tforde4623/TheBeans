@@ -1,6 +1,6 @@
 from flask import Blueprint, jsonify, request
 from flask_login import current_user, login_required
-from app.models import db, Room
+from app.models import db, Room, User
 
 
 # this file contains routes pertaining to Messages and Rooms
@@ -9,10 +9,12 @@ from app.models import db, Room
 chat_routes = Blueprint('chat', __name__)
 
 
+# TODO: we need to make sure the user isn't making a convo with themself,
+# or with someone who they already have a chat with
 @chat_routes.route('/rooms', methods=['POST'])
 @login_required
 def create_room():
-    data = request.json()
+    data = request.json
     errors = {}
 
     if 'recipient_id' not in data:
@@ -26,13 +28,15 @@ def create_room():
         db.session.add(new_room)
         db.session.commit()
 
-        return jsonify(new_room.to_dict())
+        return jsonify(
+            new_room.get_room_with_other(
+                current_user.to_dict()['id'], User))
 
     return jsonify({'errors': errors})
 
 
-@chat_routes.route('/rooms/<room_id>/messages')
-@login_required
+@ chat_routes.route('/rooms/<room_id>/messages')
+@ login_required
 def room_msgs(room_id):
     room = Room.query.filter_by(id=room_id).one()
 

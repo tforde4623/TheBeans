@@ -28,3 +28,16 @@ class Room(db.Model):
             'id': self.id,
             'messages': [msg.to_dict() for msg in self.messages]
         }
+
+    def get_room_with_other(self, curr_user_id, user_model):
+        r_dict = self.to_dict()
+
+        if curr_user_id == r_dict['recipient_id']:
+            other_id = r_dict['sender_id']
+        elif curr_user_id == r_dict['sender_id']:
+            other_id = r_dict['recipient_id']
+
+        r_dict['other_user'] = user_model.query.filter_by(
+            id=other_id).one().to_dict()
+
+        return r_dict
