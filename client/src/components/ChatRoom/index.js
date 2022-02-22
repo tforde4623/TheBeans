@@ -1,6 +1,10 @@
 import React, { useEffect } from 'react';
 import { io } from 'socket.io-client';
 
+import UserSearch from './UserSearch';
+import ConvoList from './ConvoList';
+import './chatRoom.css';
+
 let socket;
 
 const ChatRoom = () => {
@@ -14,8 +18,9 @@ const ChatRoom = () => {
   }, []);
 
   return (
-    <div>
-            
+    <div className='chat-container'>
+      <UserSearch /> 
+      <ConvoList />
     </div>
   )
 }
