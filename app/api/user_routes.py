@@ -1,9 +1,10 @@
 from flask import Blueprint, jsonify
-from flask_login import login_required
-from app.models import User
-from app.models import Post
+from flask_login import login_required, current_user
+from app.models import User, Post, Room
+from sqlalchemy import or_
 
 user_routes = Blueprint('users', __name__)
+
 
 @user_routes.route('/')
 @login_required
@@ -24,3 +25,25 @@ def user_posts(id):
 def user(id):
     user = User.query.get(id)
     return jsonify(user.to_dict())
+
+
+@user_routes.route('/search/<searchTerm>')
+@login_required
+def search_users(searchTerm):
+    query = f'%{searchTerm.replace("+", " ")}%'
+    users = User.query.filter(User.username.ilike(query)).all()
+    print(users)
+
+    return jsonify([user.to_dict() for user in users])
+
+
+@user_routes.route('/<user_id>/rooms')
+@login_required
+def get_user_rooms(user_id):
+    if current_user.id == user_id:
+        user_rooms = Room.query.filter_by(
+            or_(sender_id=user_id, recipient_id=user_id))
+
+        return jsonify([room.to_dict() for room in user_rooms])
+
+    return jsonify({'errors': 'unauthorized'})
