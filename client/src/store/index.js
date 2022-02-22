@@ -5,13 +5,15 @@ import postReducer from './posts';
 import commentReducer from './comments';
 import categoryReducer from './categories';
 import likesReducer from './likes';
+import roomReducer from './rooms';
 
 const rootReducer = combineReducers({
   session,
   posts: postReducer,
   comments: commentReducer,
   categories: categoryReducer,
-  likes: likesReducer
+  likes: likesReducer,
+  rooms: roomReducer
 });
 
 

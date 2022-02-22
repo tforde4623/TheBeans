@@ -31,19 +31,35 @@ def user(id):
 @login_required
 def search_users(searchTerm):
     query = f'%{searchTerm.replace("+", " ")}%'
-    users = User.query.filter(User.username.ilike(query)).all()
+    users = User.query.filter(User.username.ilike(query)).limit(5).all()
     print(users)
 
     return jsonify([user.to_dict() for user in users])
 
 
+# helper for next route:
+# include user dict of the user that is not you
+def prepRoom(room, curr_user_id):
+    r_dict = room.to_dict()
+    print(r_dict)
+    if curr_user_id == r_dict['recipient_id']:
+        other_id = r_dict['sender_id']
+    else:
+        other_id = r_dict['recipient_id']
+
+    r_dict['other_user'] = User.query.filter_by(
+        id=other_id).one().to_dict()
+
+    return r_dict
+
+
 @user_routes.route('/<user_id>/rooms')
 @login_required
 def get_user_rooms(user_id):
-    if current_user.id == user_id:
-        user_rooms = Room.query.filter_by(
-            or_(sender_id=user_id, recipient_id=user_id))
+    if current_user.id == int(user_id):
+        user_rooms = Room.query.filter(
+            or_(Room.sender_id == user_id, Room.recipient_id == user_id)).all()
 
-        return jsonify([room.to_dict() for room in user_rooms])
+        return jsonify([prepRoom(room, current_user) for room in user_rooms])
 
     return jsonify({'errors': 'unauthorized'})
