@@ -14,11 +14,17 @@ class Room(db.Model):
         db.ForeignKey('users.id'),
         nullable=False)
 
-    # do we need relationships?
+    messages = db.relationship('Message')
 
     def to_dict(self):
         return {
             'id': self.id,
             'sender_id': self.sender_id,
             'recipient_id': self.recipient_id
+        }
+
+    def get_room_msgs(self):
+        return {
+            'room_id': self.room_id,
+            'messages': [msg.to_dict() for msg in self.messages]
         }
