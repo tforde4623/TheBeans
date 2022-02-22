@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import debounce from 'lodash.debounce';
+import { useDispatch } from 'react-redux';
+import { postRoom } from '../../store/rooms';
 
 // helper debounced fetch functions for user search reqs
 const fetchUsers = async (query, cb) => {
@@ -18,8 +20,15 @@ const debouncedFetchUsers = debounce((query, cb) => {
 
 // actual component
 const UserSearch = ({ showResults, setShowResults }) => {
+  const dispatch = useDispatch();
   const [query, setQuery] = useState('');
   const [results, setResults] = useState([]);
+
+  const addConvo = val => {
+    const userId = val;
+
+    dispatch(postRoom(userId));    
+  };
 
   useEffect(() => {
     debouncedFetchUsers(query, res => {
@@ -41,7 +50,14 @@ const UserSearch = ({ showResults, setShowResults }) => {
           <div 
             onClick={(e) => setShowResults(e, true)} 
             className='search-results'>
-            {results.map(res => <div className='search-result-row'>{res.username}</div>)}
+            {results.map(res => (
+              <div 
+                onClick={() => addConvo(res.id)}
+                className='search-result-row'
+              >
+                {res.username}
+              </div>
+            ))}
           </div>
         }
       </form> 

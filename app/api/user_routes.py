@@ -37,22 +37,6 @@ def search_users(searchTerm):
     return jsonify([user.to_dict() for user in users])
 
 
-# helper for next route:
-# include user dict of the user that is not you
-def prepRoom(room, curr_user_id):
-    r_dict = room.to_dict()
-    print(r_dict)
-    if curr_user_id == r_dict['recipient_id']:
-        other_id = r_dict['sender_id']
-    else:
-        other_id = r_dict['recipient_id']
-
-    r_dict['other_user'] = User.query.filter_by(
-        id=other_id).one().to_dict()
-
-    return r_dict
-
-
 @user_routes.route('/<user_id>/rooms')
 @login_required
 def get_user_rooms(user_id):
@@ -60,6 +44,7 @@ def get_user_rooms(user_id):
         user_rooms = Room.query.filter(
             or_(Room.sender_id == user_id, Room.recipient_id == user_id)).all()
 
-        return jsonify([prepRoom(room, current_user) for room in user_rooms])
+        return jsonify([room.get_room_with_other(
+            current_user.to_dict()['id'], User) for room in user_rooms])
 
     return jsonify({'errors': 'unauthorized'})

@@ -23,18 +23,13 @@ const ChatRoom = () => {
     e.preventDefault();
 
     // send msgs
-    socket.emit('message', {'id': 'test', 'content': msgContent, 'room_id': room});
+    socket.emit('message', {
+      content: msgContent, 
+      room_id: room
+    });
   };
 
   useEffect(() => {
-    // get rooms prev msgs
-    (async () => {
-      // TODO: figure out rooms
-      const res = await fetch(`/api/chat/rooms/${1}/messages`);
-      const json = await res.json();
-
-      setMessages(json.messages);
-    })();
 
     socket = io();
 
@@ -53,6 +48,15 @@ const ChatRoom = () => {
   useEffect(() => {
     if (room) {
       socket.emit('join-room', { 'room_id': room });
+
+      // get rooms prev msgs
+      (async () => {
+        // TODO: figure out rooms
+        const res = await fetch(`/api/chat/rooms/${room}/messages`);
+        const json = await res.json();
+
+        setMessages(json.messages);
+      })();
     }
   }, [room]);
 

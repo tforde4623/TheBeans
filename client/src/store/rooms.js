@@ -25,13 +25,13 @@ const addRoom = room => ({
   room
 });
 
-export const postRoom = room => async dispatch => {
+export const postRoom = recipientId => async dispatch => {
   const res = await fetch('/api/chat/rooms', {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json'
     },
-    body: JSON.stringify(room)
+    body: JSON.stringify({ recipient_id: recipientId })
   });
   const json = await res.json();
 
