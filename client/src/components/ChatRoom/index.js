@@ -1,19 +1,23 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 import { io } from 'socket.io-client';
 
 import UserSearch from './UserSearch';
 import ConvoList from './ConvoList';
 import './chatRoom.css';
+import { useSelector } from 'react-redux';
 
 let socket;
 
 const ChatRoom = () => {
+  const userId = useSelector(state => state.session.user.id);
+  const msgEnd = useRef(null);
   const [showResults, setShowRes] = useState(false);
   const [messages, setMessages] = useState([]);
   const [msgContent, setMsgContent] = useState('');
   // state thread for child compoent
   const [room, setRoom] = useState();
   const [query, setQuery] = useState('');
+  const [isEmpty, setIsEmpty] = useState(true);
 
   // handle show/hide of search results (in child component)
   const setShowResults = (e, val) => {
@@ -24,12 +28,25 @@ const ChatRoom = () => {
 
   const handleMsgSubmit = e => {
     e.preventDefault();
+    setMsgContent('');
 
     // send msgs
     socket.emit('message', {
       content: msgContent, 
       room_id: room
     });
+  };
+
+  const scrollMsgs = () => {
+    if (msgEnd) {
+      setTimeout(() => {
+        msgEnd.current?.scrollIntoView({ 
+          behavior: 'smooth', 
+          block: 'nearest', 
+          inline: 'start' 
+        });
+      }, 150);
+    }
   };
 
   useEffect(() => {
@@ -39,6 +56,7 @@ const ChatRoom = () => {
     // recieve msgs
     socket.on('message', data => {
       setMessages(msgs => [...msgs, data]);
+      scrollMsgs();
     });
 
     // cleanup: disconnect on component dismount
@@ -58,7 +76,16 @@ const ChatRoom = () => {
         const res = await fetch(`/api/chat/rooms/${room}/messages`);
         const json = await res.json();
 
-        setMessages(json.messages);
+        if (json.messages) {
+          if (json.messages.length) {
+            setMessages(json.messages);
+            setIsEmpty(false);
+          } else if (!json.messages.length) {
+            setIsEmpty(true);
+          }
+        }
+
+        scrollMsgs();
       })();
     }
   }, [room]);
@@ -80,18 +107,40 @@ const ChatRoom = () => {
       </div>
 
       <div className='chat-container-right'>
-        {/* TODO: this is temp */}
-        {room}
         <div className='container-box'>
-          {messages?.length > 0 && messages.map(msg => (
-            <div key={msg.id}>{msg.content}</div>
-          ))}
+          {!room ?
+            <div className='msgs-msg'>
+              Choose a user from the left bar to chat with!
+            </div>
+            : isEmpty ? (
+            <div className='msgs-msg'>
+              No messages yet with this user!
+            </div>
+            ) : messages?.length > 0 && messages.map(msg => (
+                <div 
+                  className={msg.owner_id === userId ? 'owned-msg' : 'unowned-msg'} 
+                  key={msg.id}
+                >
+                  {/* ind. msg content */}
+                  <div>{msg.owner_obj.username}</div>
+                  <div>{msg.content}</div>
+                </div>
+            ))
+          }
+          {/* div for auto scroll */}
+          <div
+            style={{ float: 'left', clear: 'both' }}
+            ref={msgEnd}
+          >
+          </div>
         </div>
+
         {/* TODO: move this*/}
         <div className='msg-form'>
           <form onSubmit={handleMsgSubmit}>
             <input 
               onChange={e => setMsgContent(e.target.value)}
+              placeholder='Send a message...'
               value={msgContent}
               type='text'/>
             <button type='submit'>Send</button>

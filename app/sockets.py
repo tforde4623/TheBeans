@@ -36,7 +36,7 @@ def handle_message(data):
         db.session.add(new_msg)
         db.session.commit()
 
-        emit('message', data, broadcast=True, to=room_id)
+        emit('message', new_msg.to_dict(), broadcast=True, to=room_id)
 
 
 @socket.on('join-room')
