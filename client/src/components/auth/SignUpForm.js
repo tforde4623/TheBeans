@@ -59,53 +59,55 @@ const SignUpForm = () => {
   }
 
   return (
-    <form className='auth-form-container' onSubmit={onSignUp}>
-      <div>
-        <input
-          type='text'
-          placeholder='Username'
-          className={`auth-form-field ${usernameErrs && 'auth-input-err'}`}
-          name='Username'
-          onChange={updateUsername}
-          value={username}
-        ></input>
-        {usernameErrs && <div className='auth-div-error'>{usernameErrs}</div>}
-      </div>
-      <div>
-        <input
-          type='text'
-          name='email'
-          className={`auth-form-field ${emailErrs && 'auth-input-err'}`}
-          placeholder='Email'
-          onChange={updateEmail}
-          value={email}
-        ></input>
-        {emailErrs && <div className='auth-div-error'>{emailErrs}</div>}
-      </div>
-      <div>
-        <input
-          type='password'
-          name='password'
-          placeholder='Password'
-          className={`auth-form-field ${passwordErrs && 'auth-input-err'}`}
-          onChange={updatePassword}
-          value={password}
-        ></input>
-        {passwordErrs && <div className='auth-div-error'>{passwordErrs}</div>}
-      </div>
-      <div>
-        <input
-          type='password'
-          name='repeat_password'
-          placeholder='Confirm Password'
-          className={`auth-form-field ${passMatchErr && 'auth-input-err'}`}
-          onChange={updateRepeatPassword}
-          value={repeatPassword}
-        ></input>
-        {passMatchErr && <div className='auth-div-error'>{passMatchErr}</div>}
-      </div>
-      <button className='auth-form-btn' type='submit'>Sign Up</button>
-    </form>
+    <div className='form-container'>
+      <form className='auth-form-container' onSubmit={onSignUp}>
+        <div>
+          <input
+            type='text'
+            placeholder='Username'
+            className={`auth-form-field ${usernameErrs && 'auth-input-err'}`}
+            name='Username'
+            onChange={updateUsername}
+            value={username}
+          ></input>
+          {usernameErrs && <div className='auth-div-error'>{usernameErrs}</div>}
+        </div>
+        <div>
+          <input
+            type='text'
+            name='email'
+            className={`auth-form-field ${emailErrs && 'auth-input-err'}`}
+            placeholder='Email'
+            onChange={updateEmail}
+            value={email}
+          ></input>
+          {emailErrs && <div className='auth-div-error'>{emailErrs}</div>}
+        </div>
+        <div>
+          <input
+            type='password'
+            name='password'
+            placeholder='Password'
+            className={`auth-form-field ${passwordErrs && 'auth-input-err'}`}
+            onChange={updatePassword}
+            value={password}
+          ></input>
+          {passwordErrs && <div className='auth-div-error'>{passwordErrs}</div>}
+        </div>
+        <div>
+          <input
+            type='password'
+            name='repeat_password'
+            placeholder='Confirm Password'
+            className={`auth-form-field ${passMatchErr && 'auth-input-err'}`}
+            onChange={updateRepeatPassword}
+            value={repeatPassword}
+          ></input>
+          {passMatchErr && <div className='auth-div-error'>{passMatchErr}</div>}
+        </div>
+        <button className='auth-form-btn' type='submit'>Sign Up</button>
+      </form>
+    </div>
   );
 };
 

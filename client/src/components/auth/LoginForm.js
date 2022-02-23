@@ -36,8 +36,7 @@ const LoginForm = () => {
 
   const handleDemoLogin = e => {
     e.preventDefault();
-    setEmail('demo1@test.com');
-    setPassword('password');
+    dispatch(login('demo1@test.com', 'password'));
   };
 
   if (user) {
@@ -45,35 +44,37 @@ const LoginForm = () => {
   }
 
   return (
-    <form className='auth-form-container' onSubmit={onLogin}>
-      <div>
-        <input
-          name='email'
-          type='text'
-          className={`auth-form-field ${emailErrs && 'auth-input-err'}`}
-          placeholder='Email'
-          value={email}
-          onChange={e => setEmail(e.target.value)}
-        />
-      </div>
-      {emailErrs && <div className='auth-div-error'>{emailErrs}</div>}
-      <div>
-        <input
-          name='password'
-          className={`auth-form-field ${passwordErrs && 'auth-input-err'}`}
-          type='password'
-          autoComplete='current-password'
-          placeholder='Password'
-          value={password}
-          onChange={e => setPassword(e.target.value)}
-        />
-        {passwordErrs && <div className='auth-div-error'>{passwordErrs}</div>}
-        {errors && <div className='auth-div-error'>{errors}</div>}
-        <button className='auth-form-btn' type='submit'>Login</button>
-        { /* NOTE: button to allow demo user to login */ }
-        <button className='auth-form-btn' onClick={e => handleDemoLogin(e)}>Demo</button>
-      </div>
-    </form>
+    <div className='form-container'>
+      <form className='auth-form-container' onSubmit={onLogin}>
+        <div>
+          <input
+            name='email'
+            type='text'
+            className={`auth-form-field ${emailErrs && 'auth-input-err'}`}
+            placeholder='Email'
+            value={email}
+            onChange={e => setEmail(e.target.value)}
+          />
+        </div>
+        {emailErrs && <div className='auth-div-error'>{emailErrs}</div>}
+        <div>
+          <input
+            name='password'
+            className={`auth-form-field ${passwordErrs && 'auth-input-err'}`}
+            type='password'
+            autoComplete='current-password'
+            placeholder='Password'
+            value={password}
+            onChange={e => setPassword(e.target.value)}
+          />
+          {passwordErrs && <div className='auth-div-error'>{passwordErrs}</div>}
+          {errors && <div className='auth-div-error'>{errors}</div>}
+          <button className='auth-form-btn' type='submit'>Login</button>
+          { /* NOTE: button to allow demo user to login */ }
+          <button className='auth-form-btn' onClick={e => handleDemoLogin(e)}>Demo</button>
+        </div>
+      </form>
+    </div>
   );
 };
 

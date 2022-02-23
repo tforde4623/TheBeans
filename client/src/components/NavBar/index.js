@@ -1,24 +1,23 @@
 import React, { useState } from 'react';
-import { NavLink, useHistory } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
 import LogoutButton from '../auth/LogoutButton';
 import styled from 'styled-components';
 import { useSelector } from 'react-redux';
 import './navBar.css';
 
+const Navbar = styled.ul`
+  background-color: rgb(107, 112, 92);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  position: fixed;
+  width: 100%;
+  z-index: 100;
+`;
+
 const NavBar = () => {
   const [showUserMenu, setShowUserMenu] = useState(false);
   const user = useSelector(state => state.session.user) || null;
-  const history = useHistory();
-
-  const Navbar = styled.ul`
-    background-color: rgb(107, 112, 92);
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    position: fixed;
-    width: 100%;
-    z-index: 100;
-  `;
 
   return (
     <nav>
@@ -30,14 +29,14 @@ const NavBar = () => {
         </li>
         <div className='nav-section'>
         {!user && 
-          <li>
+          <li className='nav-item'>
             <NavLink className='nav-link' to='/login' exact={true} activeClassName='active'>
               Login
             </NavLink>
           </li>
         }
         {!user && 
-          <li>
+          <li className='nav-item'>
             <NavLink className='nav-link' to='/sign-up' exact={true} activeClassName='active'>
               Sign Up
             </NavLink>

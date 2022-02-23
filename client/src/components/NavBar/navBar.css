@@ -3,6 +3,10 @@ nav {
   z-index: 100;
 }
 
+ul {
+  list-style-type: none;
+}
+
 a {
   text-decoration: none;
   color: black;
@@ -22,6 +26,7 @@ a {
   font-family: 'Mochiy Pop P One', sans-serif;
   font-size: 24px;
   margin-left: 10px;
+  padding-bottom: 3px;
 }
 
 .nav-section {
@@ -66,7 +71,9 @@ a {
   text-decoration: none;
 }
 
-.nav-link {
+.nav-item {
+  padding: 5px 5px;
+  margin: 6px;
 }
 
 .nav-link:hover {
