@@ -9,8 +9,16 @@
 
 html {
   height: 100vh;
-  width: 100vw;
+  width: calc(100vw - 12px);
   background-color: #B7B7A4;
+}
+
+body {
+  width: 100%;
+}
+
+#root {
+  width: 100%;
 }
 
 /* main body that is not the header or nav */

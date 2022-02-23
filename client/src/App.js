@@ -23,7 +23,7 @@ function App() {
   const dispatch = useDispatch();
 
   const Container = styled.div`
-    max-width: 100%;
+    max-width: 100vw;
     max-height: 100%;
   `;
 

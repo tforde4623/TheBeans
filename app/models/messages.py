@@ -15,10 +15,13 @@ class Message(db.Model):
         db.ForeignKey('rooms.id'),
         nullable=False)
 
+    owner = db.relationship('User')
+
     def to_dict(self):
         return {
             'id': self.id,
             'content': self.content,
             'owner_id': self.owner_id,
-            'room_id': self.room_id
+            'room_id': self.room_id,
+            'owner_obj': self.owner.to_dict()
         }

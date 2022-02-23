@@ -4,10 +4,12 @@ import { io } from 'socket.io-client';
 import UserSearch from './UserSearch';
 import ConvoList from './ConvoList';
 import './chatRoom.css';
+import { useSelector } from 'react-redux';
 
 let socket;
 
 const ChatRoom = () => {
+  const userId = useSelector(state => state.session.user.id);
   const [showResults, setShowRes] = useState(false);
   const [messages, setMessages] = useState([]);
   const [msgContent, setMsgContent] = useState('');
@@ -24,6 +26,7 @@ const ChatRoom = () => {
 
   const handleMsgSubmit = e => {
     e.preventDefault();
+    setMsgContent('');
 
     // send msgs
     socket.emit('message', {
@@ -80,13 +83,19 @@ const ChatRoom = () => {
       </div>
 
       <div className='chat-container-right'>
-        {/* TODO: this is temp */}
-        {room}
         <div className='container-box'>
           {messages?.length > 0 && messages.map(msg => (
-            <div key={msg.id}>{msg.content}</div>
+            <div 
+              className={msg.owner_id === userId ? 'owned-msg' : 'unowned-msg'} 
+              key={msg.id}
+            >
+              {/* ind. msg content */}
+              <div>{msg.owner_obj.username}</div>
+              <div>{msg.content}</div>
+            </div>
           ))}
         </div>
+
         {/* TODO: move this*/}
         <div className='msg-form'>
           <form onSubmit={handleMsgSubmit}>
