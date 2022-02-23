@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faHeart } from '@fortawesome/free-solid-svg-icons';
 import { faHeart as farHeart } from '@fortawesome/free-regular-svg-icons';
+import { faEnvelope } from '@fortawesome/free-solid-svg-icons';
 
 import AddCommentForm from '../ShowPost/AddCommentForm';
 import { postLike, deleteLike } from '../../store/likes';
@@ -40,6 +41,10 @@ const HomeFeedCard = ({ post, likes }) => {
     scrollComments();
   };
 
+  const handleMsgClick = () => {
+
+  };
+
   useEffect(() => {
     dispatch(getPostComments(post.id));
   }, [dispatch, post, messageEnd]);
@@ -52,6 +57,10 @@ const HomeFeedCard = ({ post, likes }) => {
           <NavLink to={`/users/${post.author?.id}/posts/`}>
             @{ post.author?.username }
           </NavLink>
+          <FontAwesomeIcon 
+            onClick={handleMsgClick}
+            className='msg-icon' 
+            icon={faEnvelope}/>
         </div>
       </div>
       {/* TODO: maybe we can put time in here? */}

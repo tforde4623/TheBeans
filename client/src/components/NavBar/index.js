@@ -3,6 +3,7 @@ import { NavLink } from 'react-router-dom';
 import LogoutButton from '../auth/LogoutButton';
 import styled from 'styled-components';
 import { useSelector } from 'react-redux';
+
 import './navBar.css';
 
 const Navbar = styled.ul`
@@ -70,6 +71,14 @@ const NavBar = () => {
                 <LogoutButton setShowUserMenu={setShowUserMenu} />
               </li>
             </ul>
+          }
+
+          {user &&
+            <p>
+              <NavLink to='/chat'>
+                <i className="fas fa-envelope fa-lg"></i>
+              </NavLink>
+            </p>
           }
 
           {user &&

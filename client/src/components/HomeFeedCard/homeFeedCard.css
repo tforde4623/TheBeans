@@ -87,3 +87,12 @@
 .likes-counter {
   padding-left: 10px; 
 }
+
+.msg-icon {
+  padding-left: 5px;
+}
+
+.msg-icon:hover {
+  color: purple;
+  cursor: pointer;
+}
