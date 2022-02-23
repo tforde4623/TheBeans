@@ -46,7 +46,6 @@ const CreatePostForm = () => {
         if (!res.errors) {
           history.push(`/posts/${categoryId}`);
         } else {
-          console.log(res.errors);
           res.errors.forEach(err => {
             if (err.title) {
               setTitleErr(err.title);

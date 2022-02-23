@@ -9,7 +9,6 @@ export const getRooms = user_id => async dispatch => {
   const res = await fetch(`/api/users/${user_id}/rooms`);
   const json = await res.json()
 
-  console.log(json)
   if (res.ok) {
     dispatch(loadRooms(json));
   }
@@ -35,7 +34,7 @@ export const postRoom = recipientId => async dispatch => {
   });
   const json = await res.json();
 
-  if (res.ok) {
+  if (!json.errors) {
     dispatch(addRoom(json));
   }
 

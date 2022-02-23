@@ -54,7 +54,6 @@ const removeLike = id => ({
 });
 
 export const deleteLike = id => async dispatch => {
-  console.log(id);
   const res = await fetch(`/api/likes/${id}`, {
     method: 'DELETE',
   });

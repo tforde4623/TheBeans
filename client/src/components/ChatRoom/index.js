@@ -1,14 +1,18 @@
 import React, { useEffect, useState, useRef } from 'react';
+import { useParams } from 'react-router-dom';
 import { io } from 'socket.io-client';
 
 import UserSearch from './UserSearch';
 import ConvoList from './ConvoList';
 import './chatRoom.css';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+import { getRooms, postRoom } from '../../store/rooms';
 
 let socket;
 
 const ChatRoom = () => {
+  const { reqUserId } = useParams(); // optional parameter
+  const dispatch = useDispatch();
   const userId = useSelector(state => state.session.user.id);
   const msgEnd = useRef(null);
   const [showResults, setShowRes] = useState(false);
@@ -18,6 +22,7 @@ const ChatRoom = () => {
   const [room, setRoom] = useState();
   const [query, setQuery] = useState('');
   const [isEmpty, setIsEmpty] = useState(true);
+
 
   // handle show/hide of search results (in child component)
   const setShowResults = (e, val) => {
@@ -49,7 +54,11 @@ const ChatRoom = () => {
     }
   };
 
+  // initiate socket io connection and msg 'listener'
   useEffect(() => {
+    if (userId) {
+      dispatch(getRooms(userId)); 
+    }
 
     socket = io();
 
@@ -63,10 +72,30 @@ const ChatRoom = () => {
     return (() => {
       socket.disconnect();
     });
-  }, []);
+  }, [dispatch, userId]);
+
+
+  // if an id was passed as a parameter,
+  // make it if doesn't exist, load it if it does
+  useEffect(() => {
+    if (reqUserId) {
+      dispatch(postRoom(reqUserId))
+        .then(res => {
+          if (res.errors) {
+            if (res.errors.duplicate) {
+              setRoom(res.room_id);
+            } 
+          } else if (res.room) {
+            setRoom(res.room.id);
+          }
+        }
+      )
+    }
+  }, [dispatch, reqUserId]);
 
   // room change
   useEffect(() => {
+
     if (room) {
       socket.emit('join-room', { 'room_id': room });
 

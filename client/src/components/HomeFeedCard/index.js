@@ -41,10 +41,6 @@ const HomeFeedCard = ({ post, likes }) => {
     scrollComments();
   };
 
-  const handleMsgClick = () => {
-
-  };
-
   useEffect(() => {
     dispatch(getPostComments(post.id));
   }, [dispatch, post, messageEnd]);
@@ -57,10 +53,10 @@ const HomeFeedCard = ({ post, likes }) => {
           <NavLink to={`/users/${post.author?.id}/posts/`}>
             @{ post.author?.username }
           </NavLink>
-          <FontAwesomeIcon 
-            onClick={handleMsgClick}
-            className='msg-icon' 
-            icon={faEnvelope}/>
+          <NavLink to={`/chat/${post.author?.id}`} className='msg-icon'>
+            <FontAwesomeIcon 
+              icon={faEnvelope}/>
+          </NavLink>
         </div>
       </div>
       {/* TODO: maybe we can put time in here? */}

@@ -69,7 +69,7 @@ function App() {
                 <UserPage />
               </ProtectedRoute>
               {/*TODO: this is temp*/}
-              <ProtectedRoute path='/chat'>
+              <ProtectedRoute path='/chat/:reqUserId?'>
                 <ChatRoom />
               </ProtectedRoute>
               <Route>
