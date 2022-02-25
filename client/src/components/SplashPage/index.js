@@ -57,7 +57,7 @@ const SplashPage = () => {
     <div className='splash-main-container'>
 
         <div className='hero-center'>
-          <HeroBackground src='/hero.png' alt='hero background'/>
+          <HeroBackground src='https://raw.githubusercontent.com/tforde4623/TheBeans/main/img-assets/hero.png' alt='hero background'/>
           <button className='hero-btn' onClick={() => history.push('/posts')}>See More Posts!</button>
         </div>
 
