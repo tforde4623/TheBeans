@@ -1,9 +1,17 @@
-import React from 'react';
-import { useSelector } from 'react-redux';
+import React, { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { getRooms } from '../../store/rooms';
 
 const ConvoList = ({ setRoom }) => {
-  const rooms = useSelector(state => state.rooms);
+  const dispatch = useDispatch();
+  const userId = useSelector(state => state.session.user.id);
 
+  useEffect(() => {
+    dispatch(getRooms(userId));
+  }, [userId, dispatch]);
+
+  const rooms = useSelector(state => state.rooms);
+  
   return (
     <div className='convo-list-container'>
       {rooms && Object.values(rooms).map(room => (

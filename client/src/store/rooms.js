@@ -9,7 +9,7 @@ export const getRooms = user_id => async dispatch => {
   const res = await fetch(`/api/users/${user_id}/rooms`);
   const json = await res.json()
 
-  if (res.ok) {
+  if (!json.errors) {
     dispatch(loadRooms(json));
   }
 
@@ -53,6 +53,7 @@ const roomReducer = (state = initialState, action) => {
       return newState;
 
     case LOAD_ROOMS:
+      console.log(action.rooms)
       action.rooms.forEach(room => {
         newState[room.id] = room;
       });

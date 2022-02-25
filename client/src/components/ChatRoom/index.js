@@ -4,9 +4,9 @@ import { io } from 'socket.io-client';
 
 import UserSearch from './UserSearch';
 import ConvoList from './ConvoList';
-import './chatRoom.css';
 import { useDispatch, useSelector } from 'react-redux';
-import { getRooms, postRoom } from '../../store/rooms';
+import { postRoom } from '../../store/rooms';
+import './chatRoom.css';
 
 let socket;
 
@@ -26,7 +26,10 @@ const ChatRoom = () => {
 
   // handle show/hide of search results (in child component)
   const setShowResults = (e, val) => {
-    e.stopPropagation();
+    if (e) {
+      e.stopPropagation();
+    }
+
     setShowRes(val);
     setQuery('');
   };
@@ -56,15 +59,14 @@ const ChatRoom = () => {
 
   // initiate socket io connection and msg 'listener'
   useEffect(() => {
-    if (userId) {
-      dispatch(getRooms(userId)); 
-    }
-
     socket = io();
 
     // recieve msgs
     socket.on('message', data => {
-      setMessages(msgs => [...msgs, data]);
+      console.log('hit this');
+      console.log(data);
+      setMessages([data]);
+
       scrollMsgs();
     });
 
@@ -72,7 +74,7 @@ const ChatRoom = () => {
     return (() => {
       socket.disconnect();
     });
-  }, [dispatch, userId]);
+  }, [dispatch]);
 
 
   // if an id was passed as a parameter,

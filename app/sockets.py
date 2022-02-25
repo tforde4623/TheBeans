@@ -1,6 +1,6 @@
 import os
 from flask_socketio import ConnectionRefusedError, SocketIO, emit, join_room
-from flask_login import current_user, login_required
+from flask_login import current_user
 from app.models import db, Message, Room
 
 if os.environ.get("FLASK_ENV") == 'production':
@@ -14,7 +14,6 @@ socket = SocketIO(cors_allowed_origins=origins)
 
 
 @socket.on('connect')
-@login_required
 def handle_connect():
     if not current_user.is_authenticated:
         raise ConnectionRefusedError('unauthorized')
