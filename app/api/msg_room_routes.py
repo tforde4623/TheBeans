@@ -1,6 +1,7 @@
 from flask import Blueprint, jsonify, request
 from flask_login import current_user, login_required
 from app.models import db, Room, User
+from sqlalchemy import or_, and_
 
 
 # this file contains routes pertaining to Messages and Rooms
@@ -21,6 +22,21 @@ def create_room():
         errors['recipient_id'] = 'required data'
 
     else:
+        search_room = Room.query.filter(
+            or_(
+                and_(
+                    Room.sender_id == data['recipient_id'],
+                    Room.recipient_id == current_user.id),
+                and_(
+                    Room.recipient_id == data['recipient_id'],
+                    Room.sender_id == current_user.id)
+            )
+        ).all()
+
+        if len(search_room):
+            return jsonify(
+                {'errors': 'room already exists', 'room_id': search_room[0]})
+
         new_room = Room(
             sender_id=current_user.id,
             recipient_id=data['recipient_id'])

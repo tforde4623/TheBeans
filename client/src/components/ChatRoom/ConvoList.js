@@ -7,14 +7,11 @@ const ConvoList = ({ setRoom }) => {
   const userId = useSelector(state => state.session.user.id);
 
   useEffect(() => {
-    if (userId) {
-      dispatch(getRooms(userId));  
-    }
+    dispatch(getRooms(userId));
   }, [userId, dispatch]);
 
-  // this will be users rooms
   const rooms = useSelector(state => state.rooms);
-
+  
   return (
     <div className='convo-list-container'>
       {rooms && Object.values(rooms).map(room => (
@@ -22,7 +19,7 @@ const ConvoList = ({ setRoom }) => {
           onClick={() => setRoom(room.id)}
           key={room.id} 
           className='convo-block'>
-          {room.other_user.username}
+          {room.other_user?.username}
         </div>
       ))} 
     </div>

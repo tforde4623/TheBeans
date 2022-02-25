@@ -1,4 +1,4 @@
-#from werkzeug.utils import secure_filename
+# from werkzeug.utils import secure_filename
 import boto3
 import os
 
@@ -8,12 +8,12 @@ s3 = boto3.resource(
     aws_secret_access_key=os.environ.get('AWS_SECRET')
 )
 
-bucket = s3.Bucket('bucketobeans');
+bucket = s3.Bucket('bucketobeans')
+
 
 def upload_img(file, filename):
     try:
-        res = bucket.Object(f'{filename}.jpg').put(Body=file)
-        print(res)
+        bucket.Object(f'{filename}.jpg').put(Body=file)
         return 'ok'
     except Exception:
         return 'Failed to upload image, this is our fault!'

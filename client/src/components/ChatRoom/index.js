@@ -1,14 +1,18 @@
 import React, { useEffect, useState, useRef } from 'react';
+import { useParams } from 'react-router-dom';
 import { io } from 'socket.io-client';
 
 import UserSearch from './UserSearch';
 import ConvoList from './ConvoList';
+import { useDispatch, useSelector } from 'react-redux';
+import { postRoom } from '../../store/rooms';
 import './chatRoom.css';
-import { useSelector } from 'react-redux';
 
 let socket;
 
 const ChatRoom = () => {
+  const { reqUserId } = useParams(); // optional parameter
+  const dispatch = useDispatch();
   const userId = useSelector(state => state.session.user.id);
   const msgEnd = useRef(null);
   const [showResults, setShowRes] = useState(false);
@@ -19,9 +23,13 @@ const ChatRoom = () => {
   const [query, setQuery] = useState('');
   const [isEmpty, setIsEmpty] = useState(true);
 
+
   // handle show/hide of search results (in child component)
   const setShowResults = (e, val) => {
-    e.stopPropagation();
+    if (e) {
+      e.stopPropagation();
+    }
+
     setShowRes(val);
     setQuery('');
   };
@@ -49,13 +57,16 @@ const ChatRoom = () => {
     }
   };
 
+  // initiate socket io connection and msg 'listener'
   useEffect(() => {
-
     socket = io();
 
     // recieve msgs
     socket.on('message', data => {
-      setMessages(msgs => [...msgs, data]);
+      console.log('hit this');
+      console.log(data);
+      setMessages([data]);
+
       scrollMsgs();
     });
 
@@ -63,10 +74,30 @@ const ChatRoom = () => {
     return (() => {
       socket.disconnect();
     });
-  }, []);
+  }, [dispatch]);
+
+
+  // if an id was passed as a parameter,
+  // make it if doesn't exist, load it if it does
+  useEffect(() => {
+    if (reqUserId) {
+      dispatch(postRoom(reqUserId))
+        .then(res => {
+          if (res.errors) {
+            if (res.errors.duplicate) {
+              setRoom(res.room_id);
+            } 
+          } else if (res.room) {
+            setRoom(res.room.id);
+          }
+        }
+      )
+    }
+  }, [dispatch, reqUserId]);
 
   // room change
   useEffect(() => {
+
     if (room) {
       socket.emit('join-room', { 'room_id': room });
 

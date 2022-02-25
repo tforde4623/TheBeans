@@ -44,12 +44,13 @@
 .msgs-msg {
   color: gray;
   opacity: 0.8;
-  margin: 10px 5px 10px;
+  margin: 10px 3px 10px;
   font-size: 18px;
 }
 
-form {
+.chat-container-right form {
   display: flex;
+  padding-bottom: 5px;
 }
 
 .chat-container-left input {
@@ -91,7 +92,6 @@ form button:hover {
   position: absolute;
   background-color: white;
   color: black;
-  margin-top: 36px;
   border-bottom-left-radius: 10px;
   border-bottom-right-radius: 10px;
   width: 30%;

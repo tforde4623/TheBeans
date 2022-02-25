@@ -32,7 +32,6 @@ def user(id):
 def search_users(searchTerm):
     query = f'%{searchTerm.replace("+", " ")}%'
     users = User.query.filter(User.username.ilike(query)).limit(5).all()
-    print(users)
 
     return jsonify([user.to_dict() for user in users])
 
