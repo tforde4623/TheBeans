@@ -13,7 +13,7 @@ let socket;
 const ChatRoom = () => {
   const { reqUserId } = useParams(); // optional parameter
   const dispatch = useDispatch();
-  const userId = useSelector(state => state.session.user.id);
+  const userId = useSelector((state) => state.session.user.id);
   const msgEnd = useRef(null);
   const [showResults, setShowRes] = useState(false);
   const [messages, setMessages] = useState([]);
@@ -22,7 +22,6 @@ const ChatRoom = () => {
   const [room, setRoom] = useState();
   const [query, setQuery] = useState('');
   const [isEmpty, setIsEmpty] = useState(true);
-
 
   // handle show/hide of search results (in child component)
   const setShowResults = (e, val) => {
@@ -34,24 +33,24 @@ const ChatRoom = () => {
     setQuery('');
   };
 
-  const handleMsgSubmit = e => {
+  const handleMsgSubmit = (e) => {
     e.preventDefault();
     setMsgContent('');
 
     // send msgs
     socket.emit('message', {
-      content: msgContent, 
-      room_id: room
+      content: msgContent,
+      room_id: room,
     });
   };
 
   const scrollMsgs = () => {
     if (msgEnd) {
       setTimeout(() => {
-        msgEnd.current?.scrollIntoView({ 
-          behavior: 'smooth', 
-          block: 'nearest', 
-          inline: 'start' 
+        msgEnd.current?.scrollIntoView({
+          behavior: 'smooth',
+          block: 'nearest',
+          inline: 'start',
         });
       }, 150);
     }
@@ -62,44 +61,38 @@ const ChatRoom = () => {
     socket = io();
 
     // recieve msgs
-    socket.on('message', data => {
-      console.log('hit this');
-      console.log(data);
+    socket.on('message', (data) => {
       setMessages([data]);
 
       scrollMsgs();
     });
 
     // cleanup: disconnect on component dismount
-    return (() => {
+    return () => {
       socket.disconnect();
-    });
+    };
   }, [dispatch]);
-
 
   // if an id was passed as a parameter,
   // make it if doesn't exist, load it if it does
   useEffect(() => {
     if (reqUserId) {
-      dispatch(postRoom(reqUserId))
-        .then(res => {
-          if (res.errors) {
-            if (res.errors.duplicate) {
-              setRoom(res.room_id);
-            } 
-          } else if (res.room) {
-            setRoom(res.room.id);
+      dispatch(postRoom(reqUserId)).then((res) => {
+        if (res.errors) {
+          if (res.errors.duplicate) {
+            setRoom(res.room_id);
           }
+        } else if (res.room) {
+          setRoom(res.room.id);
         }
-      )
+      });
     }
   }, [dispatch, reqUserId]);
 
   // room change
   useEffect(() => {
-
     if (room) {
-      socket.emit('join-room', { 'room_id': room });
+      socket.emit('join-room', { room_id: room });
 
       // get rooms prev msgs
       (async () => {
@@ -122,65 +115,63 @@ const ChatRoom = () => {
   }, [room]);
 
   return (
-    <div 
+    <div
       // we want to close our search results if anywhere in body is clicked
       onClick={(e) => setShowResults(e, false)}
-      className='chat-container'
+      className="chat-container"
     >
-
-      <div className='chat-container-left'>
-        <UserSearch 
+      <div className="chat-container-left">
+        <UserSearch
           query={query}
           setQuery={setQuery}
-          showResults={showResults} 
-          setShowResults={setShowResults}/> 
-        <ConvoList setRoom={setRoom}/>
+          showResults={showResults}
+          setShowResults={setShowResults}
+        />
+        <ConvoList setRoom={setRoom} />
       </div>
 
-      <div className='chat-container-right'>
-        <div className='container-box'>
-          {!room ?
-            <div className='msgs-msg'>
+      <div className="chat-container-right">
+        <div className="container-box">
+          {!room ? (
+            <div className="msgs-msg">
               Choose a user from the left bar to chat with!
             </div>
-            : isEmpty ? (
-            <div className='msgs-msg'>
-              No messages yet with this user!
-            </div>
-            ) : messages?.length > 0 && messages.map(msg => (
-                <div 
-                  className={msg.owner_id === userId ? 'owned-msg' : 'unowned-msg'} 
-                  key={msg.id}
-                >
-                  {/* ind. msg content */}
-                  <div>{msg.owner_obj.username}</div>
-                  <div>{msg.content}</div>
-                </div>
+          ) : isEmpty ? (
+            <div className="msgs-msg">No messages yet with this user!</div>
+          ) : (
+            messages?.length > 0 &&
+            messages.map((msg) => (
+              <div
+                className={
+                  msg.owner_id === userId ? 'owned-msg' : 'unowned-msg'
+                }
+                key={msg.id}
+              >
+                {/* ind. msg content */}
+                <div>{msg.owner_obj.username}</div>
+                <div>{msg.content}</div>
+              </div>
             ))
-          }
+          )}
           {/* div for auto scroll */}
-          <div
-            style={{ float: 'left', clear: 'both' }}
-            ref={msgEnd}
-          >
-          </div>
+          <div style={{ float: 'left', clear: 'both' }} ref={msgEnd}></div>
         </div>
 
         {/* TODO: move this*/}
-        <div className='msg-form'>
+        <div className="msg-form">
           <form onSubmit={handleMsgSubmit}>
-            <input 
-              onChange={e => setMsgContent(e.target.value)}
-              placeholder='Send a message...'
+            <input
+              onChange={(e) => setMsgContent(e.target.value)}
+              placeholder="Send a message..."
               value={msgContent}
-              type='text'/>
-            <button type='submit'>Send</button>
+              type="text"
+            />
+            <button type="submit">Send</button>
           </form>
         </div>
       </div>
-
     </div>
-  )
-}
+  );
+};
 
 export default ChatRoom;

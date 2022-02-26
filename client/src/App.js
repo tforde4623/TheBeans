@@ -29,7 +29,7 @@ function App() {
   `;
 
   useEffect(() => {
-    (async() => {
+    (async () => {
       await dispatch(authenticate());
       setLoaded(true);
     })();
@@ -42,40 +42,40 @@ function App() {
   return (
     <Container>
       <BrowserRouter>
-          <NavBar />
-            <Switch>
-              <Route path='/login' exact={true}>
-                <LoginForm />
-              </Route>
-              <Route path='/sign-up' exact={true}>
-                <SignUpForm />
-              </Route>
-              <ProtectedRoute path='/users' exact={true} >
-                <UsersList/>
-              </ProtectedRoute>
-              <ProtectedRoute path='/users/:userId' exact={true} >
-                <User />
-              </ProtectedRoute>
-              <ProtectedRoute path='/posts/new'>
-                <CreatePostForm />
-              </ProtectedRoute>
-              <ProtectedRoute path='/posts' exact={true} >
-                <HomeFeed />
-              </ProtectedRoute>
-              <ProtectedRoute path='/' exact={true} >
-                <SplashPage />
-              </ProtectedRoute>
-              <ProtectedRoute path='/users/:userId/posts'>
-                <UserPage />
-              </ProtectedRoute>
-              {/*TODO: this is temp*/}
-              <ProtectedRoute path='/chat/:reqUserId?'>
-                <ChatRoom />
-              </ProtectedRoute>
-              <Route>
-                <PageNotFound />
-              </Route>
-            </Switch>
+        <NavBar />
+        <Switch>
+          <Route path="/login" exact={true}>
+            <LoginForm />
+          </Route>
+          <Route path="/sign-up" exact={true}>
+            <SignUpForm />
+          </Route>
+          <ProtectedRoute path="/users" exact={true}>
+            <UsersList />
+          </ProtectedRoute>
+          <ProtectedRoute path="/users/:userId" exact={true}>
+            <User />
+          </ProtectedRoute>
+          <ProtectedRoute path="/posts/new">
+            <CreatePostForm />
+          </ProtectedRoute>
+          <ProtectedRoute path="/posts" exact={true}>
+            <HomeFeed />
+          </ProtectedRoute>
+          <ProtectedRoute path="/" exact={true}>
+            <SplashPage />
+          </ProtectedRoute>
+          <ProtectedRoute path="/users/:userId/posts">
+            <UserPage />
+          </ProtectedRoute>
+          {/*TODO: this is temp*/}
+          <ProtectedRoute path="/chat/:reqUserId?">
+            <ChatRoom />
+          </ProtectedRoute>
+          <Route>
+            <PageNotFound />
+          </Route>
+        </Switch>
         <Footer />
       </BrowserRouter>
     </Container>
