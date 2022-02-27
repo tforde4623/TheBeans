@@ -37,7 +37,10 @@ const SplashPage = () => {
 
       <div className='category-grid-container'>
         {categories && Object.values(categories).map(category => (
-        <div key={category.id} className='single-cat-container'>
+        <div 
+            key={category.id} 
+            className='single-cat-container'
+            onClick={() => history.push(`/posts/${category.id}`)}>
           
           <img src={category.img_url} alt='category preview'/>
           <div className='single-cat-title'>{category.name}</div>

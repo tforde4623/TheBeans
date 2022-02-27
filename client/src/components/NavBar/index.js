@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { NavLink } from 'react-router-dom';
+import { NavLink, useLocation } from 'react-router-dom';
 import LogoutButton from '../auth/LogoutButton';
 import styled from 'styled-components';
 import { useSelector } from 'react-redux';
@@ -7,7 +7,6 @@ import { useSelector } from 'react-redux';
 import './navBar.css';
 
 const Navbar = styled.ul`
-  background-color: rgba(107, 112, 92, 0);
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -15,38 +14,40 @@ const Navbar = styled.ul`
   width: 100%;
   z-index: 100;
   clear: both;
+  background-color: ${props => props.loc === '/' ? 'rgba(107, 112, 92, 0)' : 'rgb(107, 112, 92)'};
 `;
 
 const NavBar = () => {
+  const location = useLocation();
   const [showUserMenu, setShowUserMenu] = useState(false);
   const user = useSelector(state => state.session.user) || null;
 
   return (
     <nav>
-      <Navbar>
+      <Navbar loc={location.pathname}>
         <li>
-          <NavLink className='nav-title' to='/' exact={true}>
+        <NavLink style={{color: `${location.pathname === "/" ? "white" : "black"}`}} className='nav-title' to='/' exact={true}>
             <h1 className='nav-header'>TheBeans</h1>
           </NavLink>
         </li>
         <div className='nav-section'>
         {!user && 
           <li className='nav-item'>
-            <NavLink className='nav-link' to='/login' exact={true} activeClassName='active'>
+            <NavLink style={{color: `${location.pathname === "/" ? "white" : "black"}`}} className='nav-link' to='/login' exact={true} activeClassName='active'>
               Login
             </NavLink>
           </li>
         }
         {!user && 
           <li className='nav-item'>
-            <NavLink className='nav-link' to='/sign-up' exact={true} activeClassName='active'>
+            <NavLink style={{color: `${location.pathname === "/" ? "white" : "black"}`}} className='nav-link' to='/sign-up' exact={true} activeClassName='active'>
               Sign Up
             </NavLink>
           </li>
         }
         { user &&
           <p>
-            <NavLink to='/' exact={true} activeClassName='active'>
+            <NavLink style={{color: `${location.pathname === "/" ? "white" : "black"}`}} to='/' exact={true} activeClassName='active'>
               <i className="fas fa-home fa-lg"></i>
             </NavLink>
           </p>
@@ -56,7 +57,7 @@ const NavBar = () => {
             <p 
               onClick={() => setShowUserMenu(!showUserMenu)}
               className='nav-user-dropdown'>
-              <i className="fas fa-user"></i>
+              <i style={{color: `${location.pathname === "/" ? "white" : "black"}`}} className="fas fa-user"></i>
             </p>
           }
 
@@ -64,7 +65,7 @@ const NavBar = () => {
           {showUserMenu &&
             <ul onClick={() => setShowUserMenu(false)} className='nav-user-menu'>
               <li className='user-nav-item'>
-                <NavLink className='nav-menu-link' to={`/users/${user.id}/posts`}>
+                <NavLink style={{color: `${location.pathname === "/" ? "white" : "black"}`}} className='nav-menu-link' to={`/users/${user.id}/posts`}>
                   My Profile
                 </NavLink>
               </li>
@@ -76,7 +77,7 @@ const NavBar = () => {
 
           {user &&
             <p>
-              <NavLink to='/chat'>
+              <NavLink style={{color: `${location.pathname === "/" ? "white" : "black"}`}} to='/chat'>
                 <i className="fas fa-envelope fa-lg"></i>
               </NavLink>
             </p>
@@ -84,7 +85,7 @@ const NavBar = () => {
 
           {user &&
             <p>
-              <NavLink to='/posts/new'>
+              <NavLink style={{color: `${location.pathname === "/" ? "white" : "black"}`}} to='/posts/new'>
                 <i className="fas fa-plus fa-lg"></i>
               </NavLink>
             </p>

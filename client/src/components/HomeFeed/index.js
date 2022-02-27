@@ -1,35 +1,30 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux'; 
 
-import { getPosts } from '../../store/posts'; 
+import { getPosts, getPostsByCatId } from '../../store/posts'; 
 import { getLikes } from '../../store/likes';
-// import ShowPost from '../ShowPost';
 import HomeFeedCard from '../HomeFeedCard';
 import './homeFeed.css';
 
-const HomeFeed = () => {
+const HomeFeed = ({ categoryId }) => {
+  // homefeed will take in an optional category id in case user
+  // clicks on a category on the splash page vs the see more posts (all button).
+  
   const dispatch = useDispatch();
-  // const [isOpen, setIsOpen] = useState(false);
-  // const [openPost, setOpenPost] = useState(false);
-
-  const navbar = document.querySelector('.main-navbar');
-  if (navbar) {
-    navbar.style.backgroundColor = '#6B705C';
-  }
 
   useEffect(() => {
     dispatch(getPosts());
     dispatch(getLikes());
-  }, [dispatch]);
+
+    // if that category id is present, populate store with posts pertaining
+    // to selected category
+    if (categoryId) {
+      dispatch(getPostsByCatId());
+    }
+  }, [dispatch, categoryId]);
 
   const posts = useSelector(state => state.posts) || [];
   const likes = useSelector(state => state.likes) || [];
-
-  // do we need this?
-  // const openModal = post => {
-  //   setOpenPost(post);
-  //   setIsOpen(true);
-  // };
 
   return (
     <div className='container'>
@@ -39,7 +34,6 @@ const HomeFeed = () => {
           post={post} 
           likes={Object.values(likes).filter(like => like.post_id === post.id)} />
       ))}
-      {/* { isOpen && <ShowPost post={openPost} setIsOpen={setIsOpen} /> } */}
     </div>
   );  
 };

@@ -3,14 +3,8 @@ nav {
   z-index: 100;
 }
 
-ul {
+ul, nav a {
   list-style-type: none;
-  color: #fefefe;
-}
-
-a {
-  text-decoration: none;
-  color: #fefefe;
 }
 
 .main-navbar {

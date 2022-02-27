@@ -29,6 +29,7 @@
 }
 
 .hero-btn:hover {
+  cursor: pointer;
   border: 1px solid #CB997E;
 }
 
@@ -46,6 +47,10 @@
   width: 100vw;
   justify-content: center;
   padding-top: 55vw;
+}
+
+.category-grid-container:hover {
+  cursor: pointer;
 }
 
 .single-cat-container {

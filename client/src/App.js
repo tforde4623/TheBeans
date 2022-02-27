@@ -64,7 +64,7 @@ function App() {
           <ProtectedRoute path="/posts/new">
             <CreatePostForm />
           </ProtectedRoute>
-          <ProtectedRoute path="/posts" exact={true}>
+          <ProtectedRoute path="/posts/:categoryId?" exact={true}>
             <HomeFeed />
           </ProtectedRoute>
           <ProtectedRoute path="/" exact={true}>
