@@ -49,14 +49,13 @@
   padding-top: 55vw;
 }
 
-.category-grid-container:hover {
-  cursor: pointer;
-}
-
 .single-cat-container {
   margin-bottom: 30px;
 }
 
+.single-cat-container:hover {
+  cursor: pointer;
+}
 
 .single-cat-container img{
   filter: brightness(80%);
