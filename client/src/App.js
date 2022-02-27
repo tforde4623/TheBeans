@@ -18,15 +18,20 @@ import ChatRoom from './components/ChatRoom';
 import PageNotFound from './components/ErrorPages/PageNotFound';
 import './index.css';
 
+const Container = styled.div`
+  max-width: 100vw;
+  min-height: 100vh;
+  max-height: 100vh;
+`;
+
+const Spacer = styled.div`
+  height: 45px;
+`;
+
 function App() {
   const [loaded, setLoaded] = useState(false);
   const dispatch = useDispatch();
 
-  const Container = styled.div`
-    max-width: 100vw;
-    min-height: 100vh;
-    max-height: 100vh;
-  `;
 
   useEffect(() => {
     (async () => {

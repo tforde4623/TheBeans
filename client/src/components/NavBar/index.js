@@ -7,13 +7,14 @@ import { useSelector } from 'react-redux';
 import './navBar.css';
 
 const Navbar = styled.ul`
-  background-color: rgb(107, 112, 92);
+  background-color: rgba(107, 112, 92, 0);
   display: flex;
   justify-content: space-between;
   align-items: center;
-  position: fixed;
+  position: absolute;
   width: 100%;
   z-index: 100;
+  clear: both;
 `;
 
 const NavBar = () => {
