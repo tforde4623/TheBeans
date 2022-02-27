@@ -62,8 +62,8 @@ const ChatRoom = () => {
 
     // recieve msgs
     socket.on('message', (data) => {
+      setIsEmpty(false);
       setMessages([data]);
-
       scrollMsgs();
     });
 
