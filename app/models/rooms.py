@@ -13,6 +13,9 @@ class Room(db.Model):
         db.Integer,
         db.ForeignKey('users.id'),
         nullable=False)
+    # a boolean that starts are false to display a 'new convo' type alert
+    # to the user that did not initiate the room
+    recipient_has_seen = db.Column(db.Boolean, default=False, nullable=False)
 
     messages = db.relationship('Message')
 
@@ -20,7 +23,8 @@ class Room(db.Model):
         return {
             'id': self.id,
             'sender_id': self.sender_id,
-            'recipient_id': self.recipient_id
+            'recipient_id': self.recipient_id,
+            'recipient_has_seen': self.recipient_has_seen
         }
 
     def get_room_msgs(self):
