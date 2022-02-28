@@ -8,10 +8,11 @@ import './splashPage.css';
 
 const HeroBackground = styled.img`
   width: 100%;
-  height: 50vw;
+  height: 60vw;
   z-index: -3;
   position: absolute;
   top: 0;
+  filter: brightness(60%)
 `;
 
 const SplashPage = () => {
@@ -29,8 +30,9 @@ const SplashPage = () => {
     <div className='splash-main-container'>
 
         <div className='hero-center'>
-          <HeroBackground src='https://raw.githubusercontent.com/tforde4623/TheBeans/main/img-assets/hero.jpeg' alt='hero background'/>
-          <div>
+          <HeroBackground src={process.env.PUBLIC_URL + 'new-hero.jpg'} alt='hero background'/>
+          <div className='hero-div-container'>
+            <div className='hero-div-header'>Welcome to The Beans!</div>
             <div className='hero-div'>
               Discover coffee <br/>
               recipes, beans <br/>
