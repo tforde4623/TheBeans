@@ -30,7 +30,7 @@ const SplashPage = () => {
     <div className='splash-main-container'>
 
         <div className='hero-center'>
-          <HeroBackground src={process.env.PUBLIC_URL + '/new-hero.jpg'} alt='hero background'/>
+          <HeroBackground src='https://raw.githubusercontent.com/tforde4623/TheBeans/main/img-assets/new-hero.jpg' alt='hero background'/>
           <div className='hero-div-container'>
             <div className='hero-div-header'>Welcome to The Beans!</div>
             <div className='hero-div'>
