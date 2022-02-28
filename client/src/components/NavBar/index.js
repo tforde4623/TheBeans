@@ -14,7 +14,9 @@ const Navbar = styled.ul`
   width: 100%;
   z-index: 100;
   clear: both;
-  background-color: ${props => props.loc === '/' ? 'rgba(107, 112, 92, 0)' : 'rgb(107, 112, 92)'};
+  padding-top: 5px;
+  padding-bottom: 5px;
+  background-color: ${props => props.loc === '/' ? 'rgba(60, 60, 60, 0)' : 'rgb(107, 112, 92)'};
 `;
 
 const NavBar = () => {
