@@ -24,14 +24,9 @@ const Container = styled.div`
   max-height: 100vh;
 `;
 
-const Spacer = styled.div`
-  height: 45px;
-`;
-
 function App() {
   const [loaded, setLoaded] = useState(false);
   const dispatch = useDispatch();
-
 
   useEffect(() => {
     (async () => {
