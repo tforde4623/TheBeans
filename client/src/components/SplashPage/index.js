@@ -57,8 +57,15 @@ const SplashPage = () => {
     <div className='splash-main-container'>
 
         <div className='hero-center'>
-          <HeroBackground src='https://raw.githubusercontent.com/tforde4623/TheBeans/main/img-assets/hero.png' alt='hero background'/>
-          <button className='hero-btn' onClick={() => history.push('/posts')}>See More Posts!</button>
+          <HeroBackground src='https://raw.githubusercontent.com/tforde4623/TheBeans/main/img-assets/hero.jpeg' alt='hero background'/>
+          <div>
+            <div className='hero-div'>
+              Discover coffee <br/>
+              recipes, beans <br/>
+              and new cafes!
+            </div>
+            <button className='hero-btn' onClick={() => history.push('/posts')}>See More Posts!</button>
+          </div>
         </div>
 
       <div className='posts-grid-container'>
