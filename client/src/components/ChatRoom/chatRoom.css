@@ -34,11 +34,15 @@
 
 .convo-block {
   border-bottom: 1px solid gray;
-  padding: 9px;
+  display: flex;
+  justify-content: space-between;
+  padding: 15px;
+  font-size: 22px;
 }
 
 .convo-block:hover {
   cursor: pointer;
+  box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
 }
 
 .msgs-msg {
