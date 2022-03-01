@@ -11,11 +11,12 @@ const Navbar = styled.ul`
   justify-content: space-between;
   align-items: center;
   position: absolute;
-  width: 100%;
+  width: 100vw;
   z-index: 100;
   clear: both;
   padding-top: 5px;
   padding-bottom: 5px;
+  padding-right: 10px;
   background-color: ${props => props.loc === '/' ? 'rgba(60, 60, 60, 0)' : 'rgb(107, 112, 92)'};
 `;
 

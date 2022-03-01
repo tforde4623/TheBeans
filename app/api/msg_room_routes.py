@@ -51,8 +51,8 @@ def create_room():
     return jsonify({'errors': errors})
 
 
-@ chat_routes.route('/rooms/<room_id>/messages')
-@ login_required
+@chat_routes.route('/rooms/<room_id>/messages')
+@login_required
 def room_msgs(room_id):
     room = Room.query.filter_by(id=room_id).one()
 

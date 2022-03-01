@@ -1,7 +1,7 @@
 from flask import Blueprint, jsonify
 from flask_login import login_required, current_user
 from app.models import User, Post, Room
-from sqlalchemy import or_
+from sqlalchemy import or_, and_
 
 user_routes = Blueprint('users', __name__)
 
@@ -31,7 +31,10 @@ def user(id):
 @login_required
 def search_users(searchTerm):
     query = f'%{searchTerm.replace("+", " ")}%'
-    users = User.query.filter(User.username.ilike(query)).limit(5).all()
+    users = User.query.filter(
+        and_(
+            User.username.ilike(query),
+            User.username != current_user.username)).limit(5).all()
 
     return jsonify([user.to_dict() for user in users])
 
