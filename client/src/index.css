@@ -8,8 +8,9 @@
 }
 
 html {
-  width: calc(100vw - 2vw);
+  width: 100vw;
   background-color: #B7B7A4;
+  overflow-x: hidden;
 }
 
 body {
