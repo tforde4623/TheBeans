@@ -34,6 +34,7 @@ class Room(db.Model):
         }
 
     def get_room_with_other(self, curr_user_id, user_model):
+        print(curr_user_id)
         r_dict = self.to_dict()
 
         if curr_user_id == r_dict['recipient_id']:
@@ -43,5 +44,6 @@ class Room(db.Model):
 
         r_dict['other_user'] = user_model.query.filter_by(
             id=other_id).one().to_dict()
+        print(r_dict)
 
         return r_dict

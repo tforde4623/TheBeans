@@ -97,9 +97,11 @@ form button:hover {
   position: absolute;
   background-color: white;
   color: black;
-  border-bottom-left-radius: 10px;
-  border-bottom-right-radius: 10px;
+  border-bottom-left-radius: 5px;
+  border-bottom-right-radius: 5px;
   width: 30%;
+  font-size: 20px;
+  padding: 3px;
 }
 
 .search-result-row {
@@ -107,7 +109,7 @@ form button:hover {
 }
 
 .search-result-row:not(:last-child) {
-  border-bottom: 1px solid lightgray;
+  border-bottom: 1px solid darkgray;
 }
 
 .search-result-row:hover {
@@ -115,8 +117,8 @@ form button:hover {
 }
 
 .search-result-row:last-child:hover {
-  border-bottom-right-radius: 10px;
-  border-bottom-left-radius: 10px;
+  border-bottom-right-radius: 5px;
+  border-bottom-left-radius: 5px;
 }
 
 

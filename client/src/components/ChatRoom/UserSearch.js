@@ -43,7 +43,7 @@ const UserSearch = ({
     debouncedFetchUsers(query, res => {
       setResults(res);
     });
-  }, [query]);
+  }, [query, setShowResults]);
 
   // TODO: clear the query when click off??
   return (
