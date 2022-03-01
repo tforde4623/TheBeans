@@ -149,6 +149,9 @@ const ChatRoom = () => {
               >
                 {/* ind. msg content */}
                 <div>{msg.owner_obj.username}</div>
+                <div className='msg-date'>
+                  {new Date(msg?.created_at).toLocaleString()}
+                </div>
                 <div>{msg.content}</div>
               </div>
             ))

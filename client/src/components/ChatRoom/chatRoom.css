@@ -140,3 +140,9 @@ form button:hover {
   background-color: #CB997E;
   align-self: flex-end;
 }
+
+.msg-date {
+  font-size: 14px;
+  color: #3a3b3c;
+  margin-bottom: 10px;
+}
