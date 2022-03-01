@@ -68,7 +68,7 @@
 .category-grid-container {
   display: flex;
   flex-wrap: wrap;
-  width: 100vw;
+  width: 100%;
   justify-content: center;
   padding-top: 65vw;
 }
