@@ -22,6 +22,7 @@ Check out the deployed application [HERE](https://the-beans-site.herokuapp.com/)
 ![splash page](https://raw.githubusercontent.com/tforde4623/TheBeans/main/img-assets/splash.png)
 ![main feed page](https://raw.githubusercontent.com/tforde4623/TheBeans/main/img-assets/homefeed.png)
 ![user post page](https://raw.githubusercontent.com/tforde4623/TheBeans/main/img-assets/userpage.png)
+![Private Chat Demo](https://raw.githubusercontent.com/tforde4623/TheBeans/main/img-assets/chat_demo.gif)
 
 ## Run It Locally
 1. Download the repository, then cd to it, if you have a git account use:
