@@ -14,6 +14,9 @@ class Message(db.Model):
         db.Integer,
         db.ForeignKey('rooms.id'),
         nullable=False)
+    created_at = db.Column(
+        db.DateTime,
+        default=db.func.current_timestamp())
 
     owner = db.relationship('User')
 
@@ -23,5 +26,6 @@ class Message(db.Model):
             'content': self.content,
             'owner_id': self.owner_id,
             'room_id': self.room_id,
+            'created_at': self.created_at.isoformat(),
             'owner_obj': self.owner.to_dict()
         }
