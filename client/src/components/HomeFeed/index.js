@@ -1,25 +1,30 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux'; 
+import { useParams } from 'react-router-dom';
 
 import { getPosts, getPostsByCatId } from '../../store/posts'; 
 import { getLikes } from '../../store/likes';
 import HomeFeedCard from '../HomeFeedCard';
 import './homeFeed.css';
 
-const HomeFeed = ({ categoryId }) => {
+const HomeFeed = () => {
   // homefeed will take in an optional category id in case user
   // clicks on a category on the splash page vs the see more posts (all button).
+  const { categoryId } = useParams();
   
   const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(getPosts());
     dispatch(getLikes());
 
     // if that category id is present, populate store with posts pertaining
     // to selected category
     if (categoryId) {
-      dispatch(getPostsByCatId());
+      dispatch(getPostsByCatId(categoryId))
+        .then(() => window.scrollTo(0, 0));
+    } else {
+      dispatch(getPosts())
+        .then(() => window.scrollTo(0, 0));
     }
   }, [dispatch, categoryId]);
 
