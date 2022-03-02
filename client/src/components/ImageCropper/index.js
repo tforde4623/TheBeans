@@ -1,7 +1,7 @@
 import React, { useEffect, useRef, useCallback, useState } from 'react';
 
+import { draw } from './utils';
 import './PhotoCropper.css'
-
 
 const PhotoCropper = ({ imageSrc }) => {
   const canvasRef = useRef(null);
@@ -9,21 +9,8 @@ const PhotoCropper = ({ imageSrc }) => {
   const [width, setWidth] = useState(null);
   const [mouseDown, setMouseDown] = useState(false);
 
-  const draw = useCallback(
-    (ctx, canvas, nWidth, nHeight) => {
-      ctx.clearRect(0, 0, canvas.width, canvas.height);
-
-      const canvasEl = canvas.getBoundingClientRect();
-
-      ctx.fillStyle = '#282828';
-      ctx.fillRect(
-        0, 0, 
-        nWidth ? nWidth - canvasEl.left : 100, 
-        nHeight ? nHeight - canvasEl.top : 100
-      );
-
-    }, []
-  );
+  const drawCb = useCallback((cx, cv, x, y) => 
+    draw(cx, cv, x, y), []);
 
   const handleMouseMove = e => {
     if (mouseDown) {
@@ -36,8 +23,8 @@ const PhotoCropper = ({ imageSrc }) => {
     const canvas = canvasRef.current;
     const context = canvas.getContext('2d');
 
-    draw(context, canvas, width, height);
-  }, [draw, width, height]);
+    drawCb(context, canvas, width, height, );
+  }, [drawCb, width, height]);
 
   return (
     <div 
