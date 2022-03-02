@@ -1,9 +1,10 @@
 import React, { useState, useEffect, useCallback } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 import { useDropzone } from 'react-dropzone';
-import { useDispatch, useSelector } from 'react-redux';
 import { createPost } from '../../store/posts';
 import axios from 'axios';
+import ImageCropper from '../ImageCropper'; 
 import './createPostForm.css';
 
 const CreatePostForm = () => {
@@ -74,7 +75,7 @@ const CreatePostForm = () => {
       <form onSubmit={handleSubmit} className='create-form-main'>
         <div { ...getRootProps()}>
           {imgPreview  
-            ?  <img className='image-preview' src={imgPreview} alt='preview of upload'/>
+            ? <ImageCropper imageSrc={ imgPreview }/>
             : <div className='file-drop-zone'>
               <i className="far fa-image fa-lg"></i>
               &nbsp;
